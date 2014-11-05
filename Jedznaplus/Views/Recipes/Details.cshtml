@@ -1,0 +1,75 @@
+﻿@model Jedznaplus.Models.Recipe
+
+@{
+    ViewBag.Title = "Szczegóły";
+}
+
+<h2>Szczegóły</h2>
+
+<div class="przepis">
+    <fieldset>
+        <img src="@Url.Content(Model.ImageUrl)" alt="image" width="300" height="300" />
+
+        <div class="info">
+           <h1> @Html.DisplayFor(model => model.Name)</h1>
+        <br>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.PreparationTime):
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.PreparationTime) minut
+        </div>
+        <br>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Serves):
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Serves)
+        </div>
+        <br>
+
+        <div class="display-label">
+            @Html.DisplayNameFor(model => model.Calories):
+        </div>
+        <div class="display-field">
+            @Html.DisplayFor(model => model.Calories) kcal
+        </div>
+        <br>
+            <div class="display-label">
+                Dodany przez:
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.UserName)
+            </div>
+            <br>
+            </div>
+
+        <div class="detailInfo">
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.Ingredients):
+            </div>
+            <div class="display-field">
+                @Html.Raw(Model.Ingredients.Replace(Environment.NewLine, "<br/>"))
+            </div>
+            <br>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.PreparationMethod):
+            </div>
+            <div class="display-field">
+                @Html.Raw(Model.PreparationMethod.Replace(Environment.NewLine, "<br/>"))
+            </div>
+            <br>
+        </div>
+    </fieldset>
+    <p>
+@if (Model.UserName == HttpContext.Current.User.Identity.Name)
+{
+        @Html.ActionLink("Edycja", "Edit", new { id = Model.Id }) 
+}
+        @Html.ActionLink("Powrót do listy przepisów", "Index")
+    </p>
+</div>
+
