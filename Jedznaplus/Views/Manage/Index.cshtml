@@ -53,28 +53,28 @@
                 ]
             </dd>
         *@
-       <dt>Two-Factor Authentication:</dt>
-        <dd>
-            <p>
-                There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=313242">this article</a>
-                for details on setting up this ASP.NET application to support two-factor authentication.
-            </p>
-            if (Model.TwoFactor)
-                {
+      @* <dt>Two-Factor Authentication:</dt>
+     <dd>
+         <p>
+             There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=313242">this article</a>
+             for details on setting up this ASP.NET application to support two-factor authentication.
+         </p>
+         if (Model.TwoFactor)
+             {
 
-                    <form method="post" action="/Manage/DisableTwoFactorAuthentication">
-                        Enabled
-                        <input type="submit" value="Disable" class="btn btn-link" />
-                    </form>
-                }
-                else
-                {
+                 <form method="post" action="/Manage/DisableTwoFactorAuthentication">
+                     Enabled
+                     <input type="submit" value="Disable" class="btn btn-link" />
+                 </form>
+             }
+             else
+             {
 
-                    <form method="post" action="/Manage/EnableTwoFactorAuthentication">
-                        Disabled
-                        <input type="submit" value="Enable" class="btn btn-link" />
-                    </form>
-                }
-        </dd>
+                 <form method="post" action="/Manage/EnableTwoFactorAuthentication">
+                     Disabled
+                     <input type="submit" value="Enable" class="btn btn-link" />
+                 </form>
+             }
+    </dd> *@
     </dl>
 </div>

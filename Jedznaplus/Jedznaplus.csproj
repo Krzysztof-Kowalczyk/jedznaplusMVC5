@@ -245,6 +245,7 @@
     <Content Include="Views\Account\DisplayEmail.cshtml" />
     <Content Include="Views\Shared\_VoteNow.cshtml" />
     <Content Include="Views\Shared\_VoteShow.cshtml" />
+    <Content Include="Views\Account\DisplayPhoto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

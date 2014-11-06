@@ -52,11 +52,6 @@ namespace Jedznaplus.Models
         [Display(Name = "Login")]
         public string Login { get; set; } 
 
-     /*   [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }*/
-
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Hasło")]
@@ -87,6 +82,7 @@ namespace Jedznaplus.Models
         [Display(Name = "Potwierdź hasło")]
         [Compare("Password", ErrorMessage = "Podane hasła nie są takie same.")]
         public string ConfirmPassword { get; set; }
+
     }
 
     public class ResetPasswordViewModel

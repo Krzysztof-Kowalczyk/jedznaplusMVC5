@@ -38,6 +38,13 @@ namespace Jedznaplus.Controllers
                 _userManager = value;
             }
         }
+        ////////////////////
+        public ActionResult DisplayPhoto()
+        {
+            // query the user photo then return the view 
+            ViewBag.FilePath = "~/Images/Users/defaultavatar.png";
+            return PartialView("_DisplayPhoto");
+        }
 
         //
         // GET: /Account/Login
@@ -154,7 +161,7 @@ namespace Jedznaplus.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Login, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Login, Email = model.Email, AvatarUrl="~/Images/Users/defaultavatar.png" };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
