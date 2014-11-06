@@ -170,6 +170,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Recipe.cs" />
     <Compile Include="Models\RecipesDataContext.cs" />
+    <Compile Include="Models\VoteLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -242,6 +243,8 @@
     <Content Include="Views\Recipes\Search.cshtml" />
     <Content Include="Views\Recipes\UserRecipes.cshtml" />
     <Content Include="Views\Account\DisplayEmail.cshtml" />
+    <Content Include="Views\Shared\_VoteNow.cshtml" />
+    <Content Include="Views\Shared\_VoteShow.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

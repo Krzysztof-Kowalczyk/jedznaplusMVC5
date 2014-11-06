@@ -1,4 +1,28 @@
-﻿
+﻿.VoteSystem{
+display:inline-block;
+background-color:#f1f1f1;
+width:700px;
+}
+
+#ratingDiv {
+display:inline-block;
+padding:0;
+}
+
+#stars{
+padding:0;
+}
+
+.td0{
+display:inline-block;
+width:150px;
+}
+.td{
+display:inline-block;
+width:250px;
+}
+
+
 .search{
 height:65px;
 width:250px;
@@ -44,6 +68,10 @@ width:550px;
 
 .przepis{
 width:850px;
+}
+
+.ratingStar{
+padding:0 !important;
 }
 
 .info{

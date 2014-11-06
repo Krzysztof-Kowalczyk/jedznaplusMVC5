@@ -7,8 +7,7 @@ using System.Web;
 namespace Jedznaplus.Models
 {
     public class Recipe
-    {
-        
+    {       
         public long Id { get; set; }
       
         [Required(ErrorMessage="Pole Nazwa jest wymagane")]
@@ -44,6 +43,13 @@ namespace Jedznaplus.Models
 
         [Display(Name = "Nazwa uzytkownika")]
         public string UserName { get; set; }
+
+        public string Votes { get; set; }
+
+        public Recipe()
+        {
+            Votes = "";
+        }
 
     }
 }

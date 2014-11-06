@@ -9,6 +9,7 @@ namespace Jedznaplus.Models
     public class RecipesDataContext : DbContext
     {
         public DbSet<Recipe> Recipes { get; set; }
+        public DbSet<VoteLog> VoteLogs { get; set; }
 
              public RecipesDataContext()
             : base("DefaultConnection")

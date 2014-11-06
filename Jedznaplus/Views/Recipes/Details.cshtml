@@ -63,6 +63,13 @@
             </div>
             <br>
         </div>
+
+        <div class="VoteSystem">
+            <div class="td0">Oceń potrawę</div>
+            <div class="td">@Html.Partial("_VoteNow", Model.Id.ToString())</div>
+            <div class="td">@Html.Partial("_VoteShow", Model.Votes)</div>
+        </div>
+
     </fieldset>
     <p>
 @if (Model.UserName == HttpContext.Current.User.Identity.Name)
