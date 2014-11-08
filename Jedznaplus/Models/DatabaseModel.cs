@@ -6,12 +6,12 @@ using System.Web;
 
 namespace Jedznaplus.Models
 {
-    public class RecipesDataContext : DbContext
+    public class DatabaseModel : DbContext
     {
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<VoteLog> VoteLogs { get; set; }
 
-             public RecipesDataContext()
+             public DatabaseModel()
             : base("DefaultConnection")
         {
         }

@@ -10,7 +10,7 @@ namespace Jedznaplus.Controllers
 {
     public class HomeController : Controller
     {
-        RecipesDataContext db = new RecipesDataContext();
+        DatabaseModel db = new DatabaseModel();
         public ActionResult Index()
         {
             return View();
@@ -58,9 +58,9 @@ namespace Jedznaplus.Controllers
                     if (isIt != null)
                     {
                         // keep the school voting flag to stop voting by this member
-                        HttpCookie cookie = new HttpCookie(url+User.Identity.Name, "true");
+                        HttpCookie cookie = new HttpCookie(url + User.Identity.Name, "true");
                         Response.Cookies.Add(cookie);
-                        return Json("<br />Już oceniłeś tą potrawę !");
+                        return Json("<br />Już oceniłeś tę potrawę !");
                     }
 
                     var sch = db.Recipes.Where(sc => sc.Id == autoId).FirstOrDefault();
@@ -125,10 +125,21 @@ namespace Jedznaplus.Controllers
                         Response.Cookies.Add(cookie);
                     }
                     break;
+                
                 default:
                     break;
             }
-            return Json("<br />Oceniłeś potrawę na " + r + " gwiazdki, dziękujemy !");
+            string starsWord = String.Empty;
+
+            if (thisVote == 1)
+                starsWord = "gwiazdkę";
+            else if (thisVote == 5)
+                starsWord = "gwizdek";
+            else
+                starsWord = "gwiazdki";
+
+            return Json("<br />Oceniłeś potrawę na " + r + starsWord + " dziękujemy !");
         }
+
     }
 }

@@ -1,0 +1,8 @@
+﻿   <div class="search">
+        @using (Html.BeginForm("Search", "Recipes"))
+        {
+            @Html.TextBox("search")
+            <input type="submit" value="Szukaj" />
+        }
+        @Html.ActionLink("Wyszukiwanie zaawansowane", "AdvancedSearch", "Recipes")
+    </div>

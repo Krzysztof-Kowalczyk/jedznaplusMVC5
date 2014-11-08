@@ -26,7 +26,8 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Strona domowa", "Index", "Home")</li>
                     <li>@Html.ActionLink("Przepisy", "Index", "Recipes")</li>
-                    @if (Request.IsAuthenticated)
+                   
+                     @if (Request.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Twoje przepisy", "UserRecipes", "Recipes")</li>
                     }
@@ -44,14 +45,7 @@
 
     <div class="container body-content">
 
-        <div class="search">
-            @using (Html.BeginForm("Search", "Recipes"))
-            {
-                @Html.TextBox("search")
-                <input type="submit" value="Szukaj" />
-            }
-            @Html.ActionLink("Wyszukiwanie zaawansowane", "AdvancedSearch", "Recipes")
-        </div>
+        @Html.Partial("_Search")
 
         @RenderBody()
         <hr />

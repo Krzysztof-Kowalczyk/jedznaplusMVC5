@@ -1,7 +1,9 @@
 ﻿@model string
 @{
     var url = Request.Url.AbsolutePath;
-}
+
+ }
+    
 @if (!User.Identity.IsAuthenticated)
 {
     <text><a href="/Account/Login?ReturnUrl=@Request.Url.AbsolutePath" title="Zaloguj się , aby zagłosować">Zaloguj się </a>,aby zagłosować</text>
@@ -11,47 +13,12 @@
 
 @if (Request.Cookies[url + User.Identity.Name] == null)
 {
-    <div id="ratingDiv" class="smallText">
-        Słaba
-        <img src="/Images/whitestar.gif" alt="" class="ratingStar" data-value="1" /><img src="/Images/whitestar.gif" alt="" class="ratingStar" data-value="2" /><img src="/Images/whitestar.gif" alt="" class="ratingStar" data-value="3" /><img src="/Images/whitestar.gif" alt="" class="ratingStar" data-value="4" /><img src="/Images/whitestar.gif" alt="" class="ratingStar" data-value="5" /> 
-        Wyśmienita
-        <label id="lblResult"></label>
-    </div>
-    <style type="text/css">
-        .ratingStar {
-            cursor: pointer;
-        }
-    </style>
-    <script type="text/javascript">
-        var clickedFlag = false;
-        $(".ratingStar").mouseover(function () {
-            $(this).attr("src", "/Images/yellowstar.gif").prevAll("img.ratingStar").attr("src", "/Images/yellowstar.gif");
-        });
-        $(".ratingStar, #radingDiv").mouseout(function () {
-            $(this).attr("src", "/Images/whitestar.gif");
-        });
-        $("#ratingDiv").mouseout(function () {
-            if (!clickedFlag)
-            {
-                $(".ratingStar").attr("src", "/Images/whitestar.gif");
-            }
-        });
-        $(".ratingStar").click(function () {
-            clickedFlag = true;
-            $(".ratingStar").unbind("mouseout mouseover click").css("cursor", "default");
+    <div id="ratingDiv">
 
-            var url = "/Home/SendRating?r=" + $(this).attr("data-value") + "&s=5&id=@Model&url=@url";
-            $.post(url, null, function (data) {
-                $("#lblResult").html(data);
-            });
-        });
-        $("#lblResult").ajaxStart(function () {
-            $("#lblResult").html("Przetwarzanie ....");
-        });
-        $("#lblResult").ajaxError(function () {
-            $("#lblResult").html("<br />Wystąpił bład.");
-        });
-    </script>
+        <div class="stars"> <img src="/Images/whitestar.gif" alt="" class="ratingStar" data-value="1" /><img src="/Images/whitestar.gif" alt="" class="ratingStar" data-value="2" /><img src="/Images/whitestar.gif" alt="" class="ratingStar" data-value="3" /><img src="/Images/whitestar.gif" alt="" class="ratingStar" data-value="4" /><img src="/Images/whitestar.gif" alt="" class="ratingStar" data-value="5" /> </div>           
+    </div>
+    <div class="rateWord" data-url="@url" data-model="@Model" ></div>
+    @Scripts.Render("~/Scripts/VoteScripts.js")
 }
 else
 {
