@@ -10,16 +10,17 @@ namespace Jedznaplus.Models
     {
         public DbSet<Recipe> Recipes { get; set; }
         public DbSet<VoteLog> VoteLogs { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
-             public DatabaseModel()
+        public DatabaseModel()
             : base("DefaultConnection")
         {
         }
 
-     /*   static RecipesDataContext()
-        {
-          Database.SetInitializer(new DropCreateDatabaseAlways<RecipesDataContext>());
-        }*/
+           static DatabaseModel()
+           {
+             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<DatabaseModel>());
+           }
 
     }
 }

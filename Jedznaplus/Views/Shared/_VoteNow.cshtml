@@ -6,7 +6,7 @@
     
 @if (!User.Identity.IsAuthenticated)
 {
-    <text><a href="/Account/Login?ReturnUrl=@Request.Url.AbsolutePath" title="Zaloguj się , aby zagłosować">Zaloguj się </a>,aby zagłosować</text>
+    <text><a href="/Account/Login?ReturnUrl=@Request.Url.AbsolutePath" title="Zaloguj się">Zaloguj się </a>, aby zagłosować</text>
     return;
 }
 
@@ -18,7 +18,7 @@
         <div class="stars"> <img src="/Images/whitestar.gif" alt="" class="ratingStar" data-value="1" /><img src="/Images/whitestar.gif" alt="" class="ratingStar" data-value="2" /><img src="/Images/whitestar.gif" alt="" class="ratingStar" data-value="3" /><img src="/Images/whitestar.gif" alt="" class="ratingStar" data-value="4" /><img src="/Images/whitestar.gif" alt="" class="ratingStar" data-value="5" /> </div>           
     </div>
     <div class="rateWord" data-url="@url" data-model="@Model" ></div>
-    @Scripts.Render("~/Scripts/VoteScripts.js")
+    @Scripts.Render("~/Scripts/Jedznaplus/VoteScripts.js")
 }
 else
 {

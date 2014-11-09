@@ -70,6 +70,10 @@
             <div class="td">@Html.Partial("_VoteShow", Model.Votes)</div>
         </div>
 
+        <div class="CommentSystem">
+        @Html.Partial("_Comments", Model.Comments, new ViewDataDictionary { { "id", Model.Id} })
+        </div>
+
     </fieldset>
     <p>
 @if (Model.UserName == HttpContext.Current.User.Identity.Name)

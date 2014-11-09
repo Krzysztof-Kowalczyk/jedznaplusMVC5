@@ -220,7 +220,7 @@ namespace Jedznaplus.Controllers
             return View("Search",recipes);
         }
 
-        public string CountVotes(string model)
+        public string CountVotes(string votesString)
         {
             Single m_Average = 0;
 
@@ -230,7 +230,7 @@ namespace Jedznaplus.Controllers
             Single m_inPercent = 0;
 
             // calculate total votes now
-            string[] votes = model.Split(',');
+            string[] votes = votesString.Split(',');
             for (int i = 0; i < votes.Length; i++)
             {
                 m_currentVotesCount = int.Parse(votes[i]);

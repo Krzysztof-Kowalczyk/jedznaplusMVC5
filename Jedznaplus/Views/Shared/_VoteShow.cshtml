@@ -1,12 +1,20 @@
 ﻿@model string
 
+
 @{
 
     var thisVote = string.Empty;
 
     if (Model.Length > 0)
     {
-        thisVote = ((Jedznaplus.Controllers.RecipesController)this.ViewContext.Controller).CountVotes(Model);
+        if (this.ViewContext.Controller is Jedznaplus.Controllers.RecipesController)
+        {
+        thisVote = ((Jedznaplus.Controllers.RecipesController)this.ViewContext.Controller).CountVotes(Model);    
+        }
+        else
+        { 
+            thisVote = ((Jedznaplus.Controllers.CommentsController)this.ViewContext.Controller).CountVotes(Model);
+        }
     }
 }
 <div style="display:inline-block" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">

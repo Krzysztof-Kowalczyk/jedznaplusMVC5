@@ -132,11 +132,11 @@ namespace Jedznaplus.Controllers
             string starsWord = String.Empty;
 
             if (thisVote == 1)
-                starsWord = "gwiazdkę";
+                starsWord = " gwiazdkę";
             else if (thisVote == 5)
-                starsWord = "gwizdek";
+                starsWord = " gwizdek";
             else
-                starsWord = "gwiazdki";
+                starsWord = " gwiazdki";
 
             return Json("<br />Oceniłeś potrawę na " + r + starsWord + " dziękujemy !");
         }

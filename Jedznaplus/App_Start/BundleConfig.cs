@@ -27,7 +27,8 @@ namespace Jedznaplus
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/VoteSystem.css",
-                      "~/Content/Recipes.css"));
+                      "~/Content/Recipes.css",
+                      "~/Content/CommentSystem.css"));
 
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862

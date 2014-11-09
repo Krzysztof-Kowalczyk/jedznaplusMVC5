@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Jedznaplus.Models.Comment>
+
+
+<table class="table" id="CommentsTable">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Content)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Content)
+        </td>       
+    </tr>
+}
+
+</table>
+@if (!User.Identity.IsAuthenticated)
+{
+    <text><a href="/Account/Login?ReturnUrl=@Request.Url.AbsolutePath" title="Zaloguj się">Zaloguj się </a>, aby dodwać komentarze</text>
+    return;
+}
+
+@using (Html.BeginForm("Create", "Comments"))
+{
+        <div class="editor-field">
+            <textarea cols="70" rows="3" id="Contetnt" name="Content"></textarea>
+        </div>
+
+    <input type="hidden" id="RecipeId" value="@ViewData["id"].ToString()" name="RecipeId" />
+    <input type="hidden" id="UserName" value="@User.Identity.Name" name="UserName" />
+    <p>
+        <input type="submit" name="dodajKomentarz" value="Dodaj" />
+    </p>
+}
