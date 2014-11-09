@@ -255,6 +255,7 @@
     <Content Include="Views\Shared\_Search.cshtml" />
     <Content Include="Views\Comments\CommentIndex.cshtml" />
     <Content Include="Views\Shared\_Comments.cshtml" />
+    <Content Include="Views\Account\ForgotPasswordFail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -41,18 +41,18 @@ namespace Jedznaplus.Models
 
     public class ForgotViewModel
     {
-        [Required]
+        [Required (ErrorMessage = "Pole Email jest wymagane.")]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
 
     public class LoginViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Pole Login jest wymagane.")]
         [Display(Name = "Login")]
-        public string Login { get; set; } 
+        public string Login { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Pole Hasło jest wymagane.")]
         [DataType(DataType.Password)]
         [Display(Name = "Hasło")]
         public string Password { get; set; }
@@ -63,16 +63,16 @@ namespace Jedznaplus.Models
 
     public class RegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Pole Login jest wymagane.")]
         [Display(Name = "Login")]
         public string Login { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Pole Email jest wymagane.")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Pole Hasło jest wymagane.")]
         [StringLength(100, ErrorMessage = "{0} musi się składać minimum z {2} znaków.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Hasło")]
@@ -87,12 +87,12 @@ namespace Jedznaplus.Models
 
     public class ResetPasswordViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Pole Email jest wymagane.")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Pole Hasło jest wymagane.")]
         [StringLength(100, ErrorMessage = "{0} musi się składać minimum z {2} znaków..", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Hasło")]
@@ -108,7 +108,7 @@ namespace Jedznaplus.Models
 
     public class ForgotPasswordViewModel
     {
-        [Required]
+        [Required(ErrorMessage = "Pole Email jest wymagane.")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

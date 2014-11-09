@@ -44,8 +44,8 @@ namespace Jedznaplus.Controllers
                 : message == ManageMessageId.SetPasswordSuccess ? "Twoje hasło zostało ustawione"
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."
                 : message == ManageMessageId.Error ? "Wystąpił bład."
-                : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
-                : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
+                : message == ManageMessageId.AddPhoneSuccess ? "Numer telefonu został dodany."
+                : message == ManageMessageId.RemovePhoneSuccess ? "Numer telefonu został usunięty."
                 : "";
 
             var model = new IndexViewModel
@@ -116,7 +116,7 @@ namespace Jedznaplus.Controllers
                 var message = new IdentityMessage
                 {
                     Destination = model.Number,
-                    Body = "Your security code is: " + code
+                    Body = "Twój kod bezpieczeństwa to " + code
                 };
                 await UserManager.SmsService.SendAsync(message);
             }
@@ -181,7 +181,7 @@ namespace Jedznaplus.Controllers
                 return RedirectToAction("Index", new { Message = ManageMessageId.AddPhoneSuccess });
             }
             // If we got this far, something failed, redisplay form
-            ModelState.AddModelError("", "Failed to verify phone");
+            ModelState.AddModelError("", "Weryfikacja numeru telefonu się nie powiodła");
             return View(model);
         }
 
