@@ -15,11 +15,11 @@ namespace Jedznaplus.Models
         [Display(Name = "Nazwa")]
         public string Name { get; set; }
 
-        [Required(ErrorMessage = "Lista składników jest wymagana")]
+       /* [Required(ErrorMessage = "Lista składników jest wymagana")]
         [Display(Name = "Składniki")]
-        public string Ingredients { get; set; }
+        public string Ingredients { get; set; }*/
 
-        [Required(ErrorMessage = "Pole Sposób przygotowania jest wymagane")]
+        //[Required(ErrorMessage = "Pole Sposób przygotowania jest wymagane")]
         [Display(Name = "Sposób przygotowania")]
         public string PreparationMethod { get; set; }
 
@@ -47,6 +47,9 @@ namespace Jedznaplus.Models
         public string Votes { get; set; }
 
         public virtual List<Comment> Comments { get; set; }
+
+        [Display(Name = "Lista składników")]
+        public virtual List<Ingredient> Ingredients { get; set; }
 
         public Recipe()
         {

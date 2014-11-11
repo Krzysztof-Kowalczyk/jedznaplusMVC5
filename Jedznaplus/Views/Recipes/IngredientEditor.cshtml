@@ -1,0 +1,21 @@
+﻿@model Jedznaplus.Models.Ingredient
+@{
+    if (ViewBag.UnitNames == null)
+    {
+        ViewBag.UnitNames = ViewData["UnitNames"];
+    }
+}
+
+<li class="ingredientRow" style="padding-bottom:15px">
+    @using (Html.BeginCollectionItem("Ingredients"))
+    {
+        @Html.LabelFor(model => model.Name)
+        @Html.EditorFor(model => model.Name)
+
+        @Html.LabelFor(model => model.UnitName)
+        @Html.DropDownListFor(model => model.UnitName, (SelectList)ViewBag.UnitNames)
+
+        @Html.LabelFor(model => model.Quantity)
+        @Html.EditorFor(model => model.Quantity)
+    }
+</li>

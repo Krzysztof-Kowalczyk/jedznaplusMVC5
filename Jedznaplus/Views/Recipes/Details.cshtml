@@ -50,8 +50,13 @@
             <div class="display-label">
                 @Html.DisplayNameFor(model => model.Ingredients):
             </div>
+
             <div class="display-field">
-                @Html.Raw(Model.Ingredients.Replace(Environment.NewLine, "<br/>"))
+                <p>@Model.Ingredients.Count()</p>
+                @foreach(var ingred in Model.Ingredients)
+                { 
+                <p>@ingred.Name @ingred.UnitName @ingred.Quantity</p>
+                }
             </div>
             <br>
 
