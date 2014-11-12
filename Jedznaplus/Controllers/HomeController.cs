@@ -1,4 +1,6 @@
 ﻿using Jedznaplus.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -11,6 +13,14 @@ namespace Jedznaplus.Controllers
     public class HomeController : Controller
     {
         DatabaseModel db = new DatabaseModel();
+        protected ApplicationDbContext ApplicationDbContext { get; set; }
+        protected UserManager<ApplicationUser> UserManager { get; set; }
+
+        public HomeController()
+        {
+            this.ApplicationDbContext = new ApplicationDbContext();
+            this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
+        }
         public ActionResult Index()
         {
             return View();
@@ -21,6 +31,11 @@ namespace Jedznaplus.Controllers
             ViewBag.Message = "Your application description page.";
 
             return View();
+        }
+
+        public string AvatarUrl()
+        {
+            return UserManager.FindByName(User.Identity.Name).AvatarUrl;
         }
 
         public ActionResult Contact()

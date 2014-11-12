@@ -8,6 +8,8 @@
 
 @using (Html.BeginForm())
 {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
     <fieldset>
         @Html.HiddenFor(model => model.Id)
         @Html.HiddenFor(model => model.ImageUrl)
@@ -41,7 +43,10 @@
     <p>
         <input type="submit" name="dodajPrzepis" value="Dodaj" />
     </p>
+    @section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/Scripts/Jedznaplus/Ingredient.js")
+}
 }
 
 

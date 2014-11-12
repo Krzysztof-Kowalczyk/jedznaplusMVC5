@@ -15,10 +15,6 @@ namespace Jedznaplus.Models
         [Display(Name = "Nazwa")]
         public string Name { get; set; }
 
-       /* [Required(ErrorMessage = "Lista składników jest wymagana")]
-        [Display(Name = "Składniki")]
-        public string Ingredients { get; set; }*/
-
         //[Required(ErrorMessage = "Pole Sposób przygotowania jest wymagane")]
         [Display(Name = "Sposób przygotowania")]
         public string PreparationMethod { get; set; }

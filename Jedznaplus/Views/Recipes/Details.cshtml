@@ -76,7 +76,7 @@
         </div>
 
         <div class="CommentSystem">
-        @Html.Partial("_Comments", Model.Comments, new ViewDataDictionary { { "id", Model.Id} })
+        @Html.Partial("_Comments", Model.Comments, new ViewDataDictionary { { "id", Model.Id}, {"avatarURL",ViewBag.AvatarURL} })
         </div>
 
     </fieldset>

@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewBag.Title = "Zmień avatar";
+}
+
+<h2>Zmień avatar</h2>
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    if (ViewBag.AvatarURL == "~/Images/Users/defaultavatar.png")
+    {
+        <input type="file" name="file" accept="image/jpeg,image/png">
+        <br>
+    }
+    else
+    {
+        @Html.ActionLink("Usuń bieżące zdjęcie", "DeleteAvatar")
+        <br>
+    }
+
+    <input type="submit" name="dodajPrzepis" value="Dodaj" />
+}

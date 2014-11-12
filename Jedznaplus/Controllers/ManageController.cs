@@ -7,6 +7,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Jedznaplus.Models;
+using System.IO;
+using Microsoft.AspNet.Identity.EntityFramework;///
 
 namespace Jedznaplus.Controllers
 {
@@ -15,12 +17,20 @@ namespace Jedznaplus.Controllers
     {
         public ManageController()
         {
+            store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            UserManager1 = new UserManager<ApplicationUser>(store);
         }
 
         public ManageController(ApplicationUserManager userManager)
         {
             UserManager = userManager;
+
+             store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+             UserManager1 = new UserManager<ApplicationUser>(store);
         }
+
+        public UserStore<ApplicationUser> store { get; set; }
+        private UserManager<ApplicationUser> UserManager1 { get; set; }
 
         private ApplicationUserManager _userManager;
         public ApplicationUserManager UserManager
@@ -66,6 +76,44 @@ namespace Jedznaplus.Controllers
             var linkedAccounts = UserManager.GetLogins(User.Identity.GetUserId());
             ViewBag.ShowRemoveButton = HasPassword() || linkedAccounts.Count > 1;
             return View(linkedAccounts);
+        }
+
+        [HttpGet]
+        public ActionResult ChangeAvatar()
+        {
+            ViewBag.AvatarURL = UserManager.FindByName(User.Identity.Name).AvatarUrl;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ChangeAvatar(HttpPostedFileBase file)
+        {
+            if (file != null && file.ContentLength > 0)
+            {
+                var cUser= UserManager1.FindByName(User.Identity.Name);
+    
+                var fileName = Path.GetFileName(file.FileName);
+                // store the file inside ~/App_Data/uploads folder
+                var uniqueFileName = Guid.NewGuid() + fileName;
+                var absolutePath = Path.Combine(Server.MapPath("~/Images/Users/"), uniqueFileName);
+                var relativePath = "~/Images/Users/" + uniqueFileName;
+                file.SaveAs(absolutePath);
+
+                cUser.AvatarUrl = relativePath;
+                UserManager1.Update(cUser);
+                store.Context.SaveChanges();
+            }
+
+            return View();
+        }
+
+        public ActionResult DeleteAvatar()
+        {
+            var cUser = UserManager1.FindByName(User.Identity.Name);
+            cUser.AvatarUrl = "~/Images/Users/defaultavatar.png";
+            UserManager1.Update(cUser);
+            store.Context.SaveChanges();
+            return RedirectToAction("ChangeAvatar");
         }
 
         //

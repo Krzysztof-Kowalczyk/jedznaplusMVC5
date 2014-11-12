@@ -18,10 +18,10 @@ namespace Jedznaplus.Models
         {
         }
 
-           static DatabaseModel()
+         /*  static DatabaseModel()
            {
              Database.SetInitializer(new DropCreateDatabaseIfModelChanges<DatabaseModel>());
-           }
+           }*/
 
     }
 }

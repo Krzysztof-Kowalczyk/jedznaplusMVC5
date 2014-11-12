@@ -1,4 +1,6 @@
 ﻿using Jedznaplus.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,6 +18,14 @@ namespace Jedznaplus.Controllers
         // GET: /Recipes/
 
         DatabaseModel db = new DatabaseModel();
+        protected ApplicationDbContext ApplicationDbContext { get; set; }
+        protected UserManager<ApplicationUser> UserManager { get; set; }
+
+        public RecipesController()
+        {
+            this.ApplicationDbContext = new ApplicationDbContext();
+            this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
+        }
 
         public ActionResult Index()
         {
@@ -41,9 +51,7 @@ namespace Jedznaplus.Controllers
 
                 if (file != null && file.ContentLength > 0)
                 {
-                    // extract only the fielname
                     var fileName = Path.GetFileName(file.FileName);
-                    // store the file inside ~/App_Data/uploads folder
                     var uniqueFileName = Guid.NewGuid() + fileName;
                     var absolutePath = Path.Combine(Server.MapPath("~/Images"), uniqueFileName);
                     var relativePath = "~/Images/" + uniqueFileName;
@@ -54,9 +62,7 @@ namespace Jedznaplus.Controllers
                 {
                     recipe.ImageUrl = "~/Images/noPhoto.png";
                 }
-                //db.Recipes.Add(recipe);
-                //db.SaveChanges();
-                // return RedirectToAction("Index");
+
                 return RedirectToAction("CreateAddIngredients", recipe);
             }
 
@@ -74,10 +80,14 @@ namespace Jedznaplus.Controllers
         [ActionName("CreateAddIngredients")]
         public ActionResult CreateAddIngredientsPost(Recipe recipe)
         {
-            db.Recipes.Add(recipe);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-
+            if (recipe.PreparationMethod != null && recipe.Ingredients != null)
+            {
+                db.Recipes.Add(recipe);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            ModelState.AddModelError("", "Przepis musi awierać listę składników oraz sposób przygotowania");
+            return RedirectToAction("CreateAddIngredients", recipe);
         }
 
 
@@ -173,6 +183,7 @@ namespace Jedznaplus.Controllers
 
             if (toView != null)
             {
+                ViewBag.AvatarURL = UserManager.FindByName(toView.UserName).AvatarUrl;
                 return View(toView);
             }
 

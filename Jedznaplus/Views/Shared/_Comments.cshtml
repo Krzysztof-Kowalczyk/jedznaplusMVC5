@@ -3,7 +3,10 @@
 
 <table class="table" id="CommentsTable">
     <tr>
-        <th>
+        <th style="width:30px">
+
+        </th>
+        <th style ="width:150px">
             @Html.DisplayNameFor(model => model.UserName)
         </th>
         <th>
@@ -12,16 +15,21 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Content)
-        </td>       
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="@Url.Content(ViewData["avatarURL"].ToString())" alt="image" width="80" height="80" />
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Content)
+            </td>
+        </tr>
+    }
 
 </table>
 @if (!User.Identity.IsAuthenticated)
@@ -32,9 +40,9 @@
 
 @using (Html.BeginForm("Create", "Comments"))
 {
-        <div class="editor-field">
-            <textarea cols="70" rows="3" id="Contetnt" name="Content"></textarea>
-        </div>
+    <div class="editor-field">
+        <textarea cols="70" rows="3" id="Contetnt" name="Content"></textarea>
+    </div>
 
     <input type="hidden" id="RecipeId" value="@ViewData["id"].ToString()" name="RecipeId" />
     <input type="hidden" id="UserName" value="@User.Identity.Name" name="UserName" />
