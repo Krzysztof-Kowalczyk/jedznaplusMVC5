@@ -41,6 +41,15 @@ namespace Jedznaplus.Controllers
             return View();
         }
 
+        public void deleteImg(string relativePath)
+        {
+            if (relativePath != "~/Images/noPhoto.png")
+            {
+                var path = Server.MapPath(relativePath);
+                System.IO.File.Delete(path);
+            }
+        }
+
         [Authorize]
         [HttpPost]
         public ActionResult Create(Models.Recipe recipe, HttpPostedFileBase file)
@@ -157,6 +166,9 @@ namespace Jedznaplus.Controllers
 
             if (toDelete != null)
             {
+                deleteImg(toDelete.ImageUrl);
+                db.Comments.RemoveRange(toDelete.Comments);
+                db.Ingredient.RemoveRange(toDelete.Ingredients);
                 db.Recipes.Remove(toDelete);
                 db.SaveChanges();
             }
@@ -201,8 +213,7 @@ namespace Jedznaplus.Controllers
 
             if (toDelete != null)
             {
-                var path = Server.MapPath(toDelete.ImageUrl);
-                System.IO.File.Delete(path);
+                deleteImg(toDelete.ImageUrl);
                 toDelete.ImageUrl = "~/Images/noPhoto.png";
                 db.SaveChanges();
             }

@@ -52,7 +52,6 @@
             </div>
 
             <div class="display-field">
-                <p>@Model.Ingredients.Count()</p>
                 @foreach(var ingred in Model.Ingredients)
                 { 
                 <p>@ingred.Name @ingred.UnitName @ingred.Quantity</p>

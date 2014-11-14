@@ -41,7 +41,7 @@ namespace Jedznaplus.Controllers
               db.Comments.Add(comment);
               db.SaveChanges();
           }
-         return View("../Recipes/Details", db.Recipes.Single(p=>p.Id==comment.RecipeId));
+          return RedirectToAction("Details","Recipes",db.Recipes.Single(p=>p.Id==comment.RecipeId));
         }
 
         // GET: Comments/Edit/5
