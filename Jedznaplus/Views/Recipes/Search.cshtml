@@ -19,39 +19,39 @@ else
     </p>
 }
 
-@if(Model.Count()==0)
+@if (Model.Count() == 0)
 {
-   <p> Nie znaleziono przepisów spełniających podane kryteria</p>
+    <p> Nie znaleziono przepisów spełniających podane kryteria</p>
 }
 
 else
-{ 
-foreach (var item in Model)
 {
-    <div class="miniaturka">
-        <div class="fotka">
-            <img src="@Url.Content(item.ImageUrl)" alt="image" width="150" height="150" />
-        </div>
-        <div class="nazwaPrzepisu">
-            <h1> @Html.DisplayFor(modelItem => item.Name)</h1>
-        </div>
-        <label> Czas przygotowania: </label> @Html.DisplayFor(modelItem => item.PreparationTime) minut
-        <br>
-        <label> Ilość porcji: </label> @Html.DisplayFor(modelItem => item.Serves)
-        <br>
+    foreach (var item in Model)
+    {
+        <div class="miniaturka">
+            <div class="fotka">
+                <img src="@Url.Content(item.ImageUrl)" alt="image" width="150" height="150" />
+            </div>
+            <div class="nazwaPrzepisu">
+                <h1> @Html.DisplayFor(modelItem => item.Name)</h1>
+            </div>
+            <label> Czas przygotowania: </label> @Html.DisplayFor(modelItem => item.PreparationTime) minut
+            <br>
+            <label> Ilość porcji: </label> @Html.DisplayFor(modelItem => item.Serves)
+            <br>
 
-        <label> Wartość kaloryczna: </label> @Html.DisplayFor(modelItem => item.Calories) kcal
-        <br>
+            <label> Wartość kaloryczna: </label> @Html.DisplayFor(modelItem => item.Calories) kcal
+            <br>
 
-        @if (item.UserName == HttpContext.Current.User.Identity.Name)
-        {
-            @Html.ActionLink("Edycja", "Edit", new { id = item.Id })
-        }
-        @Html.ActionLink("Szczegóły", "Details", new { id = item.Id })
-        @if (item.UserName == HttpContext.Current.User.Identity.Name)
-        {
-            @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
-        }
-    </div>
-}
+            @if (item.UserName == HttpContext.Current.User.Identity.Name)
+            {
+                @Html.ActionLink("Edycja", "Edit", new { id = item.Id })
+            }
+            @Html.ActionLink("Szczegóły", "Details", new { id = item.Id })
+            @if (item.UserName == HttpContext.Current.User.Identity.Name)
+            {
+                @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
+            }
+        </div>
+    }
 }

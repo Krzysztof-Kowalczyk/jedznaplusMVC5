@@ -2,33 +2,41 @@
 
 
 <table class="table" id="CommentsTable">
-    <tr>
-        <th style="width:30px">
-
-        </th>
-        <th style ="width:150px">
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Content)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+    @if (Model.Count() == 0)
+    {
+        <p>Nikt jeszcze nie skomentował potrawy. Bądź pierwszy !</p>
+    }
+    else
     {
         <tr>
-            <td>
-                <img src="@Url.Content(ViewData["avatarURL"].ToString())" alt="image" width="80" height="80" />
-            </td>
+            <th style="width:30px">
 
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
+            </th>
+            <th style="width:150px">
+                @Html.DisplayNameFor(model => model.UserName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Content)
+            </th>
+            <th></th>
         </tr>
+
+
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@Url.Content(Html.Action("AvatarURL", "Home", new { userName=item.UserName}).ToString())" alt="image" width="100" height="100" />
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Content)
+                </td>
+            </tr>
+        }
     }
 
 </table>

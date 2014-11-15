@@ -11,32 +11,32 @@
         <img src="@Url.Content(Model.ImageUrl)" alt="image" width="300" height="300" />
 
         <div class="info">
-           <h1> @Html.DisplayFor(model => model.Name)</h1>
-        <br>
+            <h1> @Html.DisplayFor(model => model.Name)</h1>
+            <br>
 
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.PreparationTime):
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.PreparationTime) minut
-        </div>
-        <br>
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.PreparationTime):
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.PreparationTime) minut
+            </div>
+            <br>
 
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.Serves):
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.Serves)
-        </div>
-        <br>
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.Serves):
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Serves)
+            </div>
+            <br>
 
-        <div class="display-label">
-            @Html.DisplayNameFor(model => model.Calories):
-        </div>
-        <div class="display-field">
-            @Html.DisplayFor(model => model.Calories) kcal
-        </div>
-        <br>
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.Calories):
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Calories) kcal
+            </div>
+            <br>
             <div class="display-label">
                 Dodany przez:
             </div>
@@ -44,17 +44,26 @@
                 @Html.DisplayFor(model => model.UserName)
             </div>
             <br>
-            </div>
+        </div>
 
         <div class="detailInfo">
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.Difficulty):
+            </div>
+            <div class="display-field">
+                @Html.DisplayFor(model => model.Difficulty) 
+            </div>
+            <br>
+
             <div class="display-label">
                 @Html.DisplayNameFor(model => model.Ingredients):
             </div>
 
             <div class="display-field">
-                @foreach(var ingred in Model.Ingredients)
-                { 
-                <p>@ingred.Name @ingred.UnitName @ingred.Quantity</p>
+                @foreach (var ingred in Model.Ingredients)
+                {
+                    <p>@ingred.Name @ingred.UnitName @ingred.Quantity</p>
                 }
             </div>
             <br>
@@ -75,16 +84,15 @@
         </div>
 
         <div class="CommentSystem">
-        @Html.Partial("_Comments", Model.Comments, new ViewDataDictionary { { "id", Model.Id}, {"avatarURL",ViewBag.AvatarURL} })
+            @Html.Partial("_Comments", Model.Comments, new ViewDataDictionary { { "id", Model.Id }, { "avatarURL", ViewBag.AvatarURL } })
         </div>
 
     </fieldset>
     <p>
-@if (Model.UserName == HttpContext.Current.User.Identity.Name)
-{
-        @Html.ActionLink("Edycja", "Edit", new { id = Model.Id }) 
-}
+        @if (Model.UserName == HttpContext.Current.User.Identity.Name)
+        {
+            @Html.ActionLink("Edycja", "Edit", new { id = Model.Id })
+        }
         @Html.ActionLink("Powrót do listy przepisów", "Index")
     </p>
 </div>
-

@@ -260,7 +260,6 @@
     <Content Include="Views\Shared\_VoteShow.cshtml" />
     <Content Include="Views\Account\DisplayPhoto.cshtml" />
     <Content Include="Views\Shared\_Search.cshtml" />
-    <Content Include="Views\Comments\CommentIndex.cshtml" />
     <Content Include="Views\Shared\_Comments.cshtml" />
     <Content Include="Views\Account\ForgotPasswordFail.cshtml" />
     <Content Include="Views\Recipes\CreateAddIngredients.cshtml" />

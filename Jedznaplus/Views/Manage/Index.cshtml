@@ -25,7 +25,7 @@
         </dd>
         <dt>Avatar:</dt>
         <dd>
-            <img src="@Url.Content(Html.Action("AvatarURL","Home",null).ToString())" alt="image" width="30" height="30" />
+            <img src="@Url.Content(Html.Action("AvatarURL", "Home", new { userName = User.Identity.Name }).ToString())" alt="image" width="30" height="30" />
           [@Html.ActionLink("Zmień Avatar", "ChangeAvatar")]
         </dd>
         <dt>Zewnętrzne loginy:</dt>

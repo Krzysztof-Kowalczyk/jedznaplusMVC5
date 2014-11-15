@@ -1,8 +1,6 @@
 ﻿using Jedznaplus.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace Jedznaplus.Controllers
@@ -14,9 +12,9 @@ namespace Jedznaplus.Controllers
         // GET: Comments
         public ActionResult Index(int RecipeId)
         {
-            var comments = db.Comments.Where(p=>p.Id == RecipeId).ToList();
+            var comments = db.Comments.Where(p => p.Id == RecipeId).ToList();
 
-            return View("CommentIndex",comments);
+            return View("CommentIndex", comments);
         }
 
         // GET: Comments/Details/5
@@ -36,12 +34,12 @@ namespace Jedznaplus.Controllers
         [Authorize]
         public ActionResult Create(Comment comment)
         {
-          if (ModelState.IsValid)
-          {
-              db.Comments.Add(comment);
-              db.SaveChanges();
-          }
-          return RedirectToAction("Details","Recipes",db.Recipes.Single(p=>p.Id==comment.RecipeId));
+            if (ModelState.IsValid)
+            {
+                db.Comments.Add(comment);
+                db.SaveChanges();
+            }
+            return RedirectToAction("Details", "Recipes", db.Recipes.Single(p => p.Id == comment.RecipeId));
         }
 
         // GET: Comments/Edit/5

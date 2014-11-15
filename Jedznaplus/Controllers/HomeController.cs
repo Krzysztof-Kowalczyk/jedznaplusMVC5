@@ -2,7 +2,6 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web;
@@ -33,9 +32,9 @@ namespace Jedznaplus.Controllers
             return View();
         }
 
-        public string AvatarUrl()
+        public string AvatarUrl(string userName)
         {
-            return UserManager.FindByName(User.Identity.Name).AvatarUrl;
+            return UserManager.FindByName(userName).AvatarUrl;
         }
 
         public ActionResult Contact()

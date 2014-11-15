@@ -31,81 +31,88 @@
         <ul id="ingredientEditor" style="list-style-type: none">
             @if (Model.Ingredients != null)
             {
-                var list=new SelectList(new[] { "Litr", "Mililitr", "Kilogram", "Dekagram", "Gram", "Sztuka", "Plaster", "Opakowanie"});
                 foreach (var ingre in Model.Ingredients)
                 {
-                    Html.RenderPartial("IngredientEditor", ingre, new ViewDataDictionary { { "UnitNames", list } });
+                    Html.RenderPartial("IngredientEditor", ingre, new ViewDataDictionary { { "UnitNames", ViewBag.UnitNameList } });
                 }
             }
         </ul>
 
-                <a id="addAnother" href="#">Dodaj kolejny składnik</a>
-                <br>
+        <a id="addAnother" href="#">Dodaj kolejny składnik</a>
+        <br>
 
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.PreparationMethod)
-                </div>
-                <div class="editor-field">
-                    @Html.TextAreaFor(model => model.PreparationMethod, 5, 60, null)
-                    @Html.ValidationMessageFor(model => model.PreparationMethod)
-                </div>
-                <br>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PreparationMethod)
+        </div>
+        <div class="editor-field">
+            @Html.TextAreaFor(model => model.PreparationMethod, 5, 60, null)
+            @Html.ValidationMessageFor(model => model.PreparationMethod)
+        </div>
+        <br>
 
 
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.ImageUrl)
-                </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ImageUrl)
+        </div>
 
-                @if (Model.ImageUrl == "~/Images/noPhoto.png")
+        @if (Model.ImageUrl == "~/Images/noPhoto.png")
         {
-                    <input type="file" name="file" accept="image/jpeg,image/png">
-                    <br>
+            <input type="file" name="file" accept="image/jpeg,image/png">
+            <br>
         }
         else
         {
-                    @Html.ActionLink("Usuń bieżące zdjęcie", "DeleteImage", new { id = Model.Id })
-                    <br>
+            @Html.ActionLink("Usuń bieżące zdjęcie", "DeleteImage", new { id = Model.Id })
+            <br>
         }
 
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.PreparationTime)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.PreparationTime)
-                    @Html.ValidationMessageFor(model => model.PreparationTime)
-                </div>
-                <br>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.PreparationTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.PreparationTime)
+            @Html.ValidationMessageFor(model => model.PreparationTime)
+        </div>
+        <br>
 
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.Serves)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.Serves)
-                    @Html.ValidationMessageFor(model => model.Serves)
-                </div>
-                <br>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Serves)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Serves)
+            @Html.ValidationMessageFor(model => model.Serves)
+        </div>
+        <br>
 
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.Calories)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.Calories)
-                    @Html.ValidationMessageFor(model => model.Calories)
-                </div>
-                <br>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Difficulty)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Difficulty, (SelectList)ViewBag.Difficulties)
+        </div>
+        <br>
 
-                <p>
-                    <input type="submit" value="Zapisz" />
-                </p>
-            </fieldset>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Calories)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Calories)
+            @Html.ValidationMessageFor(model => model.Calories)
+        </div>
+        <br>
+
+        <p>
+            <input type="submit" value="Zapisz" />
+        </p>
+    </fieldset>
+    @Scripts.Render("~/Scripts/Jedznaplus/ImagePickerScript.js")
+    @Scripts.Render("~/Scripts/Jedznaplus/Ingredient.js")
 }
 
-            <div>
-                @Html.ActionLink("Powrót do listy przepisów", "Index")
-            </div>
+<div>
+    @Html.ActionLink("Powrót do listy przepisów", "Index")
+</div>
 
-            @section Scripts {
-                @Scripts.Render("~/bundles/jqueryval")
-                @Scripts.Render("~/Scripts/Jedznaplus/ImagePickerScript.js")
-                @Scripts.Render("~/Scripts/Jedznaplus/Ingredient.js")
-            }
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

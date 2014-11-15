@@ -25,8 +25,8 @@ namespace Jedznaplus.Controllers
         {
             UserManager = userManager;
 
-             store = new UserStore<ApplicationUser>(new ApplicationDbContext());
-             UserManager1 = new UserManager<ApplicationUser>(store);
+            store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            UserManager1 = new UserManager<ApplicationUser>(store);
         }
 
         public UserStore<ApplicationUser> store { get; set; }
@@ -90,10 +90,9 @@ namespace Jedznaplus.Controllers
         {
             if (file != null && file.ContentLength > 0)
             {
-                var cUser= UserManager1.FindByName(User.Identity.Name);
-    
+                var cUser = UserManager1.FindByName(User.Identity.Name);
+
                 var fileName = Path.GetFileName(file.FileName);
-                // store the file inside ~/App_Data/uploads folder
                 var uniqueFileName = Guid.NewGuid() + fileName;
                 var absolutePath = Path.Combine(Server.MapPath("~/Images/Users/"), uniqueFileName);
                 var relativePath = "~/Images/Users/" + uniqueFileName;
@@ -359,7 +358,7 @@ namespace Jedznaplus.Controllers
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
 
-#region Helpers
+        #region Helpers
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
@@ -416,6 +415,6 @@ namespace Jedznaplus.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

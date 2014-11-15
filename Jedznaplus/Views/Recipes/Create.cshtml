@@ -1,19 +1,16 @@
 ﻿@model Jedznaplus.Models.Recipe
-
 @{
     ViewBag.Title = "Stwórz nowy przepis";
 }
-
 <h2>Stwórz nowy przepis</h2>
-
 @*using (Html.BeginForm()) {*@
-@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
         <legend>Przepis</legend>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.Name)
         </div>
@@ -22,15 +19,12 @@
             @Html.ValidationMessageFor(model => model.Name)
         </div>
         <br>
-        
 
         <div class="editor-label">
             @Html.LabelFor(model => model.ImageUrl)
         </div>
         <input type="file" name="file" accept="image/jpeg,image/png">
-
         <br>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.PreparationTime)
         </div>
@@ -39,7 +33,6 @@
             @Html.ValidationMessageFor(model => model.PreparationTime)
         </div>
         <br>
-
         <div class="editor-label">
             @Html.LabelFor(model => model.Serves)
         </div>
@@ -50,6 +43,15 @@
         <br>
 
         <div class="editor-label">
+            @Html.LabelFor(model => model.Difficulty)
+        </div>
+        <div class="editor-field">
+        @Html.DropDownListFor(model => model.Difficulty, (SelectList)ViewBag.Difficulties)
+        </div>
+        <br>
+
+
+        <div class="editor-label">
             @Html.LabelFor(model => model.Calories)
         </div>
         <div class="editor-field">
@@ -57,18 +59,17 @@
             @Html.ValidationMessageFor(model => model.Calories)
         </div>
         <br>
-
         <p>
             <input type="submit" name="dodajPrzepis" value="Dodaj" />
         </p>
     </fieldset>
+    @Scripts.Render("~/Scripts/Jedznaplus/ImagePickerScript.js")
 }
-
 <div>
     @Html.ActionLink("Powrót do listy przepisów", "Index")
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/Scripts/Jedznaplus/ImagePickerScript.js")
 }
+

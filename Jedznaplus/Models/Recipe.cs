@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace Jedznaplus.Models
 {
@@ -15,7 +12,6 @@ namespace Jedznaplus.Models
         [Display(Name = "Nazwa")]
         public string Name { get; set; }
 
-        //[Required(ErrorMessage = "Pole Sposób przygotowania jest wymagane")]
         [Display(Name = "Sposób przygotowania")]
         public string PreparationMethod { get; set; }
 
@@ -31,6 +27,10 @@ namespace Jedznaplus.Models
         [Display(Name = "Porcje")]
         [Range(1, 100, ErrorMessage = "Musi być minimum jedna porcja, maksymalnie może być 100 porcji")]
         public int Serves { get; set; }
+
+        [Required(ErrorMessage = "Pole Poziom trudności jest wymagane")]
+        [Display(Name = "Poziom trdności")]
+        public string Difficulty { get; set; }
 
         [Required(ErrorMessage = "Pole Kalorie jest wymagane")]
         [Display(Name = "Kalorie")]
