@@ -271,17 +271,24 @@ namespace Jedznaplus.Controllers
 
             var recipes = new List<Recipe>();
             var allRecipes = db.Recipes.ToList();
+            bool hasIngred = false;
 
             foreach (var rec in allRecipes)
             {
+                hasIngred = false;
+
+                if (rec.PreparationTime > Time) continue;
                 foreach (var ingred in rec.Ingredients)
                 {
-                    if (rec.PreparationTime <= Time && (ingred.Name.IndexOf(WithoutIngred.ToLower(), StringComparison.OrdinalIgnoreCase) < 0))
+                    if (ingred.Name.IndexOf(WithoutIngred.ToLower(), StringComparison.OrdinalIgnoreCase) >= 0)
                     {
-                        recipes.Add(rec);
+                        hasIngred = true;
+                        break;
                     }
 
                 }
+                if (!hasIngred)
+                    recipes.Add(rec);
 
             }
             return View("Search", recipes);
