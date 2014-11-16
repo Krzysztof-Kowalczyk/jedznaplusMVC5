@@ -263,7 +263,7 @@
     <Content Include="Views\Shared\_Comments.cshtml" />
     <Content Include="Views\Account\ForgotPasswordFail.cshtml" />
     <Content Include="Views\Recipes\CreateAddIngredients.cshtml" />
-    <Content Include="Views\Recipes\IngredientEditor.cshtml" />
+    <Content Include="Views\Recipes\_IngredientEditor.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
     <Content Include="Views\Manage\ChangeAvatar.cshtml" />
     <Content Include="Views\Recipes\_RecipeList.cshtml" />
@@ -271,7 +271,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

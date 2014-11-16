@@ -63,7 +63,7 @@
             <div class="display-field">
                 @foreach (var ingred in Model.Ingredients)
                 {
-                    <p> @ingred.Quantity @Html.Action("validWordForm", new {unitName=ingred.UnitName, quantity=ingred.Quantity})  @ingred.Name</p>
+                    <p> @ingred.Name @ingred.Quantity @Html.Action("validWordForm", new {unitName=ingred.UnitName, quantity=ingred.Quantity})</p>
                 }
             </div>
             <br>

@@ -13,8 +13,6 @@ namespace Jedznaplus.Controllers
 {
     public class RecipesController : Controller
     {
-        //
-        // GET: /Recipes/
 
         private DatabaseModel db = new DatabaseModel();
         protected ApplicationDbContext ApplicationDbContext { get; set; }
@@ -278,7 +276,7 @@ namespace Jedznaplus.Controllers
             {
                 foreach (var ingred in rec.Ingredients)
                 {
-                    if (rec.PreparationTime <= Time && (ingred.Name.IndexOf(WithoutIngred.ToLower(), StringComparison.OrdinalIgnoreCase) >= 0))
+                    if (rec.PreparationTime <= Time && (ingred.Name.IndexOf(WithoutIngred.ToLower(), StringComparison.OrdinalIgnoreCase) < 0))
                     {
                         recipes.Add(rec);
                     }
@@ -320,12 +318,11 @@ namespace Jedznaplus.Controllers
         public ActionResult IngredientEntryRow()
         {
             ViewBag.UnitNames = UnitNameList;
-            return PartialView("IngredientEditor");
+            return PartialView("_IngredientEditor");
         }
 
         public string validWordForm(string unitName, int quantity)
         {
-            //{ "Litr", "Mililitr", "Kilogram", "Dekagram", "Gram", "Sztuka", "Plaster", "Opakowanie", "Łyżka", "Łyżeczka", "Szklanka" });
             string validForm = unitName;
             switch (unitName)
             {
@@ -338,58 +335,58 @@ namespace Jedznaplus.Controllers
 
                 case "Mililitr":
                     if (quantity > 1 && quantity < 5)
-                        validForm = "Mililitry";
+                        validForm = "mililitry";
                     else if (quantity >= 5)
-                        validForm = "Mililitrów";
+                        validForm = "mililitrów";
                     break;
 
                 case "Kilogram":
                     if (quantity > 1 && quantity < 5)
-                        validForm = "Kilogramy";
+                        validForm = "kilogramy";
                     else if (quantity >= 5)
-                        validForm = "Kilogramów";
+                        validForm = "kilogramów";
                     break;
 
                 case "Dekagram":
                     if (quantity > 1 && quantity < 5)
-                        validForm = "Dekagramy";
+                        validForm = "dekagramy";
                     else if (quantity >= 5)
-                        validForm = "Dekagramów";
+                        validForm = "dekagramów";
                     break;
 
                 case "Gram":
                     if (quantity > 1 && quantity < 5)
-                        validForm = "Gramy";
+                        validForm = "gramy";
                     else if (quantity >= 5)
-                        validForm = "Gramów";
+                        validForm = "gramów";
                     break;
 
                 case "Sztuka":
                     if (quantity > 1 && quantity < 5)
-                        validForm = "Sztuki";
+                        validForm = "sztuki";
                     else if (quantity >= 5)
-                        validForm = "Sztuk";
+                        validForm = "sztuk";
                     break;
 
                 case "Plaster":
                     if (quantity > 1 && quantity < 5)
-                        validForm = "Plastry";
+                        validForm = "plastry";
                     else if (quantity >= 5)
-                        validForm = "Plastrów";
+                        validForm = "plastrów";
                     break;
 
                 case "Opakowanie":
                     if (quantity > 1 && quantity < 5)
-                        validForm = "Opakowania";
+                        validForm = "opakowania";
                     else if (quantity >= 5)
-                        validForm = "Opakowań";
+                        validForm = "opakowań";
                     break;
 
                 case "Łyżka":
                     if (quantity > 1 && quantity < 5)
-                        validForm = "Łyżki";
+                        validForm = "łyżki";
                     else if (quantity >= 5)
-                        validForm = "Łyżek";
+                        validForm = "łyżek";
                     break;
 
                 case "Łyżeczka":
@@ -401,9 +398,9 @@ namespace Jedznaplus.Controllers
 
                 case "Szklanka":
                     if (quantity > 1 && quantity < 5)
-                        validForm = "Szklanki";
+                        validForm = "szklanki";
                     else if (quantity >= 5)
-                        validForm = "Szklanek";
+                        validForm = "szklanek";
                     break;
             }
             return validForm;

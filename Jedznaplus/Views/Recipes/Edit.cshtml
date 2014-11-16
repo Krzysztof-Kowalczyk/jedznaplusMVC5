@@ -33,7 +33,7 @@
             {
                 foreach (var ingre in Model.Ingredients)
                 {
-                    Html.RenderPartial("IngredientEditor", ingre, new ViewDataDictionary { { "UnitNames", ViewBag.UnitNameList } });
+                    Html.RenderPartial("_IngredientEditor", ingre, new ViewDataDictionary { { "UnitNames", ViewBag.UnitNameList } });
                 }
             }
         </ul>

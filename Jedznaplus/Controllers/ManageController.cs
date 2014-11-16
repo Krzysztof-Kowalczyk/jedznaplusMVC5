@@ -106,9 +106,19 @@ namespace Jedznaplus.Controllers
             return View();
         }
 
+        public void deleteImg(string relativePath)
+        {
+            if (relativePath != "~/Images/Users/defaultavatar.png")
+            {
+                var path = Server.MapPath(relativePath);
+                System.IO.File.Delete(path);
+            }
+        }
+
         public ActionResult DeleteAvatar()
         {
             var cUser = UserManager1.FindByName(User.Identity.Name);
+            deleteImg(cUser.AvatarUrl);
             cUser.AvatarUrl = "~/Images/Users/defaultavatar.png";
             UserManager1.Update(cUser);
             store.Context.SaveChanges();
