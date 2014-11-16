@@ -27,7 +27,7 @@ namespace Jedznaplus.Controllers
             this.ApplicationDbContext = new ApplicationDbContext();
             this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
             UnitNameList = new SelectList(new[] { "Litr", "Mililitr", "Kilogram", "Dekagram", "Gram", "Sztuka", "Plaster", "Opakowanie", "Łyżka", "Łyżeczka", "Szklanka" });
-            Difficulties = new SelectList(new[] { "Łatwy", "Średni", "Trudny", "Bardzo Trudny"});
+            Difficulties = new SelectList(new[] { "Łatwy", "Średni", "Trudny", "Bardzo Trudny" });
         }
 
         public ActionResult Index()
@@ -93,14 +93,14 @@ namespace Jedznaplus.Controllers
         [ActionName("CreateAddIngredients")]
         public ActionResult CreateAddIngredientsPost(Recipe recipe)
         {
-            if (recipe.PreparationMethod != null && recipe.Ingredients != null)
+            if (ModelState.IsValid)
             {
                 db.Recipes.Add(recipe);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ModelState.AddModelError("", "Przepis musi awierać listę składników oraz sposób przygotowania");
-            return RedirectToAction("CreateAddIngredients", recipe);
+            ModelState.AddModelError(string.Empty, "Przepis musi zawierać poprawną listę składników oraz sposób przygotowania");
+            return View("CreateAddIngredients", recipe);
         }
 
 
@@ -117,7 +117,7 @@ namespace Jedznaplus.Controllers
             var recipe = db.Recipes.Find(id);
             ViewBag.UnitNameList = UnitNameList;
             ViewBag.Difficulties = Difficulties;
-            
+
             return View(recipe);
         }
 
@@ -134,13 +134,14 @@ namespace Jedznaplus.Controllers
                 }
 
                 dbPost.Calories = recipe.Calories;
-                
-                if (dbPost.Ingredients.Count != recipe.Ingredients.Count && dbPost.Ingredients.Distinct().Count() != recipe.Ingredients.Count && !(dbPost.Ingredients.All(item => recipe.Ingredients.Contains(item))))
+
+                if (dbPost.Ingredients.Count != recipe.Ingredients.Count || dbPost.Ingredients.Distinct().Count() != recipe.Ingredients.Count
+                    || !(dbPost.Ingredients.All(item => recipe.Ingredients.Contains(item))))
                 {
-                db.Ingredient.RemoveRange(dbPost.Ingredients);
-                dbPost.Ingredients = new List<Ingredient>(recipe.Ingredients);
+                    db.Ingredient.RemoveRange(dbPost.Ingredients);
+                    dbPost.Ingredients = new List<Ingredient>(recipe.Ingredients);
                 }
-                
+
                 dbPost.Name = recipe.Name;
                 dbPost.PreparationMethod = recipe.PreparationMethod;
                 dbPost.PreparationTime = recipe.PreparationTime;
@@ -180,9 +181,9 @@ namespace Jedznaplus.Controllers
             {
                 var votes = db.VoteLogs.Where(p => p.VoteForId == toDelete.Id);
                 deleteImg(toDelete.ImageUrl);
-               
+
                 db.Comments.RemoveRange(toDelete.Comments);
-                db.Ingredient.RemoveRange(toDelete.Ingredients);               
+                db.Ingredient.RemoveRange(toDelete.Ingredients);
                 db.VoteLogs.RemoveRange(votes);
                 db.Recipes.Remove(toDelete);
                 db.SaveChanges();
@@ -322,7 +323,91 @@ namespace Jedznaplus.Controllers
             return PartialView("IngredientEditor");
         }
 
+        public string validWordForm(string unitName, int quantity)
+        {
+            //{ "Litr", "Mililitr", "Kilogram", "Dekagram", "Gram", "Sztuka", "Plaster", "Opakowanie", "Łyżka", "Łyżeczka", "Szklanka" });
+            string validForm = unitName;
+            switch (unitName)
+            {
+                case "Litr":
+                    if (quantity > 1 && quantity < 5)
+                        validForm = "Litry";
+                    else if (quantity >= 5)
+                        validForm = "Litrów";
+                    break;
 
+                case "Mililitr":
+                    if (quantity > 1 && quantity < 5)
+                        validForm = "Mililitry";
+                    else if (quantity >= 5)
+                        validForm = "Mililitrów";
+                    break;
+
+                case "Kilogram":
+                    if (quantity > 1 && quantity < 5)
+                        validForm = "Kilogramy";
+                    else if (quantity >= 5)
+                        validForm = "Kilogramów";
+                    break;
+
+                case "Dekagram":
+                    if (quantity > 1 && quantity < 5)
+                        validForm = "Dekagramy";
+                    else if (quantity >= 5)
+                        validForm = "Dekagramów";
+                    break;
+
+                case "Gram":
+                    if (quantity > 1 && quantity < 5)
+                        validForm = "Gramy";
+                    else if (quantity >= 5)
+                        validForm = "Gramów";
+                    break;
+
+                case "Sztuka":
+                    if (quantity > 1 && quantity < 5)
+                        validForm = "Sztuki";
+                    else if (quantity >= 5)
+                        validForm = "Sztuk";
+                    break;
+
+                case "Plaster":
+                    if (quantity > 1 && quantity < 5)
+                        validForm = "Plastry";
+                    else if (quantity >= 5)
+                        validForm = "Plastrów";
+                    break;
+
+                case "Opakowanie":
+                    if (quantity > 1 && quantity < 5)
+                        validForm = "Opakowania";
+                    else if (quantity >= 5)
+                        validForm = "Opakowań";
+                    break;
+
+                case "Łyżka":
+                    if (quantity > 1 && quantity < 5)
+                        validForm = "Łyżki";
+                    else if (quantity >= 5)
+                        validForm = "Łyżek";
+                    break;
+
+                case "Łyżeczka":
+                    if (quantity > 1 && quantity < 5)
+                        validForm = "Łyżeczki";
+                    else if (quantity >= 5)
+                        validForm = "Łyżeczek";
+                    break;
+
+                case "Szklanka":
+                    if (quantity > 1 && quantity < 5)
+                        validForm = "Szklanki";
+                    else if (quantity >= 5)
+                        validForm = "Szklanek";
+                    break;
+            }
+            return validForm;
+        }
 
     }
 }

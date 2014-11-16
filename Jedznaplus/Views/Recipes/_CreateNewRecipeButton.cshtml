@@ -1,0 +1,12 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <p>
+        @Html.ActionLink("Stwórz nowy przepis", "Create")
+    </p>
+}
+else
+{
+    <p>
+        @Html.ActionLink("Zaloguj", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }) się, aby dodawać nowe przepisy
+    </p>
+}

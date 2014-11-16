@@ -76,8 +76,6 @@ namespace Jedznaplus.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
-
                 return RedirectToAction("Index");
             }
             catch
@@ -86,33 +84,5 @@ namespace Jedznaplus.Controllers
             }
         }
 
-
-        public string CountVotes(string votesString)
-        {
-            Single m_Average = 0;
-
-            Single m_totalNumberOfVotes = 0;
-            Single m_totalVoteCount = 0;
-            Single m_currentVotesCount = 0;
-            Single m_inPercent = 0;
-
-            // calculate total votes now
-            string[] votes = votesString.Split(',');
-            for (int i = 0; i < votes.Length; i++)
-            {
-                m_currentVotesCount = int.Parse(votes[i]);
-                m_totalNumberOfVotes = m_totalNumberOfVotes + m_currentVotesCount;
-                m_totalVoteCount = m_totalVoteCount + (m_currentVotesCount * (i + 1));
-            }
-
-            m_Average = m_totalVoteCount / m_totalNumberOfVotes;
-            m_inPercent = (m_Average * 100) / 5;
-
-            return "<span style=\"display: block; width: 70px; height: 13px; background: url(/Images/whitestar.gif) 0 0;\">" +
-                  "<span style=\"display: block; width: " + m_inPercent + "%; height: 13px; background: url(/Images/yellowstar.gif) 0 -13px;\"></span> " +
-                  "</span>" +
-                  "<span class=\"smallText\">Ilość głosów: <span itemprop=\"ratingCount\">" + m_totalNumberOfVotes + "</span> | Średnia ocen : <span itemprop=\"ratingValue\">" + m_Average.ToString("##.##") + "</span> na 5 </span>  ";
-
-        }
     }
 }

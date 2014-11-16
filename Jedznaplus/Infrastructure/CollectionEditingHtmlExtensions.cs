@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
-namespace CollectionEditing.Infrastructure
+namespace Jedznaplus.Infrastructure
 {
     public static class CollectionEditingHtmlExtensions
     {

@@ -3,7 +3,7 @@
     ViewBag.Title = "Stwórz nowy przepis";
 }
 <h2>Stwórz nowy przepis</h2>
-@*using (Html.BeginForm()) {*@
+
 @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
@@ -46,10 +46,9 @@
             @Html.LabelFor(model => model.Difficulty)
         </div>
         <div class="editor-field">
-        @Html.DropDownListFor(model => model.Difficulty, (SelectList)ViewBag.Difficulties)
+            @Html.DropDownListFor(model => model.Difficulty, (SelectList)ViewBag.Difficulties)
         </div>
         <br>
-
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Calories)
@@ -63,7 +62,7 @@
             <input type="submit" name="dodajPrzepis" value="Dodaj" />
         </p>
     </fieldset>
-    @Scripts.Render("~/Scripts/Jedznaplus/ImagePickerScript.js")
+
 }
 <div>
     @Html.ActionLink("Powrót do listy przepisów", "Index")
@@ -71,5 +70,6 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/Jedznaplus/ImagePickerScript.js")
 }
 

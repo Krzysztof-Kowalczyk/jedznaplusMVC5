@@ -6,56 +6,7 @@
 
 <h2>Przepisy</h2>
 
+@Html.Partial("_CreateNewRecipeButton")
 
-@if (Request.IsAuthenticated)
-{
-    <p>
-        @Html.ActionLink("Stwórz nowy przepis", "Create")
-    </p>
-}
-else
-{
-    <p>
-        @Html.ActionLink("Zaloguj się", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" }), aby dodawać nowe przepisy
-    </p>
-}
-@foreach (var item in Model)
-{
-    <div class="miniaturka">
-        <div class="fotka">
-            <a href="@Url.Action("Details", new { id = item.Id })">
-                <img src="@Url.Content(item.ImageUrl)" alt="image" width="150" height="150" />
-            </a>
-        </div>
-
-        <div class="nazwaPrzepisu">
-            <h1> @Html.DisplayFor(modelItem => item.Name)</h1>
-        </div>
-
-        <label> Czas przygotowania: </label> <br>
-        @Html.DisplayFor(modelItem => item.PreparationTime) minut
-        <br>
-
-        <label> Ilość porcji: </label> <br>
-        @Html.DisplayFor(modelItem => item.Serves)
-        <br>
-
-        <label> Wartość kaloryczna: </label> <br>
-        @Html.DisplayFor(modelItem => item.Calories) kcal
-        <br>
-
-
-        @if (item.UserName == HttpContext.Current.User.Identity.Name)
-        {
-            @Html.ActionLink("Edycja", "Edit", new { id = item.Id })
-        }
-
-        @Html.ActionLink("Szczegóły", "Details", new { id = item.Id })
-
-        @if (item.UserName == HttpContext.Current.User.Identity.Name)
-        {
-            @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
-        }
-    </div>
-}
+@Html.Partial("_RecipeList",Model);
 

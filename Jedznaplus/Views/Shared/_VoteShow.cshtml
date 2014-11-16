@@ -7,14 +7,7 @@
 
     if (Model.Length > 0)
     {
-        if (this.ViewContext.Controller is Jedznaplus.Controllers.RecipesController)
-        {
-        thisVote = ((Jedznaplus.Controllers.RecipesController)this.ViewContext.Controller).CountVotes(Model);    
-        }
-        else
-        { 
-            thisVote = ((Jedznaplus.Controllers.CommentsController)this.ViewContext.Controller).CountVotes(Model);
-        }
+        thisVote=Html.Action("CountVotes","Recipes",new{votesString=Model}).ToHtmlString();
     }
 }
 <div style="display:inline-block" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">

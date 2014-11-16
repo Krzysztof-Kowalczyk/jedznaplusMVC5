@@ -7,6 +7,11 @@ border-color: #080808;
 border-radius: 5px;
 }
 
+.ingEditorItemName{
+margin-left:5px;
+margin-right:5px;
+}
+
 .fotka {
 height:250px;
 width:165px;
@@ -48,7 +53,7 @@ padding-left:20px;
 padding-right:20px;
 }
 
-.przepis img{
+#recipeBigImg{
     float:left;
     padding:20px;
 }

@@ -8,7 +8,7 @@
 
 <div class="przepis">
     <fieldset>
-        <img src="@Url.Content(Model.ImageUrl)" alt="image" width="300" height="300" />
+        <img id="recipeBigImg"src="@Url.Content(Model.ImageUrl)" alt="image" width="300" height="300" />
 
         <div class="info">
             <h1> @Html.DisplayFor(model => model.Name)</h1>
@@ -52,7 +52,7 @@
                 @Html.DisplayNameFor(model => model.Difficulty):
             </div>
             <div class="display-field">
-                @Html.DisplayFor(model => model.Difficulty) 
+                @Html.DisplayFor(model => model.Difficulty)
             </div>
             <br>
 
@@ -63,7 +63,7 @@
             <div class="display-field">
                 @foreach (var ingred in Model.Ingredients)
                 {
-                    <p>@ingred.Name @ingred.UnitName @ingred.Quantity</p>
+                    <p> @ingred.Quantity @Html.Action("validWordForm", new {unitName=ingred.UnitName, quantity=ingred.Quantity})  @ingred.Name</p>
                 }
             </div>
             <br>
@@ -91,7 +91,7 @@
     <p>
         @if (Model.UserName == HttpContext.Current.User.Identity.Name)
         {
-            @Html.ActionLink("Edycja", "Edit", new { id = Model.Id })
+            @Html.ActionLink("Edycja", "Edit", new { id = Model.Id }) <span>|</span>
         }
         @Html.ActionLink("Powrót do listy przepisów", "Index")
     </p>
