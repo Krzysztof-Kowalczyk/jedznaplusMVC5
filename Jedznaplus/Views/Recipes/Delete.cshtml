@@ -1,0 +1,35 @@
+﻿@model Jedznaplus.Models.Recipe
+
+@{
+    ViewBag.Title = "Usuń";
+}
+
+<h2>Usuwanie</h2>
+
+<h3>Jesteś pewny że chcesz usunąć ten przepis?</h3>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+<div class="miniaturka">
+    <div class="fotka">
+            <img src="@Url.Content(Model.ImageUrl)" alt="image" width="150" height="150" />
+    </div>
+    <div class="nazwaPrzepisu">
+        <h1> @Html.DisplayFor(model => model.Name)</h1>
+    </div>
+    <label> Czas przygotowania: </label> @Html.DisplayFor(model => model.PreparationTime) minut
+    <br>
+    <label> Ilość porcji: </label> @Html.DisplayFor(model => model.Serves)
+    <br>
+    <label> Wartość kaloryczna: </label> @Html.DisplayFor(model => model.Calories) kcal
+    <br>
+
+      <div class="form-actions no-color">
+            <input type="submit" value="Usuń" class="btn btn-default" /> |
+            @Html.ActionLink("Powrót do listy przepisów", "Index")
+        </div>
+    
+</div>
+    }

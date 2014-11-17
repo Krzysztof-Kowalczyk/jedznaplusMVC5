@@ -67,4 +67,9 @@ font-weight:bold;
  word-wrap: break-word;
 overflow:hidden;
 font-size:17pt;
-} 
+}
+
+.recipe_p_field{
+width:500px; 
+word-wrap: break-word;
+}

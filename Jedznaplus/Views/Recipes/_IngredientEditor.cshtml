@@ -9,16 +9,21 @@
 <li class="ingredientRow" style="padding-bottom:15px">
     @using (Html.BeginCollectionItem("Ingredients"))
     {
-        <span class="ingEditorItemName">@Html.LabelFor(model => model.Name)</span>
-        @Html.EditorFor(model => model.Name)
-        @Html.ValidationMessageFor(model => model.Name)
 
-        <span class="ingEditorItemName">@Html.LabelFor(model => model.UnitName)</span>
-        @Html.DropDownListFor(model => model.UnitName, (SelectList)ViewBag.UnitNames)
 
         <span class="ingEditorItemName">@Html.LabelFor(model => model.Quantity)</span>
         @Html.EditorFor(model => model.Quantity)
         @Html.ValidationMessageFor(model => model.Quantity)
+
+        <span class="ingEditorItemName">@Html.LabelFor(model => model.UnitName)</span>
+        @Html.DropDownListFor(model => model.UnitName, (SelectList)ViewBag.UnitNames)
+
+        <span class="ingEditorItemName">@Html.LabelFor(model => model.Name)</span>
+        @Html.EditorFor(model => model.Name)
+        @Html.ValidationMessageFor(model => model.Name)
+
+        <span class="ingEditorItemName">@Html.LabelFor(model => model.Alergic)</span>
+        @Html.EditorFor(model => model.Alergic)
 
         <a href="#" onClick=" $(this).parent().remove();">Usuń składnik</a>
     }

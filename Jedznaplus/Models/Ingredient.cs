@@ -18,5 +18,7 @@ namespace Jedznaplus.Models
         [Required]
         [Range(0.001, double.MaxValue, ErrorMessage = "Ilość musi być więlsza od 0")]
         public double Quantity { get; set; }
+
+        public bool Alergic { get; set; }
     }
 }

@@ -57,13 +57,24 @@
             <br>
 
             <div class="display-label">
-                @Html.DisplayNameFor(model => model.Ingredients):
+                @Html.DisplayNameFor(model => model.Vegetarian):
+            </div>
+            <div class="display-field">
+
+                 <strong> @(Model.Vegetarian ? "Tak" : "Nie")</strong>
+
+
+            </div>
+            <br>
+
+            <div class="display-label">
+                @Html.DisplayNameFor(model => model.Ingredients): (ilość: @Model.Ingredients.Count):
             </div>
 
             <div class="display-field">
                 @foreach (var ingred in Model.Ingredients)
                 {
-                    <p> @ingred.Name @ingred.Quantity @Html.Action("validWordForm", new {unitName=ingred.UnitName, quantity=ingred.Quantity})</p>
+                    <p> @ingred.Name @ingred.Quantity @Html.Action("validWordForm", new {unitName=ingred.UnitName, quantity=ingred.Quantity}) (<strong>Alergiczny:</strong> @(ingred.Alergic ? "Tak" : "Nie"))</p>
                 }
             </div>
             <br>
@@ -72,7 +83,8 @@
                 @Html.DisplayNameFor(model => model.PreparationMethod):
             </div>
             <div class="display-field">
-                @Html.Raw(Model.PreparationMethod.Replace(Environment.NewLine, "<br/>"))
+              @*  @Html.Raw(Model.PreparationMethod.Replace(Environment.NewLine, "<br/>")) *@
+                <p class="recipe_p_field" >@Html.Raw(Model.PreparationMethod.Replace(Environment.NewLine, "<br/>"))</p>
             </div>
             <br>
         </div>

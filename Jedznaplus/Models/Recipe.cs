@@ -47,6 +47,9 @@ namespace Jedznaplus.Models
         [Display(Name = "Lista składników")]
         public virtual List<Ingredient> Ingredients { get; set; }
 
+        [Display(Name = "Danie wegetariańskie")]
+        public bool Vegetarian { get; set; }
+
         public Recipe()
         {
             Votes = "";

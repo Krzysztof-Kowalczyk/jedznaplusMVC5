@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Jedznaplus.Models.ExcludeRecipe
+@{
     ViewBag.Title = "Wyszukiwanie zaawansowane";
 }
 
@@ -8,10 +9,43 @@
 
     @using (Html.BeginForm("AdvancedSearch", "Recipes"))
     {
-        <div> Czas przygotoywania maksymalnie: <input type="number" name="Time" value="wartość" min="1" max="1000" /> minut</div>
-        <div> Bez podanego składnika: <input type="text" name="WithoutIngred" /></div>
-        <div> <input type="checkbox" name="Vegetarinas" value="wartość" /> Tylko wegetariańskie</div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.MaxTime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.MaxTime)
+        </div>
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Vegetarians)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Vegetarians)
+        </div>
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.NotAlergic)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.NotAlergic)
+        </div>
+        <br>
+
+
+        <div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.ExcludeIngredients):
+            </div>
+            <ul id="excludeingredientEditor" style="list-style-type: none"> </ul>
+        </div>
+
+        <a id="addAnother" href="#">Dodaj kolejny wykluczoy składnik</a>
 
         <input type="submit" value="Szukaj" />
     }
 </div>
+
+@Scripts.Render("~/Scripts/Jedznaplus/AdvancedSearch.js")

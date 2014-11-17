@@ -24,7 +24,7 @@ namespace Jedznaplus.Controllers
         {
             this.ApplicationDbContext = new ApplicationDbContext();
             this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
-            UnitNameList = new SelectList(new[] { "Litr", "Mililitr", "Kilogram", "Dekagram", "Gram", "Sztuka", "Plaster", "Opakowanie", "Łyżka", "Łyżeczka", "Szklanka" });
+            UnitNameList = new SelectList(new[] { "Litr", "Mililitr", "Kilogram", "Dekagram", "Gram", "Sztuka", "Plaster", "Opakowanie", "Łyżka", "Łyżeczka", "Szklanka", "Szczypta" });
             Difficulties = new SelectList(new[] { "Łatwy", "Średni", "Trudny", "Bardzo Trudny" });
         }
 
@@ -145,6 +145,7 @@ namespace Jedznaplus.Controllers
                 dbPost.PreparationTime = recipe.PreparationTime;
                 dbPost.Serves = recipe.Serves;
                 dbPost.Difficulty = recipe.Difficulty;
+                dbPost.Vegetarian = recipe.Vegetarian;
 
                 if (file != null && file.ContentLength > 0)
                 {
@@ -166,7 +167,22 @@ namespace Jedznaplus.Controllers
 
 
         [Authorize]
+        [HttpGet]
         public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var toDelete = db.Recipes.Find(id);
+
+            return View(toDelete);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult Delete(int id)
         {
             if (id == null)
             {
@@ -179,7 +195,6 @@ namespace Jedznaplus.Controllers
             {
                 var votes = db.VoteLogs.Where(p => p.VoteForId == toDelete.Id);
                 deleteImg(toDelete.ImageUrl);
-
                 db.Comments.RemoveRange(toDelete.Comments);
                 db.Ingredient.RemoveRange(toDelete.Ingredients);
                 db.VoteLogs.RemoveRange(votes);
@@ -189,6 +204,7 @@ namespace Jedznaplus.Controllers
 
             return RedirectToAction("Index");
         }
+
 
         [Authorize]
         public ActionResult UserRecipes()
@@ -262,12 +278,26 @@ namespace Jedznaplus.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult AdvancedSearch(int? Time, string WithoutIngred, bool? Vegetarians)
+        public bool hasExcludedIngredients(Recipe rec, ExcludeRecipe er)
         {
-            if (Time == null) Time = 1000;
-            if (Vegetarians == null) Vegetarians = false;
-            if (string.IsNullOrEmpty(WithoutIngred)) WithoutIngred = "testowy string";
+            foreach (var ingred in rec.Ingredients)
+            {
+                foreach (var wIngred in er.ExcludeIngredients)
+                {
+                    if (ingred.Name.IndexOf(wIngred.ToLower(), StringComparison.OrdinalIgnoreCase) >= 0 || (er.NotAlergic==true && ingred.Alergic==true))
+                    {
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }
+
+        [HttpPost]
+        public ActionResult AdvancedSearch(ExcludeRecipe er)
+        {
+            if (er.MaxTime == 0) er.MaxTime = 1000;
 
             var recipes = new List<Recipe>();
             var allRecipes = db.Recipes.ToList();
@@ -276,20 +306,28 @@ namespace Jedznaplus.Controllers
             foreach (var rec in allRecipes)
             {
                 hasIngred = false;
+                if (rec.PreparationTime > er.MaxTime) continue;
+                if (er.Vegetarians==true && rec.Vegetarian==false) continue;
 
-                if (rec.PreparationTime > Time) continue;
-                foreach (var ingred in rec.Ingredients)
+                if (er.ExcludeIngredients != null)
                 {
-                    if (ingred.Name.IndexOf(WithoutIngred.ToLower(), StringComparison.OrdinalIgnoreCase) >= 0)
+                    hasIngred = hasExcludedIngredients(rec, er);
+                }
+                else
+                {
+                    foreach (var ingred in rec.Ingredients)
                     {
-                        hasIngred = true;
-                        break;
+                        if (er.NotAlergic == true && ingred.Alergic == true)
+                        {
+                            hasIngred = true;
+                            break;
+                        }
+
                     }
 
                 }
                 if (!hasIngred)
                     recipes.Add(rec);
-
             }
             return View("Search", recipes);
         }
@@ -326,6 +364,11 @@ namespace Jedznaplus.Controllers
         {
             ViewBag.UnitNames = UnitNameList;
             return PartialView("_IngredientEditor");
+        }
+
+        public ActionResult ExcludeIngredientEntryRow()
+        {
+            return PartialView("_ExcludeIngredientEditor");
         }
 
         public string validWordForm(string unitName, int quantity)
@@ -398,9 +441,9 @@ namespace Jedznaplus.Controllers
 
                 case "Łyżeczka":
                     if (quantity > 1 && quantity < 5)
-                        validForm = "Łyżeczki";
+                        validForm = "łyżeczki";
                     else if (quantity >= 5)
-                        validForm = "Łyżeczek";
+                        validForm = "łyżeczek";
                     break;
 
                 case "Szklanka":
@@ -408,6 +451,14 @@ namespace Jedznaplus.Controllers
                         validForm = "szklanki";
                     else if (quantity >= 5)
                         validForm = "szklanek";
+                    break;
+
+
+                case "Szczypta":
+                    if (quantity > 1 && quantity < 5)
+                        validForm = "szczypty";
+                    else if (quantity >= 5)
+                        validForm = "szczypt";
                     break;
             }
             return validForm;

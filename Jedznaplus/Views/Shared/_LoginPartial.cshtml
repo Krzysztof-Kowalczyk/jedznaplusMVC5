@@ -7,7 +7,11 @@
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <div style="padding-top:10px"> <img src="@Url.Content(Html.Action("AvatarURL", "Home", new { userName = User.Identity.Name }).ToString())" alt="image" width="30" height="30" /> </div>
+                <div style="padding-top:10px">
+                    <a href="@Url.Action("ChangeAvatar", "Manage")">
+                        <img src="@Url.Content(Html.Action("AvatarURL", "Home", new { userName = User.Identity.Name }).ToString())" alt="image" width="30" height="30" />
+                    </a>
+                </div>
             <li>
                 @Html.ActionLink("Witaj " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
             </li>
