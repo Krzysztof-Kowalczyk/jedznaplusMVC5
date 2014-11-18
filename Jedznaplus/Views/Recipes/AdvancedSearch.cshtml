@@ -7,42 +7,46 @@
 
 <div id="AdvancedearchArea">
 
-    @using (Html.BeginForm("AdvancedSearch", "Recipes"))
+    @using (Html.BeginForm("AdvancedSearch", "Recipes", FormMethod.Post, new { name = "frm", id = "frm" }))
     {
+        <fieldset>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.MaxTime)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.MaxTime)
-        </div>
-
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Vegetarians)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Vegetarians)
-        </div>
-
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.NotAlergic)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.NotAlergic)
-        </div>
-        <br>
-
-
-        <div>
             <div class="editor-label">
-                @Html.LabelFor(model => model.ExcludeIngredients):
+                @Html.LabelFor(model => model.MaxTime)
             </div>
-            <ul id="excludeingredientEditor" style="list-style-type: none"> </ul>
-        </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.MaxTime)
+            </div>
 
-        <a id="addAnother" href="#">Dodaj kolejny wykluczoy składnik</a>
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Vegetarians)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Vegetarians)
+            </div>
+
+
+            <div class="editor-label">
+                @Html.LabelFor(model => model.NotAlergic)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.NotAlergic)
+            </div>
+            <br>
+
+
+            <div>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ExcludeIngredients):
+                </div>
+                <ul id="excludeingredientEditor" style="list-style-type: none"> </ul>
+            </div>
+
+            <a id="addAnother" href="#">Dodaj kolejny wykluczoy składnik</a>
+            <br><br>
+
+        </fieldset>
 
         <input type="submit" value="Szukaj" />
     }

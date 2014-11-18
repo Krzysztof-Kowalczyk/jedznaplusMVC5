@@ -8,7 +8,7 @@
 
 <div class="przepis">
     <fieldset>
-        <img id="recipeBigImg"src="@Url.Content(Model.ImageUrl)" alt="image" width="300" height="300" />
+        <img id="recipeBigImg" src="@Url.Content(Model.ImageUrl)" alt="image" width="300" height="300" />
 
         <div class="info">
             <h1> @Html.DisplayFor(model => model.Name)</h1>
@@ -60,10 +60,7 @@
                 @Html.DisplayNameFor(model => model.Vegetarian):
             </div>
             <div class="display-field">
-
-                 <strong> @(Model.Vegetarian ? "Tak" : "Nie")</strong>
-
-
+                @(Model.Vegetarian ? "Tak" : "Nie")
             </div>
             <br>
 
@@ -74,7 +71,7 @@
             <div class="display-field">
                 @foreach (var ingred in Model.Ingredients)
                 {
-                    <p> @ingred.Name @ingred.Quantity @Html.Action("validWordForm", new {unitName=ingred.UnitName, quantity=ingred.Quantity}) (<strong>Alergiczny:</strong> @(ingred.Alergic ? "Tak" : "Nie"))</p>
+                    <p> @ingred.Name @ingred.Quantity @Html.Action("validWordForm", new { unitName = ingred.UnitName, quantity = ingred.Quantity }) (<strong>Alergiczny:</strong> @(ingred.Alergic ? "Tak" : "Nie"))</p>
                 }
             </div>
             <br>
@@ -83,8 +80,7 @@
                 @Html.DisplayNameFor(model => model.PreparationMethod):
             </div>
             <div class="display-field">
-              @*  @Html.Raw(Model.PreparationMethod.Replace(Environment.NewLine, "<br/>")) *@
-                <p class="recipe_p_field" >@Html.Raw(Model.PreparationMethod.Replace(Environment.NewLine, "<br/>"))</p>
+                <p class="recipe_p_field">@Html.Raw(Model.PreparationMethod.Replace(Environment.NewLine, "<br/>"))</p>
             </div>
             <br>
         </div>

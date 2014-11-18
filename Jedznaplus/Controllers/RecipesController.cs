@@ -24,7 +24,7 @@ namespace Jedznaplus.Controllers
         {
             this.ApplicationDbContext = new ApplicationDbContext();
             this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
-            UnitNameList = new SelectList(new[] { "Litr", "Mililitr", "Kilogram", "Dekagram", "Gram", "Sztuka", "Plaster", "Opakowanie", "Łyżka", "Łyżeczka", "Szklanka", "Szczypta" });
+            UnitNameList = new SelectList(new[] { "litr", "mililitr", "kilogram", "dekagram", "gram", "sztuka", "plaster", "opakowanie", "łyżka", "łyżeczka", "szklanka", "szczypta" });
             Difficulties = new SelectList(new[] { "Łatwy", "Średni", "Trudny", "Bardzo Trudny" });
         }
 
@@ -46,7 +46,7 @@ namespace Jedznaplus.Controllers
         }
 
         [Authorize]
-        [HttpGet]
+        [HttpGet]        
         public ActionResult Create()
         {
             ViewBag.Difficulties = Difficulties;
@@ -55,6 +55,7 @@ namespace Jedznaplus.Controllers
 
         [Authorize]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(Models.Recipe recipe, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
@@ -184,10 +185,6 @@ namespace Jedznaplus.Controllers
         [Authorize]
         public ActionResult Delete(int id)
         {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
 
             var toDelete = db.Recipes.Find(id);
 
@@ -232,6 +229,7 @@ namespace Jedznaplus.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         public ActionResult DeleteImage(int? id)
         {
             if (id == null)
@@ -376,85 +374,93 @@ namespace Jedznaplus.Controllers
             string validForm = unitName;
             switch (unitName)
             {
-                case "Litr":
+                case "litr":
                     if (quantity > 1 && quantity < 5)
-                        validForm = "Litry";
+                        validForm = "litry";
                     else if (quantity >= 5)
-                        validForm = "Litrów";
+                        validForm = "litrów";
+                    else if (quantity > 0 && quantity < 1)
+                        validForm = "litra";
                     break;
 
-                case "Mililitr":
+                case "mililitr":
                     if (quantity > 1 && quantity < 5)
                         validForm = "mililitry";
                     else if (quantity >= 5)
                         validForm = "mililitrów";
                     break;
 
-                case "Kilogram":
+                case "kilogram":
                     if (quantity > 1 && quantity < 5)
                         validForm = "kilogramy";
                     else if (quantity >= 5)
                         validForm = "kilogramów";
                     break;
 
-                case "Dekagram":
+                case "dekagram":
                     if (quantity > 1 && quantity < 5)
                         validForm = "dekagramy";
                     else if (quantity >= 5)
                         validForm = "dekagramów";
                     break;
 
-                case "Gram":
+                case "gram":
                     if (quantity > 1 && quantity < 5)
                         validForm = "gramy";
                     else if (quantity >= 5)
                         validForm = "gramów";
                     break;
 
-                case "Sztuka":
+                case "sztuka":
                     if (quantity > 1 && quantity < 5)
                         validForm = "sztuki";
                     else if (quantity >= 5)
                         validForm = "sztuk";
                     break;
 
-                case "Plaster":
+                case "plaster":
                     if (quantity > 1 && quantity < 5)
                         validForm = "plastry";
                     else if (quantity >= 5)
                         validForm = "plastrów";
+                    else if (quantity > 0 && quantity < 1)
+                        validForm = "plastra";
                     break;
 
-                case "Opakowanie":
+                case "opakowanie":
                     if (quantity > 1 && quantity < 5)
                         validForm = "opakowania";
                     else if (quantity >= 5)
                         validForm = "opakowań";
                     break;
 
-                case "Łyżka":
+                case "łyżka":
                     if (quantity > 1 && quantity < 5)
                         validForm = "łyżki";
                     else if (quantity >= 5)
                         validForm = "łyżek";
                     break;
 
-                case "Łyżeczka":
+                case "łyżeczka":
                     if (quantity > 1 && quantity < 5)
                         validForm = "łyżeczki";
                     else if (quantity >= 5)
                         validForm = "łyżeczek";
+                    else if(quantity>0 && quantity<1)
+                        validForm = "łyżeczeki";
                     break;
 
-                case "Szklanka":
+                case "szklanka":
                     if (quantity > 1 && quantity < 5)
                         validForm = "szklanki";
                     else if (quantity >= 5)
                         validForm = "szklanek";
+                    else if (quantity > 0 && quantity < 1)
+                        validForm = "szklanki";
                     break;
 
 
-                case "Szczypta":
+                case "szczypta":
                     if (quantity > 1 && quantity < 5)
                         validForm = "szczypty";
                     else if (quantity >= 5)

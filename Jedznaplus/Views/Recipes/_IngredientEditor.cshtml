@@ -9,7 +9,7 @@
 <li class="ingredientRow" style="padding-bottom:15px">
     @using (Html.BeginCollectionItem("Ingredients"))
     {
-
+        @Html.AntiForgeryToken()
 
         <span class="ingEditorItemName">@Html.LabelFor(model => model.Quantity)</span>
         @Html.EditorFor(model => model.Quantity)

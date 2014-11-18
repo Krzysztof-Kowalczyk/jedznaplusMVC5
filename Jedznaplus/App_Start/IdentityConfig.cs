@@ -43,7 +43,6 @@ namespace Jedznaplus
             mail.IsBodyHtml = true;
 
             return client.SendMailAsync(mail);
-           // return Task.FromResult(0);
 
         }
     }
