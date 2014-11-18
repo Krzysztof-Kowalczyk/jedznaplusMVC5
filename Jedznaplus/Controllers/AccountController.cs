@@ -77,7 +77,7 @@ namespace Jedznaplus.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Login, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.Login, model.Password, model.RememberMe, shouldLockout: true);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -88,7 +88,7 @@ namespace Jedznaplus.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Wprowadzono błędną Nazwę użytkownika");
+                    ModelState.AddModelError("", "Wprowadzono błędną Nazwę użytkownika lub hasło");
                     return View(model);
             }
         }
