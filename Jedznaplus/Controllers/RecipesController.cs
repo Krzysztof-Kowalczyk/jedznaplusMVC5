@@ -129,8 +129,6 @@ namespace Jedznaplus.Controllers
                 Serves = recipe.Serves,
                 Vegetarian = recipe.Vegetarian,              
             };
-           // ViewBag.UnitNameList = UnitNameList;
-           // ViewBag.Difficulties = Difficulties;
 
             return View(vm);
         }

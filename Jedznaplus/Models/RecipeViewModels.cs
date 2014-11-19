@@ -9,7 +9,7 @@ namespace Jedznaplus.Models
 {
     public class RecipeEditViewModels
     {
-         public int Id { get; set; }
+        public int Id { get; set; }
 
         [Required(ErrorMessage = "Pole Nazwa jest wymagane")]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Nazwa potrawy musi się składać minimum z 2 znaków, nie może też być dłuższa niż 50 znaków")]
@@ -58,4 +58,7 @@ namespace Jedznaplus.Models
 
 
     }
+
+
+
 }

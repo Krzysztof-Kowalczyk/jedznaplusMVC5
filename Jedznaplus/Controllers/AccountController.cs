@@ -66,6 +66,33 @@ namespace Jedznaplus.Controllers
         }
 
         [Authorize(Roles = "Admins")]
+        public ActionResult Create()
+        {
+            return View();
+        }
+    
+        [Authorize(Roles = "Admins")]
+        [HttpPost]
+        public ActionResult Create(RegisterViewModel Ruser)
+        {
+            var hasher = new PasswordHasher();
+            var user = new ApplicationUser
+            {
+                UserName = Ruser.Login,
+                PasswordHash = hasher.HashPassword(Ruser.Password),
+                Email=Ruser.Email,
+                EmailConfirmed=true,
+                AvatarUrl = "~/Images/Users/defaultavatar.png"
+            };
+
+            UserManager1.Create(user, Ruser.Password);
+            store.Context.SaveChanges();
+            
+            return RedirectToAction("ShowUsers");
+        }
+
+
+        [Authorize(Roles = "Admins")]
         public ActionResult Details(string id)
         {
             var user = UserManager.FindById(id);
