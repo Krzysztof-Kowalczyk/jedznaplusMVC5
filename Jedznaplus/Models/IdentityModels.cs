@@ -32,5 +32,7 @@ namespace Jedznaplus.Models
         {
             return new ApplicationDbContext();
         }
+
+       // public System.Data.Entity.DbSet<Jedznaplus.Models.UserListItemViewModel> UserListItemViewModels { get; set; }
     }
 }

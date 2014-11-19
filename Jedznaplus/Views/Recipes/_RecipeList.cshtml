@@ -18,12 +18,12 @@
         <label> Wartość kaloryczna: </label> @Html.DisplayFor(modelItem => item.Calories) kcal
         <br>
 
-        @if (item.UserName == HttpContext.Current.User.Identity.Name)
+        @if (item.UserName == HttpContext.Current.User.Identity.Name || User.IsInRole("Admins"))
         {
             @Html.ActionLink("Edycja", "Edit", new { id = item.Id})   <span>|</span>
         }
         @Html.ActionLink("Szczegóły", "Details", new { id = item.Id })
-        @if (item.UserName == HttpContext.Current.User.Identity.Name)
+        @if (item.UserName == HttpContext.Current.User.Identity.Name || User.IsInRole("Admins"))
         {
             <span>|</span>   @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
         }

@@ -43,6 +43,19 @@ namespace Jedznaplus.Controllers
             return PartialView("_DisplayPhoto");
         }
 
+        [Authorize (Roles="Admins")]
+        public ActionResult ShowUsers()
+        {
+            var users = UserManager.Users.Select(u => new UserListItemViewModel()
+            {
+                Id = u.Id,
+                Email = u.Email,
+                UserName = u.UserName,
+                EmailConfirmed = u.EmailConfirmed
+            }).ToList();
+            return View(users);
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]

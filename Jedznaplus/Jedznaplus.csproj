@@ -171,6 +171,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\CollectionEditingHtmlExtensions.cs" />
+    <Compile Include="Migrations\201411172035477_InitialCreate.cs" />
+    <Compile Include="Migrations\201411172035477_InitialCreate.Designer.cs">
+      <DependentUpon>201411172035477_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\ExcludeRecipe.cs" />
@@ -182,6 +187,7 @@
     <Compile Include="Models\VoteLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Validators\OnlyOwnerOrAdmin.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -272,6 +278,7 @@
     <Content Include="Views\Recipes\_CreateNewRecipeButton.cshtml" />
     <Content Include="Views\Recipes\_ExcludeIngredientEditor.cshtml" />
     <Content Include="Views\Recipes\Delete.cshtml" />
+    <Content Include="Views\Account\ShowUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -282,6 +289,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201411172035477_InitialCreate.resx">
+      <DependentUpon>201411172035477_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

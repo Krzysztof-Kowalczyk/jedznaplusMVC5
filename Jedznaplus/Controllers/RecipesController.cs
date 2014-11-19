@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Jedznaplus.Validators;
 
 namespace Jedznaplus.Controllers
 {
@@ -104,7 +105,7 @@ namespace Jedznaplus.Controllers
 
 
 
-        [Authorize]
+        [OnlyOwnerOrAdmin]
         [HttpGet]
         public ActionResult Edit(int? id)
         {
@@ -120,7 +121,7 @@ namespace Jedznaplus.Controllers
             return View(recipe);
         }
 
-        [Authorize]
+        [OnlyOwnerOrAdmin]
         [HttpPost]
         public ActionResult Edit(Models.Recipe recipe, HttpPostedFileBase file)
         {
@@ -167,7 +168,7 @@ namespace Jedznaplus.Controllers
         }
 
 
-        [Authorize]
+        [OnlyOwnerOrAdmin]
         [HttpGet]
         public ActionResult Delete(int? id)
         {
@@ -182,7 +183,7 @@ namespace Jedznaplus.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [OnlyOwnerOrAdmin]
         public ActionResult Delete(int id)
         {
 
@@ -229,7 +230,7 @@ namespace Jedznaplus.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize]
+        [OnlyOwnerOrAdmin]
         public ActionResult DeleteImage(int? id)
         {
             if (id == null)

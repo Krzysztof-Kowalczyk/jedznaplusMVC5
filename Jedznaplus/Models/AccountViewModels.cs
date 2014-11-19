@@ -23,6 +23,16 @@ namespace Jedznaplus.Models
         public bool RememberMe { get; set; }
     }
 
+    public class UserListItemViewModel
+    {
+        public string Id { get; set; }
+        public string Email { get; set; }
+        [Display(Name = "Nazwa użytkownika")]
+        public string UserName { get; set; }
+        [Display(Name = "Email potwierdzony")]
+        public bool EmailConfirmed { get; set; }
+    }
+
     public class VerifyCodeViewModel
     {
         [Required]

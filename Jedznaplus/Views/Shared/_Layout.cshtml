@@ -27,11 +27,15 @@
                     <li>@Html.ActionLink("Strona domowa", "Index", "Home")</li>
                     <li>@Html.ActionLink("Przepisy", "Index", "Recipes")</li>
                    
-                     @if (Request.IsAuthenticated)
+                    @if (Request.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Twoje przepisy", "UserRecipes", "Recipes")</li>
                     }
-
+                    
+                    @if (User.IsInRole("Admins"))
+                    {
+                        <li>@Html.ActionLink("Lista użytkowników", "ShowUsers", "Account")</li>
+                    }
                     <li>@Html.ActionLink("O stronie", "About", "Home")</li>
                     <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
 

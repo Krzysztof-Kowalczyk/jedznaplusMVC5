@@ -97,7 +97,7 @@
 
     </fieldset>
     <p>
-        @if (Model.UserName == HttpContext.Current.User.Identity.Name)
+        @if (Model.UserName == HttpContext.Current.User.Identity.Name || User.IsInRole("Admins"))
         {
             @Html.ActionLink("Edycja", "Edit", new { id = Model.Id }) <span>|</span>
         }
