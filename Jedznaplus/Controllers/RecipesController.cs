@@ -115,8 +115,22 @@ namespace Jedznaplus.Controllers
             }
 
             var recipe = db.Recipes.Find(id);
-            ViewBag.UnitNameList = UnitNameList;
-            ViewBag.Difficulties = Difficulties;
+
+            var vm = new RecipeEditViewModels()
+            {
+                Id = recipe.Id,
+                Calories= recipe.Calories,
+                Difficulty = recipe.Difficulty,
+                ImageUrl = recipe.ImageUrl,
+                Ingredients = recipe.Ingredients,
+                Name = recipe.Name,
+                PreparationMethod = recipe.PreparationMethod,
+                PreparationTime = recipe.PreparationTime,
+                Serves = recipe.Serves,
+                Vegetarian = recipe.Vegetarian,              
+            };
+           // ViewBag.UnitNameList = UnitNameList;
+           // ViewBag.Difficulties = Difficulties;
 
             return View(recipe);
         }
@@ -247,7 +261,7 @@ namespace Jedznaplus.Controllers
                 db.SaveChanges();
             }
 
-            return RedirectToAction("Edit", db.Recipes.Find(id));
+            return RedirectToAction("Edit", toDelete);
 
         }
 

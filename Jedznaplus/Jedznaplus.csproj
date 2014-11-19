@@ -184,6 +184,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Recipe.cs" />
     <Compile Include="Models\DatabaseModel.cs" />
+    <Compile Include="Models\RecipeViewModels.cs" />
     <Compile Include="Models\VoteLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -279,6 +280,9 @@
     <Content Include="Views\Recipes\_ExcludeIngredientEditor.cshtml" />
     <Content Include="Views\Recipes\Delete.cshtml" />
     <Content Include="Views\Account\ShowUsers.cshtml" />
+    <Content Include="Views\Account\Details.cshtml" />
+    <Content Include="Views\Account\Delete.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

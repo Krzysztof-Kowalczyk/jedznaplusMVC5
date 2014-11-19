@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Jedznaplus.Models
 {
@@ -31,6 +32,16 @@ namespace Jedznaplus.Models
         public string UserName { get; set; }
         [Display(Name = "Email potwierdzony")]
         public bool EmailConfirmed { get; set; }
+    }
+
+        public class UserDetailsViewModel : UserListItemViewModel
+    {
+        [Display(Name = "Avatar użytkownika")]
+        public string AvatarUrl { get; set; }
+        [Display(Name = "Role użytkownika")]
+        public string[] UserRoles { get; set; }
+
+        public List<SelectListItem> Roles {get; set;}
     }
 
     public class VerifyCodeViewModel
@@ -90,7 +101,7 @@ namespace Jedznaplus.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Potwierdź hasło")]
-        [Compare("Password", ErrorMessage = "Podane hasła nie są takie same.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Podane hasła nie są takie same.")]
         public string ConfirmPassword { get; set; }
 
     }
@@ -110,7 +121,7 @@ namespace Jedznaplus.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Potwierdź hasło")]
-        [Compare("Password", ErrorMessage = "Podane hasła nie są takie same.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "Podane hasła nie są takie same.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

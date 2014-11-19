@@ -6,6 +6,10 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Jedznaplus.Models;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System.IO;
+using System;
+using System.Net;
 
 namespace Jedznaplus.Controllers
 {
@@ -14,8 +18,13 @@ namespace Jedznaplus.Controllers
     {
         private ApplicationUserManager _userManager;
 
+        private UserStore<ApplicationUser> store { get; set; }
+        private UserManager<ApplicationUser> UserManager1 { get; set; }
+
         public AccountController()
         {
+            store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            UserManager1 = new UserManager<ApplicationUser>(store);
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -54,6 +63,139 @@ namespace Jedznaplus.Controllers
                 EmailConfirmed = u.EmailConfirmed
             }).ToList();
             return View(users);
+        }
+
+        [Authorize(Roles = "Admins")]
+        public ActionResult Details(string id)
+        {
+            var user = UserManager.FindById(id);
+            var vm = new UserDetailsViewModel()
+            {
+                Id = user.Id,
+                Email = user.Email,
+                EmailConfirmed = user.EmailConfirmed,
+                UserName = user.UserName,
+                UserRoles = UserManager.GetRoles(user.Id).ToArray(),
+                AvatarUrl=user.AvatarUrl,
+                Roles = ApplicationDbContext.Create().Roles.Select(r => new SelectListItem()
+                {
+                    Value = r.Name,
+                    Text = r.Name
+                }).ToList()
+            };
+
+            return View(vm);
+        }
+
+        [Authorize(Roles = "Admins")]
+        public ActionResult Edit(string id)
+        {
+            var user = UserManager.FindById(id);
+
+            return View(user);
+        }
+
+        public void deleteAvatar(string relativePath)
+        {
+            if (relativePath != "~/Images/Users/defaultavatar.png")
+            {
+                var path = Server.MapPath(relativePath);
+                System.IO.File.Delete(path);
+            }
+        }
+
+        public ActionResult DeleteImage(string id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            var toDelete = UserManager1.FindById(id);
+
+            if (toDelete != null)
+            {
+                deleteAvatar(toDelete.AvatarUrl);
+                toDelete.AvatarUrl= "~/Images/Users/defaultavatar.png";
+                UserManager1.Update(toDelete);
+                store.Context.SaveChanges();
+            }
+
+            return RedirectToAction("Edit", toDelete);
+
+        }
+
+        [Authorize(Roles = "Admins")]
+        [HttpPost]
+        public ActionResult Edit(ApplicationUser user, HttpPostedFileBase file)
+        {
+            if (ModelState.IsValid)
+            {
+                var dbPost = UserManager1.FindById(user.Id);
+                if (dbPost == null)
+                {
+                    return HttpNotFound();
+                }
+
+                dbPost.UserName = user.UserName;
+                dbPost.LockoutEnabled = user.LockoutEnabled;
+                dbPost.AccessFailedCount = user.AccessFailedCount;
+                dbPost.Email = user.Email;
+                dbPost.EmailConfirmed = user.EmailConfirmed;
+                dbPost.LockoutEnabled = user.LockoutEnabled;
+                dbPost.LockoutEndDateUtc = user.LockoutEndDateUtc;
+                dbPost.PhoneNumber = user.PhoneNumber;
+                dbPost.PhoneNumberConfirmed = user.PhoneNumberConfirmed;
+                dbPost.TwoFactorEnabled = user.TwoFactorEnabled;
+
+                if (file != null && file.ContentLength > 0)
+                {
+                    var fileName = Path.GetFileName(file.FileName);
+                    var uniqueFileName = Guid.NewGuid() + fileName;
+                    var absolutePath = Path.Combine(Server.MapPath("~/Images/Users/"), uniqueFileName);
+                    var relativePath = "~/Images/Users/" + uniqueFileName;
+                    file.SaveAs(absolutePath);
+                    dbPost.AvatarUrl = relativePath;
+                }
+                UserManager1.Update(dbPost);
+                store.Context.SaveChanges();
+
+                return RedirectToAction("Details",dbPost);
+            }
+
+            return RedirectToAction("ShowUsers");
+        }
+
+        [Authorize(Roles = "Admins")]
+        public ActionResult Delete(string id)
+        {
+            var user = UserManager.FindById(id);
+            var vm = new UserDetailsViewModel()
+            {
+                Id = user.Id,
+                Email = user.Email,
+                EmailConfirmed = user.EmailConfirmed,
+                UserName = user.UserName,
+                UserRoles = UserManager.GetRoles(user.Id).ToArray(),
+                Roles = ApplicationDbContext.Create().Roles.Select(r => new SelectListItem()
+                {
+                    Value = r.Name,
+                    Text = r.Name
+                }).ToList()
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "Admins")]
+        [ActionName("Delete")]
+        public ActionResult DeletePost(string id)
+        {
+            var user = UserManager.FindById(id);
+            UserManager.DeleteAsync(user);
+            
+            return RedirectToAction("ShowUsers");
         }
 
         //
@@ -198,21 +340,8 @@ namespace Jedznaplus.Controllers
                         "Potwierdź swoją rejestracje klikając na podany link: " +
                         "<a href=\"" + callbackUrl + "\">Potwierdź</a>");
 
-
-
-                    // ViewBag.Link = callbackUrl;
-
                     return View("DisplayEmail");
 
-                    /*  await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                      // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                      // Send an email with this link
-                      // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                      // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                      // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                      return RedirectToAction("Index", "Home");*/
                 }
                 AddErrors(result);
             }
@@ -305,6 +434,7 @@ namespace Jedznaplus.Controllers
                 // Don't reveal that the user does not exist
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
+
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
