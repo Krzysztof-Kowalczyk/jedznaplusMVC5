@@ -132,12 +132,12 @@ namespace Jedznaplus.Controllers
            // ViewBag.UnitNameList = UnitNameList;
            // ViewBag.Difficulties = Difficulties;
 
-            return View(recipe);
+            return View(vm);
         }
 
         [OnlyOwnerOrAdmin]
         [HttpPost]
-        public ActionResult Edit(Models.Recipe recipe, HttpPostedFileBase file)
+        public ActionResult Edit(RecipeEditViewModels recipe, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -175,8 +175,7 @@ namespace Jedznaplus.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UnitNameList = UnitNameList;
-            ViewBag.Difficulties = Difficulties;
+
             return View(recipe);
 
         }
@@ -237,7 +236,9 @@ namespace Jedznaplus.Controllers
 
             if (toView != null)
             {
-                ViewBag.AvatarURL = UserManager.FindByName(toView.UserName).AvatarUrl;
+                var avatar = UserManager.FindByName(toView.UserName);
+                ViewBag.AvatarURL = avatar!=null ? avatar.AvatarUrl : "~/Images/Users/defaultavatar.png";
+                
                 return View(toView);
             }
 
@@ -261,7 +262,21 @@ namespace Jedznaplus.Controllers
                 db.SaveChanges();
             }
 
-            return RedirectToAction("Edit", toDelete);
+            var vm = new RecipeEditViewModels()
+            {
+                Id = toDelete.Id,
+                Calories = toDelete.Calories,
+                Difficulty = toDelete.Difficulty,
+                ImageUrl = toDelete.ImageUrl,
+                Ingredients = toDelete.Ingredients,
+                Name = toDelete.Name,
+                PreparationMethod = toDelete.PreparationMethod,
+                PreparationTime = toDelete.PreparationTime,
+                Serves = toDelete.Serves,
+                Vegetarian = toDelete.Vegetarian,
+            };
+
+            return RedirectToAction("Edit", vm);
 
         }
 

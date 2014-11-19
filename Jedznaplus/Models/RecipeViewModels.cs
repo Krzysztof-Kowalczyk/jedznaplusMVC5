@@ -47,8 +47,8 @@ namespace Jedznaplus.Models
         [Display(Name = "Danie wegetariańskie")]
         public bool Vegetarian { get; set; }
 
-        public SelectList UnitNameList;
-        public SelectList Difficulties;
+        public SelectList UnitNameList { get; set; }
+        public SelectList Difficulties { get; set; }
 
         public RecipeEditViewModels()
         {

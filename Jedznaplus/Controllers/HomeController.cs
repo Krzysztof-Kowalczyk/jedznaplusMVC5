@@ -34,7 +34,8 @@ namespace Jedznaplus.Controllers
 
         public string AvatarUrl(string userName)
         {
-            return UserManager.FindByName(userName).AvatarUrl;
+            var user = UserManager.FindByName(userName);
+            return user != null ? user.AvatarUrl : "~/Images/Users/defaultavatar.png";
         }
 
         public ActionResult Contact()
