@@ -171,6 +171,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\CollectionEditingHtmlExtensions.cs" />
+    <Compile Include="Infrastructure\JsonHtmlExtensions.cs" />
     <Compile Include="Migrations\201411172035477_InitialCreate.cs" />
     <Compile Include="Migrations\201411172035477_InitialCreate.Designer.cs">
       <DependentUpon>201411172035477_InitialCreate.cs</DependentUpon>
@@ -205,6 +206,7 @@
     <None Include="Properties\PublishProfiles\jedznaplus.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Jedznaplus\AdvancedSearch.js" />
+    <Content Include="Scripts\Jedznaplus\CreateIngredient.js" />
     <Content Include="Scripts\Jedznaplus\Ingredient.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

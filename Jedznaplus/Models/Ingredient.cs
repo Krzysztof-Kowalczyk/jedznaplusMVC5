@@ -19,6 +19,7 @@ namespace Jedznaplus.Models
         [Range(0.001, double.MaxValue, ErrorMessage = "Ilość musi być więlsza od 0")]
         public double Quantity { get; set; }
 
+        [Display(Name = "Alergiczny")]
         public bool Alergic { get; set; }
     }
 }

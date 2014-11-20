@@ -24,9 +24,12 @@ namespace Jedznaplus.Infrastructure
             string collectionIndexFieldName = String.Format("{0}.Index", collectionName);
 
             string itemIndex = null;
-            if (html.ViewData.ContainsKey(JQueryTemplatingEnabledKey)) {
+            if (html.ViewData.ContainsKey(JQueryTemplatingEnabledKey))
+            {
                 itemIndex = "${index}";
-            } else {
+            }
+            else
+            {
                 itemIndex = GetCollectionItemIndex(collectionIndexFieldName);
             }
 
@@ -46,8 +49,8 @@ namespace Jedznaplus.Infrastructure
 
         private const string JQueryTemplatingEnabledKey = "__BeginCollectionItem_jQuery";
 
-        public static MvcHtmlString CollectionItemJQueryTemplate<TModel, TCollectionItem>(this HtmlHelper<TModel> html, 
-                                                                                            string partialViewName, 
+        public static MvcHtmlString CollectionItemJQueryTemplate<TModel, TCollectionItem>(this HtmlHelper<TModel> html,
+                                                                                            string partialViewName,
                                                                                             TCollectionItem modelDefaultValues)
         {
             ViewDataDictionary<TCollectionItem> viewData = new ViewDataDictionary<TCollectionItem>(modelDefaultValues);
@@ -63,12 +66,14 @@ namespace Jedznaplus.Infrastructure
         /// <returns>a GUID string</returns>
         private static string GetCollectionItemIndex(string collectionIndexFieldName)
         {
-            Queue<string> previousIndices = (Queue<string>) HttpContext.Current.Items[collectionIndexFieldName];
-            if (previousIndices == null) {
+            Queue<string> previousIndices = (Queue<string>)HttpContext.Current.Items[collectionIndexFieldName];
+            if (previousIndices == null)
+            {
                 HttpContext.Current.Items[collectionIndexFieldName] = previousIndices = new Queue<string>();
 
                 string previousIndicesValues = HttpContext.Current.Request[collectionIndexFieldName];
-                if (!String.IsNullOrWhiteSpace(previousIndicesValues)) {
+                if (!String.IsNullOrWhiteSpace(previousIndicesValues))
+                {
                     foreach (string index in previousIndicesValues.Split(','))
                         previousIndices.Enqueue(index);
                 }
@@ -96,7 +101,6 @@ namespace Jedznaplus.Infrastructure
             }
         }
     }
-
 
 }
 

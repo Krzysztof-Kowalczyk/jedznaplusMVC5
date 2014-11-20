@@ -7,7 +7,7 @@
 <h2>Dodaj składniki i opisz proces powstawania</h2>
 
 @using (Html.BeginForm())
-{
+    {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
     <fieldset>
@@ -20,7 +20,7 @@
         @Html.HiddenFor(model => model.Calories)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Ingredients)
+            @Html.LabelFor(model => model.Ingredients):
         </div>
         <br>
 
@@ -30,12 +30,11 @@
         <br><br>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.PreparationMethod)
+            @Html.LabelFor(model => model.PreparationMethod):
         </div>
 
         <div class="editor-field">
             @Html.TextAreaFor(model => model.PreparationMethod, 5, 70, null)
-            @Html.ValidationMessageFor(model => model.PreparationMethod)
         </div>
         <br>
     </fieldset>
@@ -44,8 +43,9 @@
     </p>
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/Scripts/Jedznaplus/Ingredient.js")
+    @Scripts.Render("~/Scripts/Jedznaplus/CreateIngredient.js")
 
-}
+    }
 
 
 
