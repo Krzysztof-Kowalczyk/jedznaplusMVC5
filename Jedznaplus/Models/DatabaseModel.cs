@@ -14,6 +14,8 @@ namespace Jedznaplus.Models
         {
         }
 
+        public System.Data.Entity.DbSet<Jedznaplus.Models.NewestRecipesViewModel> NewestRecipesViewModels { get; set; }
+
          /*  static DatabaseModel()
            {
              Database.SetInitializer(new DropCreateDatabaseIfModelChanges<DatabaseModel>());

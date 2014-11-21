@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Jedznaplus.Models
@@ -6,6 +7,8 @@ namespace Jedznaplus.Models
     public class Recipe
     {
         public int Id { get; set; }
+
+        public DateTime CreateDate { get; set; }
 
         [Required(ErrorMessage = "Pole Nazwa jest wymagane")]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Nazwa potrawy musi się składać minimum z 2 znaków, nie może też być dłuższa niż 50 znaków")]

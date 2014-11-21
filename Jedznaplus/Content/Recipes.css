@@ -1,75 +1,102 @@
-﻿.search{
-width:250px;
-padding:10px;
-float:right;
-background-color:#222;
-border-color: #080808;
-border-radius: 5px;
+﻿#NewestRecipes {
+    width: 300px;
+    border: 2px solid;
+    border-radius: 25px;
+    padding-left:40px;
+    padding-right:40px;
+    float:left;
 }
 
-.ingEditorItemName{
-margin-left:5px;
-margin-right:5px;
+#BestRecipes {
+    width: 380px;
+    border: 2px solid;
+    border-radius: 25px;
+    padding-left:40px;
+    padding-right:40px;
+    float:right;
+}
+
+.search {
+    width: 250px;
+    padding: 10px;
+    float: right;
+    background-color: #222;
+    border-color: #080808;
+    border-radius: 5px;
+}
+
+.ingEditorItemName {
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .fotka {
-height:250px;
-width:165px;
-float:left;
-padding:5px;
-padding-top:65px;
+    height: 250px;
+    width: 165px;
+    float: left;
+    padding: 5px;
+    padding-top: 65px;
 }
 
-.nazwaPrzepisu{
-height:75px;
+.nazwaPrzepisu {
+    height: 75px;
 }
 
-pre{
-font-size: .85em;
-font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+pre {
+    font-size: .85em;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
 }
 
-.miniaturka h1{
-text-align:center;
- word-wrap: break-word;
-overflow:hidden;
-font-size:17pt;
-} 
-.miniaturka{
-height:260px;
-width:550px;
+.miniaturka h1 {
+    text-align: center;
+    word-wrap: break-word;
+    overflow: hidden;
+    font-size: 17pt;
 }
 
-.przepis{
-width:850px;
+.miniaturkaNr {
+    height: 200px;
+    width: 150px;
+    margin-left:auto;
+    margin-right:auto;
+    text-align:center;
 }
 
-.info{
-height:330px;
+.miniaturka {
+    height: 260px;
+    width: 550px;
 }
 
-.detailInfo{
-padding-left:20px;
-padding-right:20px;
+.przepis {
+    width: 850px;
 }
 
-#recipeBigImg{
-    float:left;
-    padding:20px;
+.info {
+    height: 330px;
 }
 
-.display-label{
-font-weight:bold;
+.detailInfo {
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
-.przepis h1{
- text-align:center;
- word-wrap: break-word;
-overflow:hidden;
-font-size:17pt;
+#recipeBigImg {
+    float: left;
+    padding: 20px;
 }
 
-.recipe_p_field{
-width:500px; 
-word-wrap: break-word;
+.display-label {
+    font-weight: bold;
+}
+
+.przepis h1 {
+    text-align: center;
+    word-wrap: break-word;
+    overflow: hidden;
+    font-size: 17pt;
+}
+
+.recipe_p_field {
+    width: 500px;
+    word-wrap: break-word;
 }

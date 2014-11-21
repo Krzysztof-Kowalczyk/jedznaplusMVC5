@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Jedznaplus.Models.NewestRecipesViewModel>
+
+<div id="NewestRecipes">
+    <h3>Najnowsze przepisy</h3>
+    @foreach (var item in Model)
+    {
+        <div class="miniaturkaNr">
+            <h1> @Html.DisplayFor(modelItem => item.Name)</h1>
+            <a href="@Url.Action("Details", new { id = item.Id})">
+                <img src="@Url.Content(item.ImageUrl)" alt="image" width="150" height="150" />
+            </a>
+        </div>
+    }
+</div>

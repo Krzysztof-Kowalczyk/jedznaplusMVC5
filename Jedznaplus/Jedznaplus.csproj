@@ -286,6 +286,8 @@
     <Content Include="Views\Account\Delete.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Account\Create.cshtml" />
+    <Content Include="Views\Recipes\_NewestRecipes.cshtml" />
+    <Content Include="Views\Recipes\_BestRatedRecipes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

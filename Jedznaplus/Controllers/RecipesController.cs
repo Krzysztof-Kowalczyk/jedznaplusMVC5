@@ -46,6 +46,45 @@ namespace Jedznaplus.Controllers
             }
         }
 
+        public ActionResult NewestRecipes()
+        {
+            int count =  db.Recipes.Count() > 10 ? 10 : db.Recipes.Count();
+            
+            var recipes = (from p in db.Recipes
+                           orderby p.CreateDate descending
+                           select p).Take(count).ToList();
+
+            var mv = recipes.Select(u => new NewestRecipesViewModel()
+            {
+                Id = u.Id,
+                Name = u.Name,
+                ImageUrl=u.ImageUrl
+            }).ToList();
+
+            return PartialView("_NewestRecipes",mv);
+         
+        }
+
+        public ActionResult BestRatedRecipes()
+        {
+            int count = db.Recipes.Count() > 10 ? 10 : db.Recipes.Count();
+
+            var recipes = (from p in db.Recipes
+                           orderby p.Votes descending
+                           select p).Take(count).ToList();
+
+            var mv = recipes.Select(u => new BestRatedRecipesViewModel()
+            {
+                Id = u.Id,
+                Name = u.Name,
+                ImageUrl = u.ImageUrl
+            }).ToList();
+
+            return PartialView("_BestRatedRecipes", mv);
+
+        }
+
+
         [Authorize]
         [HttpGet]        
         public ActionResult Create()
@@ -62,6 +101,7 @@ namespace Jedznaplus.Controllers
             if (ModelState.IsValid)
             {
                 recipe.UserName = User.Identity.Name;
+                recipe.CreateDate = DateTime.Now;
 
                 if (file != null && file.ContentLength > 0)
                 {
