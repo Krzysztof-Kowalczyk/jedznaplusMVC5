@@ -4,6 +4,10 @@
     ViewBag.Title = "Dodaj składniki";
 }
 
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/Scripts/Jedznaplus/Ingredient.js")
+@Scripts.Render("~/Scripts/Jedznaplus/CreateIngredient.js")
+
 <h2>Dodaj składniki i opisz proces powstawania</h2>
 
 @using (Html.BeginForm())
@@ -41,9 +45,6 @@
     <p>
         <input type="submit" name="dodajPrzepis" value="Dodaj" />
     </p>
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/Scripts/Jedznaplus/Ingredient.js")
-    @Scripts.Render("~/Scripts/Jedznaplus/CreateIngredient.js")
 
     }
 

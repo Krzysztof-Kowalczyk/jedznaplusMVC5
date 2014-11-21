@@ -2,6 +2,11 @@
 @{
     ViewBag.Title = "Stwórz nowy przepis";
 }
+
+@Scripts.Render("~/bundles/jqueryval")
+@Scripts.Render("~/Scripts/Jedznaplus/ImagePickerScript.js")
+
+
 <h2>Stwórz nowy przepis</h2>
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -75,8 +80,4 @@
     @Html.ActionLink("Powrót do listy przepisów", "Index")
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/Scripts/Jedznaplus/ImagePickerScript.js")
-}
 

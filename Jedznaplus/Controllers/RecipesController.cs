@@ -9,6 +9,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Jedznaplus.Validators;
+using System.Web.Configuration;
 
 namespace Jedznaplus.Controllers
 {
@@ -102,6 +103,8 @@ namespace Jedznaplus.Controllers
             {
                 recipe.UserName = User.Identity.Name;
                 recipe.CreateDate = DateTime.Now;
+                recipe.LastEditDate = DateTime.Now;
+                recipe.LastEditorName = User.Identity.Name;
 
                 if (file != null && file.ContentLength > 0)
                 {
@@ -200,6 +203,8 @@ namespace Jedznaplus.Controllers
                 dbPost.Serves = recipe.Serves;
                 dbPost.Difficulty = recipe.Difficulty;
                 dbPost.Vegetarian = recipe.Vegetarian;
+                dbPost.LastEditDate = DateTime.Now;
+                dbPost.LastEditorName = User.Identity.Name;
 
                 if (file != null && file.ContentLength > 0)
                 {
@@ -211,11 +216,8 @@ namespace Jedznaplus.Controllers
                     dbPost.ImageUrl = relativePath;
                 }
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
-
-            return View(recipe);
-
+            return RedirectToAction("Details", new { id=recipe.Id });
         }
 
 
@@ -437,101 +439,114 @@ namespace Jedznaplus.Controllers
             return PartialView("_ExcludeIngredientEditor");
         }
 
-        public string validWordForm(string unitName, int quantity)
+
+
+        public string validWordForm(string unitName, string quantity)
         {
+            if(quantity.Contains('.'))
+            {
+               quantity=quantity.Replace(".", ",");
+            }
+            else if(quantity.Contains('/'))
+            {
+                string[] numbers = quantity.Split('/');
+                quantity = (double.Parse(numbers[0]) / double.Parse(numbers[1])).ToString();
+            }
+            double Quantity = double.Parse(quantity);
+
             string validForm = unitName;
             switch (unitName)
             {
                 case "litr":
-                    if (quantity > 1 && quantity < 5)
+                    if (Quantity > 1 && Quantity < 5)
                         validForm = "litry";
-                    else if (quantity >= 5)
+                    else if (Quantity >= 5)
                         validForm = "litrów";
-                    else if (quantity > 0 && quantity < 1)
+                    else if (Quantity > 0 && Quantity < 1)
                         validForm = "litra";
                     break;
 
                 case "mililitr":
-                    if (quantity > 1 && quantity < 5)
+                    if (Quantity > 1 && Quantity < 5)
                         validForm = "mililitry";
-                    else if (quantity >= 5)
+                    else if (Quantity >= 5)
                         validForm = "mililitrów";
                     break;
 
                 case "kilogram":
-                    if (quantity > 1 && quantity < 5)
+                    if (Quantity > 1 && Quantity < 5)
                         validForm = "kilogramy";
-                    else if (quantity >= 5)
+                    else if (Quantity >= 5)
                         validForm = "kilogramów";
                     break;
 
                 case "dekagram":
-                    if (quantity > 1 && quantity < 5)
+                    if (Quantity > 1 && Quantity < 5)
                         validForm = "dekagramy";
-                    else if (quantity >= 5)
+                    else if (Quantity >= 5)
                         validForm = "dekagramów";
                     break;
 
                 case "gram":
-                    if (quantity > 1 && quantity < 5)
+                    if (Quantity > 1 && Quantity < 5)
                         validForm = "gramy";
-                    else if (quantity >= 5)
+                    else if (Quantity >= 5)
                         validForm = "gramów";
                     break;
 
                 case "sztuka":
-                    if (quantity > 1 && quantity < 5)
+                    if (Quantity > 1 && Quantity < 5)
                         validForm = "sztuki";
-                    else if (quantity >= 5)
+                    else if (Quantity >= 5)
                         validForm = "sztuk";
                     break;
 
                 case "plaster":
-                    if (quantity > 1 && quantity < 5)
+                    if (Quantity > 1 && Quantity < 5)
                         validForm = "plastry";
-                    else if (quantity >= 5)
+                    else if (Quantity >= 5)
                         validForm = "plastrów";
-                    else if (quantity > 0 && quantity < 1)
+                    else if (Quantity > 0 && Quantity < 1)
                         validForm = "plastra";
                     break;
 
                 case "opakowanie":
-                    if (quantity > 1 && quantity < 5)
+                    if (Quantity > 1 && Quantity < 5)
                         validForm = "opakowania";
-                    else if (quantity >= 5)
+                    else if (Quantity >= 5)
                         validForm = "opakowań";
                     break;
 
                 case "łyżka":
-                    if (quantity > 1 && quantity < 5)
+                    if (Quantity > 1 && Quantity < 5)
                         validForm = "łyżki";
-                    else if (quantity >= 5)
+                    else if (Quantity >= 5)
                         validForm = "łyżek";
                     break;
 
                 case "łyżeczka":
-                    if (quantity > 1 && quantity < 5)
+                    if (Quantity > 1 && Quantity < 5)
                         validForm = "łyżeczki";
-                    else if (quantity >= 5)
+                    else if (Quantity >= 5)
                         validForm = "łyżeczek";
-                    else if(quantity>0 && quantity<1)
+                    else if(Quantity>0 && Quantity<1)
                         validForm = "łyżeczeki";
                     break;
 
                 case "szklanka":
-                    if (quantity > 1 && quantity < 5)
+                    if (Quantity > 1 && Quantity < 5)
                         validForm = "szklanki";
-                    else if (quantity >= 5)
+                    else if (Quantity >= 5)
                         validForm = "szklanek";
-                    else if (quantity > 0 && quantity < 1)
+                    else if (Quantity > 0 && Quantity < 1)
                         validForm = "szklanki";
                     break;
 
 
                 case "szczypta":
-                    if (quantity > 1 && quantity < 5)
+                    if (Quantity > 1 && Quantity < 5)
                         validForm = "szczypty";
-                    else if (quantity >= 5)
+                    else if (Quantity >= 5)
                         validForm = "szczypt";
                     break;
             }

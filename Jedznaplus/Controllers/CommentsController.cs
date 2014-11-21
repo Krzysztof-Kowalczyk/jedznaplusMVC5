@@ -1,4 +1,5 @@
 ﻿using Jedznaplus.Models;
+using Jedznaplus.Validators;
 using System;
 using System.Linq;
 using System.Web.Mvc;
@@ -36,10 +37,12 @@ namespace Jedznaplus.Controllers
         {
             if (ModelState.IsValid)
             {
+                comment.CreateDate = DateTime.Now;
                 db.Comments.Add(comment);
                 db.SaveChanges();
             }
-            return RedirectToAction("Details", "Recipes", db.Recipes.Single(p => p.Id == comment.RecipeId));
+            var recipeId = db.Recipes.Single(p => p.Id == comment.RecipeId).Id;
+            return RedirectToAction("Details", "Recipes", new {id=recipeId });
         }
 
         // GET: Comments/Edit/5
@@ -65,22 +68,39 @@ namespace Jedznaplus.Controllers
         }
 
         // GET: Comments/Delete/5
+        [OnlyOwnerOrAdmin]
         public ActionResult Delete(int id)
         {
-            return View();
+            var comment = db.Comments.Single(p => p.Id == id);
+            var recipeId= db.Recipes.Single(p => p.Id == comment.RecipeId).Id;
+            try
+            {
+
+                db.Comments.Remove(comment);
+                db.SaveChanges();
+                return RedirectToAction("Details", "Recipes", new { id = recipeId});
+            }
+            catch
+            {
+                return RedirectToAction("Details", "Recipes", new { id = recipeId});
+            }
         }
 
         // POST: Comments/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
+            var comment = db.Comments.Single(p => p.Id == id);
+            var recipeId = db.Recipes.Single(p => p.Id == comment.RecipeId).Id;
             try
             {
-                return RedirectToAction("Index");
+               
+                db.Comments.Remove(comment);
+                return RedirectToAction("Details", "Recipes", new { id = recipeId });
             }
             catch
             {
-                return View();
+                return RedirectToAction("Details", "Recipes", new { id = recipeId });
             }
         }
 

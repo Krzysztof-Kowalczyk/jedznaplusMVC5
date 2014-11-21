@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Jedznaplus.Models
 {
@@ -10,6 +11,7 @@ namespace Jedznaplus.Models
         public string UserName{get;set;}
         [Display(Name = "Treść")]
         public string Content{get;set;}
+        public DateTime CreateDate { get; set; }
 
     }
 }
