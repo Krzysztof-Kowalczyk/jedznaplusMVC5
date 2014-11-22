@@ -73,19 +73,19 @@ namespace Jedznaplus.Controllers
     
         [Authorize(Roles = "Admins")]
         [HttpPost]
-        public ActionResult Create(RegisterViewModel Ruser)
+        public ActionResult Create(RegisterViewModel ruser)
         {
             var hasher = new PasswordHasher();
             var user = new ApplicationUser
             {
-                UserName = Ruser.Login,
-                PasswordHash = hasher.HashPassword(Ruser.Password),
-                Email=Ruser.Email,
+                UserName = ruser.Login,
+                PasswordHash = hasher.HashPassword(ruser.Password),
+                Email=ruser.Email,
                 EmailConfirmed=true,
                 AvatarUrl = "~/Images/Users/defaultavatar.png"
             };
 
-            UserManager1.Create(user, Ruser.Password);
+            UserManager1.Create(user, ruser.Password);
             store.Context.SaveChanges();
             
             return RedirectToAction("ShowUsers");

@@ -18,13 +18,13 @@ namespace Jedznaplus.Controllers
         private DatabaseModel db = new DatabaseModel();
         protected ApplicationDbContext ApplicationDbContext { get; set; }
         protected UserManager<ApplicationUser> UserManager { get; set; }
-        private SelectList UnitNameList;
-        private SelectList Difficulties;
+        private readonly SelectList UnitNameList;
+        private readonly SelectList Difficulties;
 
         public RecipesController()
         {
-            this.ApplicationDbContext = new ApplicationDbContext();
-            this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
+            ApplicationDbContext = new ApplicationDbContext();
+            UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(ApplicationDbContext));
             UnitNameList = new SelectList(new[] { "litr", "mililitr", "kilogram", "dekagram", "gram", "sztuka", "plaster", "opakowanie", "łyżka", "łyżeczka", "szklanka", "szczypta" });
             Difficulties = new SelectList(new[] { "Łatwy", "Średni", "Trudny", "Bardzo Trudny" });
         }
@@ -37,7 +37,7 @@ namespace Jedznaplus.Controllers
         }
 
 
-        public void deleteImg(string relativePath)
+        public void DeleteImg(string relativePath)
         {
             if (relativePath != "~/Images/noPhoto.png")
             {
@@ -96,7 +96,7 @@ namespace Jedznaplus.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Models.Recipe recipe, HttpPostedFileBase file)
+        public ActionResult Create(Recipe recipe, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -244,7 +244,7 @@ namespace Jedznaplus.Controllers
             if (toDelete != null)
             {
                 var votes = db.VoteLogs.Where(p => p.VoteForId == toDelete.Id);
-                deleteImg(toDelete.ImageUrl);
+                DeleteImg(toDelete.ImageUrl);
                 db.Comments.RemoveRange(toDelete.Comments);
                 db.Ingredient.RemoveRange(toDelete.Ingredients);
                 db.VoteLogs.RemoveRange(votes);
@@ -296,7 +296,7 @@ namespace Jedznaplus.Controllers
 
             if (toDelete != null)
             {
-                deleteImg(toDelete.ImageUrl);
+                DeleteImg(toDelete.ImageUrl);
                 toDelete.ImageUrl = "~/Images/noPhoto.png";
                 db.SaveChanges();
             }
@@ -345,16 +345,13 @@ namespace Jedznaplus.Controllers
             return View();
         }
 
-        public bool hasExcludedIngredients(Recipe rec, ExcludeRecipe er)
+        public bool HasExcludedIngredients(Recipe rec, ExcludeRecipe er)
         {
             foreach (var ingred in rec.Ingredients)
             {
-                foreach (var wIngred in er.ExcludeIngredients)
+                if (er.ExcludeIngredients.Any(wIngred => ingred.Name.IndexOf(wIngred.ToLower(), StringComparison.OrdinalIgnoreCase) >= 0 || (er.NotAlergic == true && ingred.Alergic == true)))
                 {
-                    if (ingred.Name.IndexOf(wIngred.ToLower(), StringComparison.OrdinalIgnoreCase) >= 0 || (er.NotAlergic == true && ingred.Alergic == true))
-                    {
-                        return true;
-                    }
+                    return true;
                 }
 
             }
@@ -378,18 +375,13 @@ namespace Jedznaplus.Controllers
 
                 if (er.ExcludeIngredients != null)
                 {
-                    hasIngred = hasExcludedIngredients(rec, er);
+                    hasIngred = HasExcludedIngredients(rec, er);
                 }
                 else
                 {
-                    foreach (var ingred in rec.Ingredients)
+                    if (rec.Ingredients.Any(ingred => er.NotAlergic == true && ingred.Alergic == true))
                     {
-                        if (er.NotAlergic == true && ingred.Alergic == true)
-                        {
-                            hasIngred = true;
-                            break;
-                        }
-
+                        hasIngred = true;
                     }
 
                 }
@@ -402,8 +394,7 @@ namespace Jedznaplus.Controllers
             {
                 foreach (var rec in recipes)
                 {
-                    hasIngred = false;
-                    hasIngred = hasWantedIngredient(rec, er);
+                    hasIngred = HasWantedIngredient(rec, er);
 
                     if (!hasIngred)
                         finalRecipes.Remove(rec);
@@ -413,16 +404,13 @@ namespace Jedznaplus.Controllers
             return View("Search", finalRecipes);
         }
 
-        public bool hasWantedIngredient(Recipe rec, ExcludeRecipe er)
+        public bool HasWantedIngredient(Recipe rec, ExcludeRecipe er)
         {
             foreach (var recIngred in rec.Ingredients)
             {
-                foreach (var wIngred in er.WantedIngredients)
+                if (er.WantedIngredients.Any(wIngred => recIngred.Name.IndexOf(wIngred.ToLower(), StringComparison.OrdinalIgnoreCase) >= 0))
                 {
-                    if (recIngred.Name.IndexOf(wIngred.ToLower(), StringComparison.OrdinalIgnoreCase) >= 0)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
             }
             return false;

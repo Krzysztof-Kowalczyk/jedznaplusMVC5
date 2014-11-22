@@ -8,7 +8,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Jedznaplus.Models;
 using System.IO;
-using Microsoft.AspNet.Identity.EntityFramework;///
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Jedznaplus.Controllers
 {
@@ -17,19 +17,19 @@ namespace Jedznaplus.Controllers
     {
         public ManageController()
         {
-            store = new UserStore<ApplicationUser>(new ApplicationDbContext());
-            UserManager1 = new UserManager<ApplicationUser>(store);
+            Store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            UserManager1 = new UserManager<ApplicationUser>(Store);
         }
 
         public ManageController(ApplicationUserManager userManager)
         {
             UserManager = userManager;
 
-            store = new UserStore<ApplicationUser>(new ApplicationDbContext());
-            UserManager1 = new UserManager<ApplicationUser>(store);
+            Store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            UserManager1 = new UserManager<ApplicationUser>(Store);
         }
 
-        public UserStore<ApplicationUser> store { get; set; }
+        public UserStore<ApplicationUser> Store { get; set; }
         private UserManager<ApplicationUser> UserManager1 { get; set; }
 
         private ApplicationUserManager _userManager;
@@ -100,13 +100,13 @@ namespace Jedznaplus.Controllers
 
                 cUser.AvatarUrl = relativePath;
                 UserManager1.Update(cUser);
-                store.Context.SaveChanges();
+                Store.Context.SaveChanges();
             }
 
             return View();
         }
 
-        public void deleteImg(string relativePath)
+        public void DeleteImg(string relativePath)
         {
             if (relativePath != "~/Images/Users/defaultavatar.png")
             {
@@ -118,10 +118,10 @@ namespace Jedznaplus.Controllers
         public ActionResult DeleteAvatar()
         {
             var cUser = UserManager1.FindByName(User.Identity.Name);
-            deleteImg(cUser.AvatarUrl);
+            DeleteImg(cUser.AvatarUrl);
             cUser.AvatarUrl = "~/Images/Users/defaultavatar.png";
             UserManager1.Update(cUser);
-            store.Context.SaveChanges();
+            Store.Context.SaveChanges();
             return RedirectToAction("ChangeAvatar");
         }
 

@@ -17,8 +17,8 @@ namespace Jedznaplus.Controllers
 
         public HomeController()
         {
-            this.ApplicationDbContext = new ApplicationDbContext();
-            this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
+            ApplicationDbContext = new ApplicationDbContext();
+            UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
         }
         public ActionResult Index()
         {
@@ -84,7 +84,7 @@ namespace Jedznaplus.Controllers
                         object obj = sch.Votes;
 
                         string updatedVotes = string.Empty;
-                        string[] votes = null;
+                        string[] votes;
                         if (obj != null && obj.ToString().Length > 0)
                         {
                             string currentVotes = obj.ToString(); // votes pattern will be 0,0,0,0,0
@@ -144,14 +144,20 @@ namespace Jedznaplus.Controllers
                 default:
                     break;
             }
-            string starsWord = String.Empty;
+            string starsWord;
 
-            if (thisVote == 1)
-                starsWord = " gwiazdkę";
-            else if (thisVote == 5)
-                starsWord = " gwizdek";
-            else
-                starsWord = " gwiazdki";
+            switch (thisVote)
+            {
+                case 1:
+                    starsWord = " gwiazdkę";
+                    break;
+                case 5:
+                    starsWord = " gwizdek";
+                    break;
+                default:
+                    starsWord = " gwiazdki";
+                    break;
+            }
 
             return Json("<br />Oceniłeś potrawę na " + r + starsWord + " dziękujemy !");
         }

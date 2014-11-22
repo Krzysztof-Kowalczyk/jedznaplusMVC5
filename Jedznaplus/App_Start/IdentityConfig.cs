@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -20,9 +16,9 @@ namespace Jedznaplus
         {
             // Plug in your email service here to send an email.
 
-            var credentialUserName = "jedznaplus@gmail.com";
-            var sentFrom = "jedznaplus@gmail.com";
-            var pwd = "jedznaplus123";
+            const string credentialUserName = "jedznaplus@gmail.com";
+            const string sentFrom = "jedznaplus@gmail.com";
+            const string pwd = "jedznaplus123";
 
             // Configure the client:
             System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("smtp.gmail.com");

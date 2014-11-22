@@ -2,7 +2,6 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -23,8 +22,8 @@ namespace Jedznaplus.Validators
                 return false;
             }
 
-            this.ApplicationDbContext = new ApplicationDbContext();
-            this.UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));        
+            ApplicationDbContext = new ApplicationDbContext();
+            UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(ApplicationDbContext));        
             
             var rd = httpContext.Request.RequestContext.RouteData;
             var id = Convert.ToInt32(rd.Values["id"]);
@@ -39,7 +38,7 @@ namespace Jedznaplus.Validators
 
             Recipe recipe = db.Recipes.SingleOrDefault(p => p.Id == id);
 
-            return recipe.UserName == user.UserName;
+            return recipe != null && recipe.UserName == user.UserName;
         }
     }
 }

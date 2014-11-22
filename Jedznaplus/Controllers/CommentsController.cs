@@ -8,12 +8,12 @@ namespace Jedznaplus.Controllers
 {
     public class CommentsController : Controller
     {
-        DatabaseModel db = new DatabaseModel();
+        readonly DatabaseModel db = new DatabaseModel();
 
         // GET: Comments
-        public ActionResult Index(int RecipeId)
+        public ActionResult Index(int recipeId)
         {
-            var comments = db.Comments.Where(p => p.Id == RecipeId).ToList();
+            var comments = db.Comments.Where(p => p.Id == recipeId).ToList();
 
             return View("CommentIndex", comments);
         }
