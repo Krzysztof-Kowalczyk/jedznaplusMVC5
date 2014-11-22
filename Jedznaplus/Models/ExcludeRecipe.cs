@@ -14,6 +14,8 @@ namespace Jedznaplus.Models
         public bool Vegetarians { get; set; }
         [Display(Name = "Lista wykluczonych składników")]
         public List<string> ExcludeIngredients { get; set; }
+        [Display(Name = "Lista pożądanych składników")]
+        public List<string> WantedIngredients { get; set; }
         [Display(Name = "Maksymalny czas przygotowywania")]
         public int MaxTime { get; set; }
     }

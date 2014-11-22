@@ -5,6 +5,7 @@
     padding-left:40px;
     padding-right:40px;
     float:left;
+    margin:2%;
 }
 
 #BestRecipes {
@@ -14,6 +15,7 @@
     padding-left:40px;
     padding-right:40px;
     float:right;
+    margin:2%;
 }
 
 .search {

@@ -290,6 +290,7 @@
     <Content Include="Views\Recipes\_NewestRecipes.cshtml" />
     <Content Include="Views\Recipes\_BestRatedRecipes.cshtml" />
     <Content Include="Views\Shared\_AddComment.cshtml" />
+    <Content Include="Views\Recipes\_WantedIngredientEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

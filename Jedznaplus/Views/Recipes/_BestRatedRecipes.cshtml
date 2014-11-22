@@ -5,7 +5,7 @@
     @foreach (var item in Model)
     {
         <div class="miniaturkaNr">
-                <h3 style="width: 150px; word-wrap: break-word;"> @Html.DisplayFor(modelItem => item.Name)</h3>
+                <h3 style="width: 180px; word-wrap: break-word;"> @Html.DisplayFor(modelItem => item.Name)</h3>
                 <a href="@Url.Action("Details", new { id = item.Id})">
                     <img src="@Url.Content(item.ImageUrl)" alt="image" width="150" height="150" />
                 </a>

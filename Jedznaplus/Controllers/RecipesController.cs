@@ -9,7 +9,6 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Jedznaplus.Validators;
-using System.Web.Configuration;
 
 namespace Jedznaplus.Controllers
 {
@@ -49,8 +48,8 @@ namespace Jedznaplus.Controllers
 
         public ActionResult NewestRecipes()
         {
-            int count =  db.Recipes.Count() > 10 ? 10 : db.Recipes.Count();
-            
+            int count = db.Recipes.Count() > 10 ? 10 : db.Recipes.Count();
+
             var recipes = (from p in db.Recipes
                            orderby p.CreateDate descending
                            select p).Take(count).ToList();
@@ -59,11 +58,11 @@ namespace Jedznaplus.Controllers
             {
                 Id = u.Id,
                 Name = u.Name,
-                ImageUrl=u.ImageUrl
+                ImageUrl = u.ImageUrl
             }).ToList();
 
-            return PartialView("_NewestRecipes",mv);
-         
+            return PartialView("_NewestRecipes", mv);
+
         }
 
         public ActionResult BestRatedRecipes()
@@ -87,7 +86,7 @@ namespace Jedznaplus.Controllers
 
 
         [Authorize]
-        [HttpGet]        
+        [HttpGet]
         public ActionResult Create()
         {
             ViewBag.Difficulties = Difficulties;
@@ -162,7 +161,7 @@ namespace Jedznaplus.Controllers
             var vm = new RecipeEditViewModels()
             {
                 Id = recipe.Id,
-                Calories= recipe.Calories,
+                Calories = recipe.Calories,
                 Difficulty = recipe.Difficulty,
                 ImageUrl = recipe.ImageUrl,
                 Ingredients = recipe.Ingredients,
@@ -170,7 +169,7 @@ namespace Jedznaplus.Controllers
                 PreparationMethod = recipe.PreparationMethod,
                 PreparationTime = recipe.PreparationTime,
                 Serves = recipe.Serves,
-                Vegetarian = recipe.Vegetarian,              
+                Vegetarian = recipe.Vegetarian,
             };
 
             return View(vm);
@@ -217,7 +216,7 @@ namespace Jedznaplus.Controllers
                 }
                 db.SaveChanges();
             }
-            return RedirectToAction("Details", new { id=recipe.Id });
+            return RedirectToAction("Details", new { id = recipe.Id });
         }
 
 
@@ -277,8 +276,8 @@ namespace Jedznaplus.Controllers
             if (toView != null)
             {
                 var avatar = UserManager.FindByName(toView.UserName);
-                ViewBag.AvatarURL = avatar!=null ? avatar.AvatarUrl : "~/Images/Users/defaultavatar.png";
-                
+                ViewBag.AvatarURL = avatar != null ? avatar.AvatarUrl : "~/Images/Users/defaultavatar.png";
+
                 return View(toView);
             }
 
@@ -352,7 +351,7 @@ namespace Jedznaplus.Controllers
             {
                 foreach (var wIngred in er.ExcludeIngredients)
                 {
-                    if (ingred.Name.IndexOf(wIngred.ToLower(), StringComparison.OrdinalIgnoreCase) >= 0 || (er.NotAlergic==true && ingred.Alergic==true))
+                    if (ingred.Name.IndexOf(wIngred.ToLower(), StringComparison.OrdinalIgnoreCase) >= 0 || (er.NotAlergic == true && ingred.Alergic == true))
                     {
                         return true;
                     }
@@ -369,13 +368,13 @@ namespace Jedznaplus.Controllers
 
             var recipes = new List<Recipe>();
             var allRecipes = db.Recipes.ToList();
-            bool hasIngred = false;
+            bool hasIngred;
 
             foreach (var rec in allRecipes)
             {
                 hasIngred = false;
                 if (rec.PreparationTime > er.MaxTime) continue;
-                if (er.Vegetarians==true && rec.Vegetarian==false) continue;
+                if (er.Vegetarians == true && rec.Vegetarian == false) continue;
 
                 if (er.ExcludeIngredients != null)
                 {
@@ -397,7 +396,37 @@ namespace Jedznaplus.Controllers
                 if (!hasIngred)
                     recipes.Add(rec);
             }
-            return View("Search", recipes);
+
+            var finalRecipes = new List<Recipe>(recipes);
+            if (er.WantedIngredients != null)
+            {
+                foreach (var rec in recipes)
+                {
+                    hasIngred = false;
+                    hasIngred = hasWantedIngredient(rec, er);
+
+                    if (!hasIngred)
+                        finalRecipes.Remove(rec);
+                }
+            }
+
+            return View("Search", finalRecipes);
+        }
+
+        public bool hasWantedIngredient(Recipe rec, ExcludeRecipe er)
+        {
+            foreach (var recIngred in rec.Ingredients)
+            {
+                foreach (var wIngred in er.WantedIngredients)
+                {
+                    if (recIngred.Name.IndexOf(wIngred.ToLower(), StringComparison.OrdinalIgnoreCase) >= 0)
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+
         }
 
         public string CountVotes(string votesString)
@@ -439,15 +468,20 @@ namespace Jedznaplus.Controllers
             return PartialView("_ExcludeIngredientEditor");
         }
 
+        public ActionResult WantedIngredientEntryRow()
+        {
+            return PartialView("_WantedIngredientEditor");
+        }
+
 
 
         public string validWordForm(string unitName, string quantity)
         {
-            if(quantity.Contains('.'))
+            if (quantity.Contains('.'))
             {
-               quantity=quantity.Replace(".", ",");
+                quantity = quantity.Replace(".", ",");
             }
-            else if(quantity.Contains('/'))
+            else if (quantity.Contains('/'))
             {
                 string[] numbers = quantity.Split('/');
                 quantity = (double.Parse(numbers[0]) / double.Parse(numbers[1])).ToString();
@@ -529,7 +563,7 @@ namespace Jedznaplus.Controllers
                         validForm = "łyżeczki";
                     else if (Quantity >= 5)
                         validForm = "łyżeczek";
-                    else if(Quantity>0 && Quantity<1)
+                    else if (Quantity > 0 && Quantity < 1)
                         validForm = "łyżeczeki";
                     break;
 

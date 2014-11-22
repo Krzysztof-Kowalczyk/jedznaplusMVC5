@@ -46,6 +46,16 @@
             <a id="addAnother" href="#">Dodaj kolejny wykluczoy składnik</a>
             <br><br>
 
+            <div>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.WantedIngredients):
+                </div>
+                <ul id="wantedingredientEditor" style="list-style-type: none"> </ul>
+            </div>
+
+            <a id="addAnotherWanted" href="#">Dodaj kolejny pożądany składnik</a>
+            <br><br>
+
         </fieldset>
 
         <input type="submit" value="Szukaj" />

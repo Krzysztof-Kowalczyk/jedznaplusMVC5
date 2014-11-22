@@ -1,0 +1,10 @@
+﻿@model String
+
+<li class="WantedingredientRow" style="padding-bottom:15px">
+    @using (Html.BeginCollectionItem("WantedIngredients"))
+    {
+        <span><strong>Nazwa :</strong></span> @Html.EditorFor(model => model)
+        <a href="#" onclick=" $(this).parent().remove();">Usuń składnik</a>
+    }
+</li>
+
