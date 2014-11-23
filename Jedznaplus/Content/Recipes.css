@@ -1,5 +1,5 @@
 ﻿#NewestRecipes {
-    /*width: 300px;*/
+    /*width: 1000px;*/
     padding-left:20px;
     padding-right:20px;
     /*float:left;*/
@@ -8,6 +8,18 @@
     border-width: 1px;
     border-color:#e9e9e9;
     display:inline-flex;
+    overflow:hidden;
+}
+#NewestRecipes > h3:first-child{
+
+
+    margin-top:auto;
+    margin-bottom:100px;
+}
+#BestRecipes >  h3:first-child{
+
+    margin-top:auto;
+    margin-bottom:100px;
 }
 
 #BestRecipes {
@@ -21,10 +33,7 @@
     border-color:#e9e9e9;
     display:inline-flex;
 }
-#BestRecipes h3{
-    color:red:
 
-}
 
 .search {
     width: 250px;
