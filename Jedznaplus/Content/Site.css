@@ -1,24 +1,505 @@
-﻿body {
+﻿/*body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
+/* set padding to keep content from hitting the edges */
+/*.body-content {
     padding-left: 15px;
     padding-right: 15px;
-}
+}*/
 
-/* Override the default bootstrap behavior where horizontal description lists 
+/* override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
 */
-.dl-horizontal dt {
+/*.dl-horizontal dt {
     white-space: normal;
-}
+}*/
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
+/* set width on the form input elements since they're 100% wide by default */
+/*input,
 select,
 textarea {
     max-width: 280px;
+}*/
+
+
+
+/*========================================================
+
+>>> Reset
+
+========================================================*/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, tt, var,
+b, u, i, center, dl, dt, dd, ol, ul, li, label, legend, table, caption { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent; }
+body { line-height: 1; }
+ol, ul, li { list-style: none; }
+blockquote, q { quotes: none; }
+blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
+:focus { outline: 0; }
+ins, a { text-decoration: none; }
+a, input[type=submit], button[type=submit] { cursor: pointer; }
+del { text-decoration: line-through; }
+table { border-collapse: collapse; border-spacing: 0; }
+
+
+
+/*========================================================
+
+>>> Main Styles
+
+========================================================*/
+
+html, body { height: 100%; }
+
+body { background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/bg.jpg) repeat; }
+
+body, input, textarea {
+	font-family: "Droid Serif", serif;
+	color: #444;
+	font-size: 12px;
+	line-height: 1.625;
 }
+
+#page {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin-top: 0;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+#footer-wrap, .push {
+	clear: both;
+}
+
+div { line-height: 1.5em; }
+
+.alignleft { float: left; }
+
+.alignright { float: right; }
+
+.aligncenter {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	clear: both;
+}
+
+/*=== Unique Font ===*/
+
+.cursive,
+.cursive a,
+.lined p,
+.title, .title a,
+.plain,
+#recipes .recipe .recipe-info h4 a,
+#recipes .latest .recipe-info .recipe-details ul li .value,
+.single-recipe .prep div,
+.single-recipe .cook div,
+#post-summaries .post .date,
+#post-summaries .post .post-title a,
+#comments-title,
+.comment-body p {
+	font-family: "Dancing Script", sans-serif;
+}
+
+/*=== 4 Required Styles (not important) ===*/
+
+.wp-caption {}
+.wp-caption-text {}
+.sticky {}
+.gallery-caption {}
+
+/*=== Paragraph & Anchor ===*/
+
+p { color: #7d6357; line-height: 1.6em; margin-bottom: 20px; }
+a, p, textarea, input[type=text] { font-size: 12px; }
+a:hover { text-decoration: underline; cursor: pointer; }
+
+/*=== Headings ===*/
+
+h1, h2, h3, h4, h5, h6 { color: #444; font-weight: normal; margin-bottom: 20px; line-height: 1; }
+h1 { font-size: 40px; }
+h2 { font-size: 28px; }
+h3 { font-size: 16px; color: #666; }
+h4 { font-size: 14px; }
+h5 { font-size: 12px; }
+h6 { font-size: 10px; }
+
+.cursive,
+.cursive a {
+	font-size: 18px;
+}
+
+.cursive,
+.cursive a,
+.lined p {
+	color: #7d6357;
+}
+
+.lined p {
+	line-height: 30px;
+	margin-bottom: 30px;
+	padding-right: 0;
+}
+
+/*=== Lists ===*/
+
+.repeat .list ul, .repeat ol, .repeat dl { margin: 0 0 20px 25px; }
+.repeat .list ul li { list-style-type: disc; }
+.repeat ol li { list-style-type: decimal; }	
+
+/*=== Global Classes ===*/
+
+.inner { width: 946px; height: auto; margin: 0 auto; overflow: hidden; position: relative; }
+.left { float: left; }
+.right { float: right; }
+.divide { padding-left: 8px; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/divide.png) top left repeat-y; }
+.title { margin-bottom: 35px; }
+.title, .title a { font-size: 40px; }
+.label { color: #af9f97; font-weight: bold; }
+
+.clear { width: 100%; clear: both; display: inline-block; margin-top: 20px; }
+.center, .center a { text-align: center; }
+.image-left { float: left; margin: 0 15px 15px 0; }
+.image-right { float: right; margin: 0 0 15px 15px; }
+
+.enlarge { float: left; display: block; background: #fff url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/enlarge.png) center center no-repeat; }
+
+/*=== Other Formats ===*/
+
+pre { height: 20px; line-hiehgt: 20px; color: #333; clear: both; margin: 20px 0; padding: 0 10px; background: #f5f5f5; overflow: auto; white-space: pre; }
+code, pre { 12px/18px Consolas, "Andale Mono", Courier, "Courier New", monospace }
+blockquote { margin: 20px; padding-left: 25px; border-left: 3px solid #d1c4bd; }
+blockquote, blockquote p { font-style: italic; }
+.drop { font-size: 36px; margin: 0 5px 3px 0; float: left; position: relative; top: 10px; }
+
+/*=== Form Elements ===*/
+
+input, textarea, button[type=submit] { outline: none; }
+input[type=text], input[type=password], textarea { padding: 5px; border: 3px solid #f2f2e9; }
+input[type=text]:hover, input[type=password]:hover, textarea:hover, input[type=text]:focus, textarea:focus { border: 3px solid #dcdbd4; }
+input[type=submit] { height: 32px; line-height: 28px; font-size: 11px; padding: 0 12px; text-align: center; top: 0; }
+button::-moz-focus-inner { padding:0; border:0 }
+button { padding: 0; }
+
+/*=== Table Elements ===*/
+
+table, caption, tbody, tfoot, thead, tr, th, td { font-size: 12px; }
+table { border-collapse: collapse; border-spacing:0; width:100%; border-top: 1px solid #ccc; border-left: 1px solid #ccc; margin-bottom: 25px; }
+table, td, th { vertical-align:middle; }
+tr { background: #f7f7f7; }
+tr:hover { background: #f1f1f1; }
+th { height: 25px; font-size: 16px; font-weight: normal; padding: 10px; color: #444; text-transform: uppercase; text-align: left; background: #dfdfdf; }
+td { height: 20px; color: #777; padding: 10px; }
+th, td { display: table-cell; text-align: center; border-bottom: 1px solid #ccc; border-right: 1px solid #ccc; }
+tfoot td {  border: 0px; }
+
+/*=== Button ===*/
+
+.btn {
+	float: left;
+}
+
+button.btn {
+	height: 30px;
+}
+
+.btn,
+.post-navigation a {
+	color: #fff;
+	height: 28px;
+	line-height: 28px;
+	display: block;
+	margin: 0 10px 10px 0;
+}
+
+.btn:hover,
+.post-navigation a:hover {
+	color: #9b8c75;
+	text-decoration: none;
+	cursor: pointer;
+	border: 1px solid #c3a478;
+	background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/tex.jpg) repeat;
+}
+
+.btn span,
+.post-navigation a span {
+	height: 100%;
+	display: block;
+	padding: 0 10px;
+	background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/color-tex.png) repeat;
+}
+
+.btn:hover span,
+.post-navigation a:hover span {
+	background: none;
+}
+
+.btnL {
+	height: 40px;
+	line-height: 40px;
+}
+
+.btnL span {
+	padding: 0 25px;
+}
+
+.rounded {
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+
+
+/*========================================================
+
+>>> Main Dividers
+
+========================================================*/
+
+/*#page { background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/utensils.png) center 85px no-repeat; }*/
+#content { margin: 25px auto; clear: both; overflow: hidden; }
+#content #content-left, #content #content-right { float: left; }
+#content #content-left, #content #content-right { width: 640px; }
+#content #content-right { float: right; }
+#sidebar, #sidebar-left { width: 200px; padding: 15px 0 0 0; }
+#sidebar { float: right; }
+#sidebar-left { float: left; }
+.error404 h1 { line-height: 1.2em; }
+.error404 h1 img { float: left; margin-right: 10px; }
+#overlay { width: 100%; height: 100%; left: 0; top: 0; position: fixed; z-index: 999; background: #fff; display: none; }
+
+/* Internal Columns */
+#main-col, .internal, .internal .bot { width: 726px; float: left; }
+.internal { min-height: 30px; padding: 23px 0 0 0; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/column-top.png) top left no-repeat; }
+.internal .repeat { width: 636px; padding: 30px 45px 45px 45px; overflow: hidden; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/column-mid.png) repeat-y; }
+.internal .bot { height: 23px; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/column-bot.png) bottom left no-repeat; }
+.tape { padding-top: 34px !important; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/column-top-tape.png) top left no-repeat !important; }
+
+/* Full Width */
+.full-width #main-col, .full-width .internal, .full-width .internal .bot { width: 946px; }
+.full-width .internal { background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/column-top-full.png) top left no-repeat; }
+.full-width .internal .repeat { width: 856px; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/column-mid-full.png) repeat-y; }
+.full-width .internal .bot { background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/column-bot-full.png) bottom left no-repeat; }
+
+/* Lined */
+.lined { clear: both; padding: 0 10px; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/line.png) top left repeat; }
+.lined p { font-size: 19px; }
+
+/* Wide Box */ 
+.wide { width: 946px; position: relative; }
+.wide .top { width: 946px; height: 23px; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/wide-top.png) top center no-repeat; }
+.wide .mid { width: 900px; min-height: 56px; padding: 0 23px; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/wide-mid.png) repeat-y; overflow: hidden; }
+.wide .bot { width: 946px; height: 23px; position: absolute: bottom: 0; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/wide-bot.png) bottom center no-repeat; }
+.blank .top { width: 946px; height: 3px; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/wide-top.png) top center no-repeat; }
+.blank .mid { width: 940px; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/wide-mid-blank.png) repeat-y; padding: 0 3px;}
+.blank .bot { width: 946px; height: 3px; position: absolute: bottom: 0; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/wide-bot.png) bottom center no-repeat; }
+
+/* Slim Box */ 
+.slim { width: 226px; position: relative; }
+.slim .top { width: 226px; height: 3px; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/slim-top.png) top center no-repeat; }
+.slim .mid { width: 220px; min-height: 100px; padding: 0 3px; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/slim-mid.png) repeat-y; overflow: hidden; }
+.slim .bot { width: 226px; height: 3px; position: absolute: bottom: 0; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/slim-bot.png) bottom center no-repeat; }
+
+
+
+/*========================================================
+
+>>> Shortcodes (shortcodes.php)
+
+========================================================*/
+
+/*=== Columns ===*/
+
+.full { width: 100%; clear: both; margin-bottom: 25px; overflow: hidden; }
+.one-half, .one-third, .two-thirds, .one-fourth, .one-fifth, .two-fifths, .three-fifths, .four-fifths, .one-sixth { color: #7d6357; float: left; position: relative; margin-right: 4%; margin-bottom: 25px; }
+.one-half { width: 48%; }
+.one-third { width: 30.66%; }
+.two-thirds { width: 65.1%; }
+.one-fourth { width: 22%; }
+.one-fifth { width: 16.8%; }
+.two-fifths { width: 37.2%; }
+.three-fifths { width: 54.8%; }
+.four-fifths { width: 78.8%; }
+.column-last { margin-right: 0 !important; clear: right; }
+
+/*=== Message Boxes ===*/
+
+.mbox { max-width: 940px; height: 50px; margin: 0 0 25px 0; padding: 20px; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; }
+.mbox p { color: #333; line-height: 50px; padding-left: 60px; }
+.mbox a { color: #222; font-weight: bold; }
+
+.successbox { background: #f3ffdd url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/icon_success.png) 30px center no-repeat; }
+.errorbox { background: #ffdddd url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/icon_error.png) 30px center no-repeat; }
+.warningbox { background: #fff1dd url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/icon_warning.png) 30px center no-repeat; }
+.downloadbox { background: #ffffde url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/icon_download.png) 30px center no-repeat; }
+
+
+
+/*========================================================
+
+>>> Objects (header.php)
+
+========================================================*/
+
+.parsley {
+	width: 240px;
+	height: 350px;
+	position: absolute;
+	top: -100px;
+	right: 0;
+	background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/parsley.png) top left no-repeat;
+	z-index: 0;
+}
+
+.eggs {
+	width: 230px;
+	height: 200px;
+	position: absolute;
+	top: -40px;
+	left: 0;
+	background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/eggs.png) top left no-repeat;
+}
+
+.whisk {
+	width: 205px;
+	height: 380px;
+	position: absolute;
+	top: 200px;
+	left: 0;
+	background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/whisk.png) top left no-repeat;
+}
+
+
+
+/*========================================================
+
+>>> Login & Register
+
+========================================================*/
+
+#login div,
+#register div {
+	margin-top: 10px;
+	clear: both;
+}
+
+#login input[type=text],
+#login input[type=password],
+#register input[type=text],
+#regsiter input[type=password] {
+	float: right;
+}
+
+#login label,
+#register label {
+	height: 34px;
+	line-height: 34px;
+}
+
+
+
+/*========================================================
+
+>>> Account Page
+
+========================================================*/
+
+#user-recipes {
+	width: 656px;
+}
+
+#user-recipes li {
+	width: 144px;
+	float: left;
+	margin: 0 20px 20px 0;
+}
+						
+#user-recipes li .recipe-thumb a img {
+	float: left;	
+	border-radius: 3px;
+	-moz-border-radius: 3px;
+	-webkit-border-radius: 3px;
+}
+
+
+
+/*========================================================
+
+>>> Top Menu (header.php)
+
+========================================================*/
+
+#menu-top {
+	width: 100%;
+	height: 26px;
+	margin: -37px 0 50px 0;
+	padding-top: 14px;
+	position: relative;
+	background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/bg-footer.jpg) repeat;
+	z-index: 2;
+}
+
+#menu-top a,
+#menu-top div {
+	color: #d6bda2;
+	font-size: 11px;
+}
+
+#menu-top .inner {
+	height: 26px;
+}
+
+/* Menu Top */
+
+#menu-top .top-menu ul li,
+#menu-top .menu ul li {
+	height: 10px;
+	line-height: 10px;
+	float: left;
+	margin-right: 20px;
+}
+
+/* Clock/User */
+
+#menu-top .clock,
+#menu-top .user {
+	height: 10px;
+	line-height: 10px;
+	float: right;
+}
+
+#menu-top .clock {
+	padding-right: 20px;
+	background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/icon-clock.png) center right no-repeat;
+}
+
+/* Toggle */
+
+#menu-top .toggle {
+	height: 25px;
+	line-height: 24px;
+	text-align: center;
+	display: block;
+	float: right;
+	padding: 0 10px;	
+	background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/bg-footer.jpg) repeat;
+	z-index: 1;
+}
+
+#menu-top .toggle:hover {
+	text-decoration: none;
+}
+
+#menu-top .toggle span {
+	height: 100%;
+	display: block;	
+	padding-left: 22px;
+	background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/toggle.png) 0 6px no-repeat;
+}
+
