@@ -1,4 +1,6 @@
-﻿
+﻿@using System.Linq.Expressions
+@using Jedznaplus.Resources
+
 @{
     ViewBag.Title = "Zmień avatar";
 }
@@ -8,7 +10,7 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    if (ViewBag.AvatarURL == "~/Images/Users/defaultavatar.png")
+    if (ViewBag.AvatarURL == ConstantStrings.DefaultUserAvatar)
     {
         <input type="file" name="file" accept="image/jpeg,image/png">
         <br>

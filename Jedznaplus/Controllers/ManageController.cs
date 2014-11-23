@@ -4,12 +4,12 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Jedznaplus.Models.ViewModels;
+using Jedznaplus.Resources;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Jedznaplus.Models;
 using System.IO;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Jedznaplus.Controllers
 {
@@ -88,8 +88,8 @@ namespace Jedznaplus.Controllers
 
                 var fileName = Path.GetFileName(file.FileName);
                 var uniqueFileName = Guid.NewGuid() + fileName;
-                var absolutePath = Path.Combine(Server.MapPath("~/Images/Users/"), uniqueFileName);
-                var relativePath = "~/Images/Users/" + uniqueFileName;
+                var absolutePath = Path.Combine(Server.MapPath(ConstantStrings.UserAvatarsPath), uniqueFileName);
+                var relativePath = ConstantStrings.UserAvatarsPath + uniqueFileName;
                 file.SaveAs(absolutePath);
 
                 cUser.AvatarUrl = relativePath;
@@ -102,7 +102,7 @@ namespace Jedznaplus.Controllers
 
         public void DeleteImg(string relativePath)
         {
-            if (relativePath != "~/Images/Users/defaultavatar.png")
+            if (relativePath != ConstantStrings.DefaultUserAvatar)
             {
                 var path = Server.MapPath(relativePath);
                 System.IO.File.Delete(path);
@@ -113,7 +113,7 @@ namespace Jedznaplus.Controllers
         {
             var cUser = UserManager.FindByName(User.Identity.Name);
             DeleteImg(cUser.AvatarUrl);
-            cUser.AvatarUrl = "~/Images/Users/defaultavatar.png";
+            cUser.AvatarUrl = ConstantStrings.DefaultUserAvatar;
             UserManager.Update(cUser);
             ApplicationDbContext.Create().SaveChanges();
             return RedirectToAction("ChangeAvatar");

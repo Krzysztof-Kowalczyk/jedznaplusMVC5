@@ -1,3 +1,5 @@
+using Jedznaplus.Resources;
+
 namespace Jedznaplus.Migrations
 {
     using Jedznaplus.Models;
@@ -28,8 +30,8 @@ namespace Jedznaplus.Migrations
             var us = new UserStore<ApplicationUser>(context);
             var um = new UserManager<ApplicationUser>(us);
 
-            var user = new ApplicationUser() { UserName = "kalik", Email = "wargas_14@o2.pl", EmailConfirmed = true, AvatarUrl = "~/Images/Users/defaultavatar.png" };
-            um.Create(user, "Szczur123#");
+            var user = new ApplicationUser() { UserName = "kalik", Email = "wargas_14@o2.pl", EmailConfirmed = true, AvatarUrl = ConstantStrings.DefaultUserAvatar};
+            um.Create(user, "Admin123#");
             um.AddToRole(user.Id, "Admins");
             //  This method will be called after migrating to the latest version.
 

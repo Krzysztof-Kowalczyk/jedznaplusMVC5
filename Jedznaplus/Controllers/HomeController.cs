@@ -1,4 +1,6 @@
-﻿using Jedznaplus.Models;
+﻿using System.Globalization;
+using Jedznaplus.Models;
+using Jedznaplus.Resources;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
@@ -11,7 +13,7 @@ namespace Jedznaplus.Controllers
 {
     public class HomeController : Controller
     {
-        readonly DatabaseModel db = new DatabaseModel();
+        readonly DatabaseModel _db = new DatabaseModel();
         protected ApplicationDbContext ApplicationDbContext { get; set; }
         protected UserManager<ApplicationUser> UserManager { get; set; }
 
@@ -35,7 +37,7 @@ namespace Jedznaplus.Controllers
         public string AvatarUrl(string userName)
         {
             var user = UserManager.FindByName(userName);
-            return user != null ? user.AvatarUrl : "~/Images/Users/defaultavatar.png";
+            return user != null ? user.AvatarUrl : ConstantStrings.DefaultUserAvatar;
         }
 
         public ActionResult Contact()
@@ -47,9 +49,9 @@ namespace Jedznaplus.Controllers
 
         public JsonResult SendRating(string r, string s, string id, string url)
         {
-            int autoId = 0;
-            Int16 thisVote = 0;
-            Int16 sectionId = 0;
+            int autoId;
+            Int16 thisVote ;
+            Int16 sectionId ;
             Int16.TryParse(s, out sectionId);
             Int16.TryParse(r, out thisVote);
             int.TryParse(id, out autoId);
@@ -68,17 +70,17 @@ namespace Jedznaplus.Controllers
             {
                 case "5": // school voting
                     // check if he has already voted
-                    var isIt = db.VoteLogs.Where(v => v.SectionId == sectionId &&
-                        v.UserName.Equals(User.Identity.Name, StringComparison.CurrentCultureIgnoreCase) && v.VoteForId == autoId).FirstOrDefault();
+                    var isIt = _db.VoteLogs.FirstOrDefault(v => v.SectionId == sectionId &&
+                                                               v.UserName.Equals(User.Identity.Name, StringComparison.CurrentCultureIgnoreCase) && v.VoteForId == autoId);
                     if (isIt != null)
                     {
                         // keep the school voting flag to stop voting by this member
-                        HttpCookie cookie = new HttpCookie(url + User.Identity.Name, "true");
+                        var cookie = new HttpCookie(url + User.Identity.Name, "true");
                         Response.Cookies.Add(cookie);
                         return Json("<br />Już oceniłeś tę potrawę !");
                     }
 
-                    var sch = db.Recipes.FirstOrDefault(sc => sc.Id == autoId);
+                    var sch = _db.Recipes.FirstOrDefault(sc => sc.Id == autoId);
                     if (sch != null)
                     {
                         object obj = sch.Votes;
@@ -97,32 +99,29 @@ namespace Jedznaplus.Controllers
                                 // increase 1 for this vote
                                 currentNumberOfVote++;
                                 // set the updated value into the selected votes
-                                votes[thisVote - 1] = currentNumberOfVote.ToString();
+                                votes[thisVote - 1] = currentNumberOfVote.ToString(CultureInfo.InvariantCulture);
                             }
                             else
                             {
-                                votes = new string[] { "0", "0", "0", "0", "0" };
+                                votes = new[] { "0", "0", "0", "0", "0" };
                                 votes[thisVote - 1] = "1";
                             }
                         }
                         else
                         {
-                            votes = new string[] { "0", "0", "0", "0", "0" };
+                            votes = new[] { "0", "0", "0", "0", "0" };
                             votes[thisVote - 1] = "1";
                         }
 
                         // concatenate all arrays now
-                        foreach (string ss in votes)
-                        {
-                            updatedVotes += ss + ",";
-                        }
+                        updatedVotes = votes.Aggregate(updatedVotes, (current, ss) => current + (ss + ","));
                         updatedVotes = updatedVotes.Substring(0, updatedVotes.Length - 1);
 
-                        db.Entry(sch).State = EntityState.Modified;
+                        _db.Entry(sch).State = EntityState.Modified;
                         sch.Votes = updatedVotes;
-                        db.SaveChanges();
+                        _db.SaveChanges();
 
-                        VoteLog vm = new VoteLog
+                        var vm = new VoteLog
                         {
                             Active = true,
                             SectionId = Int16.Parse(s),
@@ -131,12 +130,12 @@ namespace Jedznaplus.Controllers
                             VoteForId = autoId
                         };
 
-                        db.VoteLogs.Add(vm);
+                        _db.VoteLogs.Add(vm);
 
-                        db.SaveChanges();
+                        _db.SaveChanges();
 
                         // keep the school voting flag to stop voting by this member
-                        HttpCookie cookie = new HttpCookie(url + User.Identity.Name, "true");
+                        var cookie = new HttpCookie(url + User.Identity.Name, "true");
                         Response.Cookies.Add(cookie);
                     }
                     break;

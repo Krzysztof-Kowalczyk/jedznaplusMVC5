@@ -29,6 +29,8 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <FilesToIncludeForPublish>OnlyFilesToRunTheApp</FilesToIncludeForPublish>
+    <ExcludeGeneratedDebugSymbol>false</ExcludeGeneratedDebugSymbol>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -188,6 +190,7 @@
     <Compile Include="Models\ViewModels\RecipeViewModels.cs" />
     <Compile Include="Models\VoteLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources\ConstantStrings.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Validators\OnlyOwnerOrAdmin.cs" />
   </ItemGroup>
@@ -234,6 +237,11 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Resources\Images\Recipes\noPhoto.png" />
+    <Content Include="Resources\Images\Users\defaultavatar.png" />
+    <Content Include="Resources\Images\whitestar.gif" />
+    <Content Include="Resources\Images\yellowstar.gif" />
+    <Content Include="Resources\Logs\testlog.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\jedznaplus.pubxml" />
@@ -257,7 +265,9 @@
     <Content Include="Scripts\Jedznaplus\ImagePickerScript.js" />
     <Content Include="Scripts\Jedznaplus\VoteScripts.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

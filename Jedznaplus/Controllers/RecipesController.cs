@@ -1,5 +1,7 @@
-﻿using Jedznaplus.Models;
+﻿using System.Globalization;
+using Jedznaplus.Models;
 using Jedznaplus.Models.ViewModels;
+using Jedznaplus.Resources;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System;
@@ -39,7 +41,7 @@ namespace Jedznaplus.Controllers
 
         private void DeleteImg(string relativePath)
         {
-            if (relativePath != "~/Images/noPhoto.png")
+            if (relativePath != ConstantStrings.DefaultRecipePhoto)
             {
                 var path = Server.MapPath(relativePath);
                 System.IO.File.Delete(path);
@@ -107,14 +109,14 @@ namespace Jedznaplus.Controllers
                 {
                     var fileName = Path.GetFileName(file.FileName);
                     var uniqueFileName = Guid.NewGuid() + fileName;
-                    var absolutePath = Path.Combine(Server.MapPath("~/Images"), uniqueFileName);
-                    var relativePath = "~/Images/" + uniqueFileName;
+                    var absolutePath = Path.Combine(Server.MapPath(ConstantStrings.RecipePhotosPath), uniqueFileName);
+                    var relativePath = ConstantStrings.RecipePhotosPath + uniqueFileName;
                     file.SaveAs(absolutePath);
                     recipe.ImageUrl = relativePath;
                 }
                 else
                 {
-                    recipe.ImageUrl = "~/Images/noPhoto.png";
+                    recipe.ImageUrl = ConstantStrings.DefaultRecipePhoto;
                 }
 
                 return RedirectToAction("CreateAddIngredients", recipe);
@@ -207,8 +209,8 @@ namespace Jedznaplus.Controllers
             {
                 var fileName = Path.GetFileName(file.FileName);
                 var uniqueFileName = Guid.NewGuid() + fileName;
-                var absolutePath = Path.Combine(Server.MapPath("~/Images"), uniqueFileName);
-                var relativePath = "~/Images/" + uniqueFileName;
+                var absolutePath = Path.Combine(Server.MapPath(ConstantStrings.RecipePhotosPath), uniqueFileName);
+                var relativePath = ConstantStrings.RecipePhotosPath + uniqueFileName;
                 file.SaveAs(absolutePath);
                 dbPost.ImageUrl = relativePath;
             }
@@ -225,7 +227,7 @@ namespace Jedznaplus.Controllers
         {
             string logName = DateTime.Now.ToString("yyyyMMdd") + ".txt";
 
-            using (var fs = new FileStream(Path.Combine(Server.MapPath("~/Logs"), logName), FileMode.Append, FileAccess.Write))
+            using (var fs = new FileStream(Path.Combine(Server.MapPath(ConstantStrings.LogsPath), logName), FileMode.Append, FileAccess.Write))
             using (var sw = new StreamWriter(fs))
             {
                 sw.WriteLine(content);
@@ -288,7 +290,7 @@ namespace Jedznaplus.Controllers
             if (toView == null) return RedirectToAction("Index");
 
             var avatar = UserManager.FindByName(toView.UserName);
-            ViewBag.AvatarURL = avatar != null ? avatar.AvatarUrl : "~/Images/Users/defaultavatar.png";
+            ViewBag.AvatarURL = avatar != null ? avatar.AvatarUrl : ConstantStrings.DefaultUserAvatar;
 
             return View(toView);
         }
@@ -306,7 +308,7 @@ namespace Jedznaplus.Controllers
             if (toDelete == null) return RedirectToAction("Index");
 
             DeleteImg(toDelete.ImageUrl);
-            toDelete.ImageUrl = "~/Images/noPhoto.png";
+            toDelete.ImageUrl = ConstantStrings.DefaultRecipePhoto;
             _db.SaveChanges();
 
 
@@ -409,29 +411,29 @@ namespace Jedznaplus.Controllers
 
         public string CountVotes(string votesString)
         {
-            Single m_Average = 0;
+            Single mAverage;
 
-            Single m_totalNumberOfVotes = 0;
-            Single m_totalVoteCount = 0;
-            Single m_currentVotesCount = 0;
-            Single m_inPercent = 0;
+            Single mTotalNumberOfVotes = 0;
+            Single mTotalVoteCount = 0;
+            Single m_currentVotesCount;
+            Single m_inPercent;
 
             // calculate total votes now
             string[] votes = votesString.Split(',');
             for (int i = 0; i < votes.Length; i++)
             {
                 m_currentVotesCount = int.Parse(votes[i]);
-                m_totalNumberOfVotes = m_totalNumberOfVotes + m_currentVotesCount;
-                m_totalVoteCount = m_totalVoteCount + (m_currentVotesCount * (i + 1));
+                mTotalNumberOfVotes = mTotalNumberOfVotes + m_currentVotesCount;
+                mTotalVoteCount = mTotalVoteCount + (m_currentVotesCount * (i + 1));
             }
 
-            m_Average = m_totalVoteCount / m_totalNumberOfVotes;
-            m_inPercent = (m_Average * 100) / 5;
+            mAverage = mTotalVoteCount / mTotalNumberOfVotes;
+            m_inPercent = (mAverage * 100) / 5;
 
-            return "<span style=\"display: block; width: 70px; height: 13px; background: url(/Images/whitestar.gif) 0 0;\">" +
-                  "<span style=\"display: block; width: " + m_inPercent + "%; height: 13px; background: url(/Images/yellowstar.gif) 0 -13px;\"></span> " +
+            return "<span style=\"display: block; width: 70px; height: 13px; background: url(/Resources/Images/whitestar.gif) 0 0;\">" +
+                  "<span style=\"display: block; width: " + m_inPercent + "%; height: 13px; background: url(/Resources/Images/yellowstar.gif) 0 -13px;\"></span> " +
                   "</span>" +
-                  "<span class=\"smallText\">Ilość głosów: <span itemprop=\"ratingCount\">" + m_totalNumberOfVotes + "</span> | Średnia ocen : <span itemprop=\"ratingValue\">" + m_Average.ToString("##.##") + "</span> na 5 </span>  ";
+                  "<span class=\"smallText\">Ilość głosów: <span itemprop=\"ratingCount\">" + mTotalNumberOfVotes + "</span> | Średnia ocen : <span itemprop=\"ratingValue\">" + mAverage.ToString("##.##") + "</span> na 5 </span>  ";
 
         }
 
@@ -462,7 +464,7 @@ namespace Jedznaplus.Controllers
             else if (quantity.Contains('/'))
             {
                 string[] numbers = quantity.Split('/');
-                quantity = (double.Parse(numbers[0]) / double.Parse(numbers[1])).ToString();
+                quantity = (double.Parse(numbers[0]) / double.Parse(numbers[1])).ToString(CultureInfo.InvariantCulture);
             }
             double Quantity = double.Parse(quantity);
 

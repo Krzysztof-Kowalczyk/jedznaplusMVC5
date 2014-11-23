@@ -2,11 +2,11 @@
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Jedznaplus.Resources;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Jedznaplus.Models;
-using Microsoft.AspNet.Identity.EntityFramework;
 using System.IO;
 using System;
 using System.Net;
@@ -44,7 +44,7 @@ namespace Jedznaplus.Controllers
         public ActionResult DisplayPhoto()
         {
             // query the user photo then return the view 
-            ViewBag.FilePath = "~/Images/Users/defaultavatar.png";
+            ViewBag.FilePath = ConstantStrings.DefaultUserAvatar;
             return PartialView("_DisplayPhoto");
         }
 
@@ -79,10 +79,11 @@ namespace Jedznaplus.Controllers
                 PasswordHash = hasher.HashPassword(ruser.Password),
                 Email=ruser.Email,
                 EmailConfirmed=true,
-                AvatarUrl = "~/Images/Users/defaultavatar.png"
+                AvatarUrl = ConstantStrings.DefaultUserAvatar
             };
 
             UserManager.Create(user, ruser.Password);
+            UserManager.AddToRole(user.Id, "Users");
             ApplicationDbContext.Create().SaveChanges();
             
             return RedirectToAction("ShowUsers");
@@ -121,7 +122,7 @@ namespace Jedznaplus.Controllers
 
         public void DeleteAvatar(string relativePath)
         {
-            if (relativePath != "~/Images/Users/defaultavatar.png")
+            if (relativePath != ConstantStrings.DefaultUserAvatar)
             {
                 var path = Server.MapPath(relativePath);
                 System.IO.File.Delete(path);
@@ -140,7 +141,7 @@ namespace Jedznaplus.Controllers
             if (toDelete != null)
             {
                 DeleteAvatar(toDelete.AvatarUrl);
-                toDelete.AvatarUrl= "~/Images/Users/defaultavatar.png";
+                toDelete.AvatarUrl= ConstantStrings.DefaultUserAvatar;
                 UserManager.Update(toDelete);
                 ApplicationDbContext.Create().SaveChanges();
             }
@@ -176,8 +177,8 @@ namespace Jedznaplus.Controllers
                 {
                     var fileName = Path.GetFileName(file.FileName);
                     var uniqueFileName = Guid.NewGuid() + fileName;
-                    var absolutePath = Path.Combine(Server.MapPath("~/Images/Users/"), uniqueFileName);
-                    var relativePath = "~/Images/Users/" + uniqueFileName;
+                    var absolutePath = Path.Combine(Server.MapPath(ConstantStrings.UserAvatarsPath), uniqueFileName);
+                    var relativePath = ConstantStrings.UserAvatarsPath + uniqueFileName;
                     file.SaveAs(absolutePath);
                     dbPost.AvatarUrl = relativePath;
                 }
@@ -337,11 +338,12 @@ namespace Jedznaplus.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Login, Email = model.Email, AvatarUrl = "~/Images/Users/defaultavatar.png" };
+                var user = new ApplicationUser { UserName = model.Login, Email = model.Email, AvatarUrl = ConstantStrings.DefaultUserAvatar };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     var code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    await UserManager.AddToRoleAsync(user.Id, "Users");
 
                     var callbackUrl = Url.Action(
 
