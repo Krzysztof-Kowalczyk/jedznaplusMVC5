@@ -1,5 +1,4 @@
-﻿using System.Web;
-using System.Web.Optimization;
+﻿using System.Web.Optimization;
 
 namespace Jedznaplus
 {
@@ -10,6 +9,9 @@ namespace Jedznaplus
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
+           
+            bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
+            "~/Scripts/jquery-ui-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -29,6 +31,11 @@ namespace Jedznaplus
                       "~/Content/VoteSystem.css",
                       "~/Content/Recipes.css",
                       "~/Content/CommentSystem.css"));
+
+            bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
+              "~/Content/themes/base/core.css",
+              "~/Content/themes/base/autocomplete.css",
+              "~/Content/themes/base/theme.css"));
 
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862

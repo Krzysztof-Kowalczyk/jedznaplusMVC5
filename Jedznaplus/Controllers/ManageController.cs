@@ -3,12 +3,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Jedznaplus.Models.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Jedznaplus.Models;
 using System.IO;
-using Microsoft.AspNet.Identity.EntityFramework;///
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Jedznaplus.Controllers
 {
@@ -17,20 +18,12 @@ namespace Jedznaplus.Controllers
     {
         public ManageController()
         {
-            store = new UserStore<ApplicationUser>(new ApplicationDbContext());
-            UserManager1 = new UserManager<ApplicationUser>(store);
         }
 
         public ManageController(ApplicationUserManager userManager)
         {
             UserManager = userManager;
-
-            store = new UserStore<ApplicationUser>(new ApplicationDbContext());
-            UserManager1 = new UserManager<ApplicationUser>(store);
         }
-
-        public UserStore<ApplicationUser> store { get; set; }
-        private UserManager<ApplicationUser> UserManager1 { get; set; }
 
         private ApplicationUserManager _userManager;
         public ApplicationUserManager UserManager
@@ -90,7 +83,8 @@ namespace Jedznaplus.Controllers
         {
             if (file != null && file.ContentLength > 0)
             {
-                var cUser = UserManager1.FindByName(User.Identity.Name);
+                //var cUser = UserManager1.FindByName(User.Identity.Name);
+                var cUser = UserManager.FindByName(User.Identity.Name);
 
                 var fileName = Path.GetFileName(file.FileName);
                 var uniqueFileName = Guid.NewGuid() + fileName;
@@ -99,14 +93,14 @@ namespace Jedznaplus.Controllers
                 file.SaveAs(absolutePath);
 
                 cUser.AvatarUrl = relativePath;
-                UserManager1.Update(cUser);
-                store.Context.SaveChanges();
+                UserManager.Update(cUser);
+                ApplicationDbContext.Create().SaveChanges();
             }
 
             return View();
         }
 
-        public void deleteImg(string relativePath)
+        public void DeleteImg(string relativePath)
         {
             if (relativePath != "~/Images/Users/defaultavatar.png")
             {
@@ -117,11 +111,11 @@ namespace Jedznaplus.Controllers
 
         public ActionResult DeleteAvatar()
         {
-            var cUser = UserManager1.FindByName(User.Identity.Name);
-            deleteImg(cUser.AvatarUrl);
+            var cUser = UserManager.FindByName(User.Identity.Name);
+            DeleteImg(cUser.AvatarUrl);
             cUser.AvatarUrl = "~/Images/Users/defaultavatar.png";
-            UserManager1.Update(cUser);
-            store.Context.SaveChanges();
+            UserManager.Update(cUser);
+            ApplicationDbContext.Create().SaveChanges();
             return RedirectToAction("ChangeAvatar");
         }
 

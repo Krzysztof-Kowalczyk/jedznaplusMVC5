@@ -14,11 +14,6 @@ namespace Jedznaplus.Models
         [Required]
         public string UnitName { get; set; }
 
-     /* [Display(Name = "Ilość")]
-        [Required]
-        [Range(0.001, double.MaxValue, ErrorMessage = "Ilość musi być więlsza od 0")]
-        public double Quantity { get; set; }*/
-
         [Display(Name = "Ilość")]
         [Required]
         [RegularExpression(@"^\d+[\.\,]{1}\d+|^\d+\/{1}\d+|^\d+", ErrorMessage = "Błąd ilości, można wpisać liczbę całkowitą, ułamek zwykły lub dziesiętny")]

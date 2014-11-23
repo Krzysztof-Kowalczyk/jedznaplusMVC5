@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using Jedznaplus.Models.ViewModels;
 
 namespace Jedznaplus.Models
 {
@@ -14,7 +15,7 @@ namespace Jedznaplus.Models
         {
         }
 
-        public System.Data.Entity.DbSet<Jedznaplus.Models.NewestRecipesViewModel> NewestRecipesViewModels { get; set; }
+        public DbSet<NewestRecipesViewModel> NewestRecipesViewModels { get; set; }
 
          /*  static DatabaseModel()
            {

@@ -1,4 +1,4 @@
-﻿@model Jedznaplus.Models.RecipeEditViewModels
+﻿@model Jedznaplus.Models.ViewModels.RecipeEditViewModels
 
 @{
     ViewBag.Title = "Edycja";
@@ -54,7 +54,7 @@
         <div class="editor-label">
             @Html.LabelFor(model => model.ImageUrl)
         </div>
-
+        
         @if (Model.ImageUrl == "~/Images/noPhoto.png")
         {
             <input type="file" name="file" accept="image/jpeg,image/png">
