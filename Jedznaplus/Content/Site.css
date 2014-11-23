@@ -87,7 +87,19 @@ div { line-height: 1.5em; }
 	display: block;
 	clear: both;
 }
+.test{
+    display: inline;
+    height: 100%;
+line-height: 58px;
+font-size: 11px;
+font-weight: bold;
+text-transform: uppercase;
+color: #9b8c75;
+margin: 0;
+padding: 0 20px;
 
+
+}
 /*=== Unique Font ===*/
 
 .cursive,
@@ -502,4 +514,6 @@ button.btn {
 	padding-left: 22px;
 	background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/toggle.png) 0 6px no-repeat;
 }
-
+#logo{
+    margin:0 auto 50px auto;
+}

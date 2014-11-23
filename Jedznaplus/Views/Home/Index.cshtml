@@ -1,21 +1,42 @@
 ﻿@{
     ViewBag.Title = "Strona domowa";
 }
+<div id="header">
+    <div id="header-wrap">
 
-<div class="jumbotron">
-    <h1>Jedz na plus</h1>
-    <p class="lead">Witaj na naszej stronie. Znajdziesz tu wiele ciekawych przepisów kulinarnych. Zalogowani użytkownicy mogą dodawać nowe przepisy
-                oraz oceniać przepisy innych. Portal posiada także wyszukiwarkę przepisów na podstawie składników i innych podanych kryteriów.
-                Życzymy miłego korzystania z naszego poratlu. Udanych eksperymentów kulinarnych i smacznego :)</p>
-    @*<p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>*@
+        <div class="inner">
+
+            <!-- Logo -->
+            <div id="logo">
+
+                <a href="http://themes.divwrap.com/ingredients"><img src="http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/logo.png" alt="Ingredients"></a>
+
+            </div>
+                <div class="wide blank">
+                    <div class="top"></div>
+                    <div class="mid">
+
+                        <div class="menu">
+                            <ul id="menu-category-menu-1" class="menu">
+                                <li class="test"><a href="http://themes.divwrap.com/ingredients/"><span>Home</span></a></li>
+                                <li class="test"><a href="http://themes.divwrap.com/ingredients/category/appetizers/"><span>Appetizers</span></a></li>
+                                <li class="test"><a href="http://themes.divwrap.com/ingredients/category/beverages/"><span>Beverages</span></a></li>
+                                <li class="test"><a href="http://themes.divwrap.com/ingredients/category/breakfast/"><span>Breakfast</span></a></li>
+                                <li class="test"><a href="http://themes.divwrap.com/ingredients/category/desserts/"><span>Desserts</span></a></li>
+                                <li class="test"><a href="http://themes.divwrap.com/ingredients/category/main-dishes/"><span>Main Dishes</span></a></li>
+
+                            </ul>
+                        </div>
+
 </div>
-
-
-<div class="row">
-    <div class="col-md-4">
-        @Html.Action("NewestRecipes", "Recipes")
-    </div>
-    <div class="col-md-4">
-        @Html.Action("BestRatedRecipes", "Recipes")
-    </div>
-</div>
+                    </div>
+                </div>
+                <div class="bot"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                @Html.Action("NewestRecipes", "Recipes")
+                @Html.Action("BestRatedRecipes", "Recipes")
+            </div>
+        </div>
