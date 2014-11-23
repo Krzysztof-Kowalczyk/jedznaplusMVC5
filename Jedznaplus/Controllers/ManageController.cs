@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Jedznaplus.Models.ViewModels;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -17,20 +18,12 @@ namespace Jedznaplus.Controllers
     {
         public ManageController()
         {
-            Store = new UserStore<ApplicationUser>(new ApplicationDbContext());
-            UserManager1 = new UserManager<ApplicationUser>(Store);
         }
 
         public ManageController(ApplicationUserManager userManager)
         {
             UserManager = userManager;
-
-            Store = new UserStore<ApplicationUser>(new ApplicationDbContext());
-            UserManager1 = new UserManager<ApplicationUser>(Store);
         }
-
-        public UserStore<ApplicationUser> Store { get; set; }
-        private UserManager<ApplicationUser> UserManager1 { get; set; }
 
         private ApplicationUserManager _userManager;
         public ApplicationUserManager UserManager
@@ -90,7 +83,8 @@ namespace Jedznaplus.Controllers
         {
             if (file != null && file.ContentLength > 0)
             {
-                var cUser = UserManager1.FindByName(User.Identity.Name);
+                //var cUser = UserManager1.FindByName(User.Identity.Name);
+                var cUser = UserManager.FindByName(User.Identity.Name);
 
                 var fileName = Path.GetFileName(file.FileName);
                 var uniqueFileName = Guid.NewGuid() + fileName;
@@ -99,8 +93,8 @@ namespace Jedznaplus.Controllers
                 file.SaveAs(absolutePath);
 
                 cUser.AvatarUrl = relativePath;
-                UserManager1.Update(cUser);
-                Store.Context.SaveChanges();
+                UserManager.Update(cUser);
+                ApplicationDbContext.Create().SaveChanges();
             }
 
             return View();
@@ -117,11 +111,11 @@ namespace Jedznaplus.Controllers
 
         public ActionResult DeleteAvatar()
         {
-            var cUser = UserManager1.FindByName(User.Identity.Name);
+            var cUser = UserManager.FindByName(User.Identity.Name);
             DeleteImg(cUser.AvatarUrl);
             cUser.AvatarUrl = "~/Images/Users/defaultavatar.png";
-            UserManager1.Update(cUser);
-            Store.Context.SaveChanges();
+            UserManager.Update(cUser);
+            ApplicationDbContext.Create().SaveChanges();
             return RedirectToAction("ChangeAvatar");
         }
 

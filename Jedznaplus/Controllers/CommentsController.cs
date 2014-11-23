@@ -8,12 +8,12 @@ namespace Jedznaplus.Controllers
 {
     public class CommentsController : Controller
     {
-        readonly DatabaseModel db = new DatabaseModel();
+        readonly DatabaseModel _db = new DatabaseModel();
 
         // GET: Comments
         public ActionResult Index(int recipeId)
         {
-            var comments = db.Comments.Where(p => p.Id == recipeId).ToList();
+            var comments = _db.Comments.Where(p => p.Id == recipeId).ToList();
 
             return View("CommentIndex", comments);
         }
@@ -38,10 +38,10 @@ namespace Jedznaplus.Controllers
             if (ModelState.IsValid)
             {
                 comment.CreateDate = DateTime.Now;
-                db.Comments.Add(comment);
-                db.SaveChanges();
+                _db.Comments.Add(comment);
+                _db.SaveChanges();
             }
-            var recipeId = db.Recipes.Single(p => p.Id == comment.RecipeId).Id;
+            var recipeId = _db.Recipes.Single(p => p.Id == comment.RecipeId).Id;
             return RedirectToAction("Details", "Recipes", new {id=recipeId });
         }
 
@@ -71,13 +71,13 @@ namespace Jedznaplus.Controllers
         [OnlyOwnerOrAdmin]
         public ActionResult Delete(int id)
         {
-            var comment = db.Comments.Single(p => p.Id == id);
-            var recipeId= db.Recipes.Single(p => p.Id == comment.RecipeId).Id;
+            var comment = _db.Comments.Single(p => p.Id == id);
+            var recipeId= _db.Recipes.Single(p => p.Id == comment.RecipeId).Id;
             try
             {
 
-                db.Comments.Remove(comment);
-                db.SaveChanges();
+                _db.Comments.Remove(comment);
+                _db.SaveChanges();
                 return RedirectToAction("Details", "Recipes", new { id = recipeId});
             }
             catch
@@ -90,12 +90,12 @@ namespace Jedznaplus.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            var comment = db.Comments.Single(p => p.Id == id);
-            var recipeId = db.Recipes.Single(p => p.Id == comment.RecipeId).Id;
+            var comment = _db.Comments.Single(p => p.Id == id);
+            var recipeId = _db.Recipes.Single(p => p.Id == comment.RecipeId).Id;
             try
             {
                
-                db.Comments.Remove(comment);
+                _db.Comments.Remove(comment);
                 return RedirectToAction("Details", "Recipes", new { id = recipeId });
             }
             catch

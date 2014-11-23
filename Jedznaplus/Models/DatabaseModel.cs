@@ -1,4 +1,5 @@
 ﻿using System.Data.Entity;
+using Jedznaplus.Models.ViewModels;
 
 namespace Jedznaplus.Models
 {

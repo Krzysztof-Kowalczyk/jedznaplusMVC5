@@ -11,14 +11,14 @@ namespace Jedznaplus.Controllers
 {
     public class HomeController : Controller
     {
-        DatabaseModel db = new DatabaseModel();
+        readonly DatabaseModel db = new DatabaseModel();
         protected ApplicationDbContext ApplicationDbContext { get; set; }
         protected UserManager<ApplicationUser> UserManager { get; set; }
 
         public HomeController()
         {
             ApplicationDbContext = new ApplicationDbContext();
-            UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.ApplicationDbContext));
+            UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(ApplicationDbContext));
         }
         public ActionResult Index()
         {
@@ -78,7 +78,7 @@ namespace Jedznaplus.Controllers
                         return Json("<br />Już oceniłeś tę potrawę !");
                     }
 
-                    var sch = db.Recipes.Where(sc => sc.Id == autoId).FirstOrDefault();
+                    var sch = db.Recipes.FirstOrDefault(sc => sc.Id == autoId);
                     if (sch != null)
                     {
                         object obj = sch.Votes;
@@ -122,7 +122,7 @@ namespace Jedznaplus.Controllers
                         sch.Votes = updatedVotes;
                         db.SaveChanges();
 
-                        VoteLog vm = new VoteLog()
+                        VoteLog vm = new VoteLog
                         {
                             Active = true,
                             SectionId = Int16.Parse(s),

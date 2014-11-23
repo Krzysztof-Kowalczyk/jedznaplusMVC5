@@ -19,7 +19,7 @@
         @Html.DropDownListFor(model => model.UnitName, (SelectList)ViewBag.UnitNames)
 
         <span class="ingEditorItemName">@Html.LabelFor(model => model.Name)</span>
-        @Html.EditorFor(model => model.Name)
+        @Html.EditorFor(model => model.Name, new { htmlAttributes = new {data_url = @Url.Action("AutoCompleteList") }, autocomplete = "on" })
         @Html.ValidationMessageFor(model => model.Name)
 
         <span class="ingEditorItemName">@Html.LabelFor(model => model.Alergic)</span>

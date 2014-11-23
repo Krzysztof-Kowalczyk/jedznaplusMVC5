@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace Jedznaplus.Models
+namespace Jedznaplus.Models.ViewModels
 {
     public class RecipeEditViewModels
     {

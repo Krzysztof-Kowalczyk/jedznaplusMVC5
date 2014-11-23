@@ -18,13 +18,9 @@ namespace Jedznaplus.Controllers
     {
         private ApplicationUserManager _userManager;
 
-        private UserStore<ApplicationUser> store { get; set; }
-        private UserManager<ApplicationUser> UserManager1 { get; set; }
-
         public AccountController()
         {
-            store = new UserStore<ApplicationUser>(new ApplicationDbContext());
-            UserManager1 = new UserManager<ApplicationUser>(store);
+
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -55,13 +51,14 @@ namespace Jedznaplus.Controllers
         [Authorize (Roles="Admins")]
         public ActionResult ShowUsers()
         {
-            var users = UserManager.Users.Select(u => new UserListItemViewModel()
+            var users = UserManager.Users.Select(u => new UserListItemViewModel
             {
                 Id = u.Id,
                 Email = u.Email,
                 UserName = u.UserName,
                 EmailConfirmed = u.EmailConfirmed
             }).ToList();
+            
             return View(users);
         }
 
@@ -85,8 +82,8 @@ namespace Jedznaplus.Controllers
                 AvatarUrl = "~/Images/Users/defaultavatar.png"
             };
 
-            UserManager1.Create(user, ruser.Password);
-            store.Context.SaveChanges();
+            UserManager.Create(user, ruser.Password);
+            ApplicationDbContext.Create().SaveChanges();
             
             return RedirectToAction("ShowUsers");
         }
@@ -96,7 +93,7 @@ namespace Jedznaplus.Controllers
         public ActionResult Details(string id)
         {
             var user = UserManager.FindById(id);
-            var vm = new UserDetailsViewModel()
+            var vm = new UserDetailsViewModel
             {
                 Id = user.Id,
                 Email = user.Email,
@@ -104,7 +101,7 @@ namespace Jedznaplus.Controllers
                 UserName = user.UserName,
                 UserRoles = UserManager.GetRoles(user.Id).ToArray(),
                 AvatarUrl=user.AvatarUrl,
-                Roles = ApplicationDbContext.Create().Roles.Select(r => new SelectListItem()
+                Roles = ApplicationDbContext.Create().Roles.Select(r => new SelectListItem
                 {
                     Value = r.Name,
                     Text = r.Name
@@ -122,7 +119,7 @@ namespace Jedznaplus.Controllers
             return View(user);
         }
 
-        public void deleteAvatar(string relativePath)
+        public void DeleteAvatar(string relativePath)
         {
             if (relativePath != "~/Images/Users/defaultavatar.png")
             {
@@ -138,14 +135,14 @@ namespace Jedznaplus.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var toDelete = UserManager1.FindById(id);
+            var toDelete = UserManager.FindById(id);
 
             if (toDelete != null)
             {
-                deleteAvatar(toDelete.AvatarUrl);
+                DeleteAvatar(toDelete.AvatarUrl);
                 toDelete.AvatarUrl= "~/Images/Users/defaultavatar.png";
-                UserManager1.Update(toDelete);
-                store.Context.SaveChanges();
+                UserManager.Update(toDelete);
+                ApplicationDbContext.Create().SaveChanges();
             }
 
             return RedirectToAction("Edit", toDelete);
@@ -158,7 +155,7 @@ namespace Jedznaplus.Controllers
         {
             if (ModelState.IsValid)
             {
-                var dbPost = UserManager1.FindById(user.Id);
+                var dbPost = UserManager.FindById(user.Id);
                 if (dbPost == null)
                 {
                     return HttpNotFound();
@@ -184,8 +181,8 @@ namespace Jedznaplus.Controllers
                     file.SaveAs(absolutePath);
                     dbPost.AvatarUrl = relativePath;
                 }
-                UserManager1.Update(dbPost);
-                store.Context.SaveChanges();
+                UserManager.Update(dbPost);
+                ApplicationDbContext.Create().SaveChanges();
 
                 return RedirectToAction("Details",dbPost);
             }
@@ -197,14 +194,14 @@ namespace Jedznaplus.Controllers
         public ActionResult Delete(string id)
         {
             var user = UserManager.FindById(id);
-            var vm = new UserDetailsViewModel()
+            var vm = new UserDetailsViewModel
             {
                 Id = user.Id,
                 Email = user.Email,
                 EmailConfirmed = user.EmailConfirmed,
                 UserName = user.UserName,
                 UserRoles = UserManager.GetRoles(user.Id).ToArray(),
-                Roles = ApplicationDbContext.Create().Roles.Select(r => new SelectListItem()
+                Roles = ApplicationDbContext.Create().Roles.Select(r => new SelectListItem
                 {
                     Value = r.Name,
                     Text = r.Name

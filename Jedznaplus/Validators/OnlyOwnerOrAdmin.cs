@@ -10,7 +10,7 @@ namespace Jedznaplus.Validators
 {
     public class OnlyOwnerOrAdmin : AuthorizeAttribute
     {
-        DatabaseModel db = new DatabaseModel();
+        readonly DatabaseModel _db = new DatabaseModel();
         protected ApplicationDbContext ApplicationDbContext { get; set; }
         protected UserManager<ApplicationUser> UserManager { get; set; }
 
@@ -29,15 +29,15 @@ namespace Jedznaplus.Validators
             var id = Convert.ToInt32(rd.Values["id"]);
             var userName = httpContext.User.Identity.Name;
 
-            ApplicationUser user = UserManager.FindByName(userName);
+            var user = UserManager.FindByName(userName);
 
             if(UserManager.IsInRole(user.Id,"Admins")) 
             {
                 return true;
             }
 
-            Recipe recipe = db.Recipes.SingleOrDefault(p => p.Id == id);
-
+            var recipe = _db.Recipes.SingleOrDefault(p => p.Id == id);
+         
             return recipe != null && recipe.UserName == user.UserName;
         }
     }
