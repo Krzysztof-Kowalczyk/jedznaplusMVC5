@@ -21,22 +21,25 @@ namespace Jedznaplus
             const string pwd = "jedznaplus123";
 
             // Configure the client:
-            System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("smtp.gmail.com");
-
-            client.Port = 587;
-            client.DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network;
-            client.UseDefaultCredentials = false;
+            var client = new System.Net.Mail.SmtpClient("smtp.gmail.com")
+            {
+                Port = 587,
+                DeliveryMethod = System.Net.Mail.SmtpDeliveryMethod.Network,
+                UseDefaultCredentials = false
+            };
 
             // Creatte the credentials:
-            System.Net.NetworkCredential credentials = new System.Net.NetworkCredential(credentialUserName, pwd);
+            var credentials = new System.Net.NetworkCredential(credentialUserName, pwd);
             client.EnableSsl = true;
             client.Credentials = credentials;
 
             // Create the message:
-            var mail = new System.Net.Mail.MailMessage(sentFrom, message.Destination);
-            mail.Subject = message.Subject;
-            mail.Body = message.Body;
-            mail.IsBodyHtml = true;
+            var mail = new System.Net.Mail.MailMessage(sentFrom, message.Destination)
+            {
+                Subject = message.Subject,
+                Body = message.Body,
+                IsBodyHtml = true
+            };
 
             return client.SendMailAsync(mail);
 

@@ -1,4 +1,5 @@
 ﻿using Jedznaplus.Models;
+using Jedznaplus.Resources;
 using Jedznaplus.Validators;
 using System;
 using System.Linq;
@@ -9,26 +10,6 @@ namespace Jedznaplus.Controllers
     public class CommentsController : Controller
     {
         readonly DatabaseModel _db = new DatabaseModel();
-
-        // GET: Comments
-  /*      public ActionResult Index(int recipeId)
-        {
-            var comments = _db.Comments.Where(p => p.Id == recipeId).ToList();
-
-            return View("CommentIndex", comments);
-        }
-
-        // GET: Comments/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: Comments/Create
-        public ActionResult Create()
-        {
-            return View();
-        }*/
 
         // POST: Comments/Create
         [HttpPost]
@@ -41,68 +22,63 @@ namespace Jedznaplus.Controllers
                 _db.Comments.Add(comment);
                 _db.SaveChanges();
             }
+
+            string changes = "Dodanie komentarza:: Id komentarza: " + comment.Id + "|  Id przepisu: " + comment.RecipeId + " | Dodany przez: " +
+                             comment.UserName + " | Czas: " + DateTime.Now;
+
+            Logs.SaveLog(changes);
+
             var recipeId = _db.Recipes.Single(p => p.Id == comment.RecipeId).Id;
-            return RedirectToAction("Details", "Recipes", new {id=recipeId });
+            return RedirectToAction("Details", "Recipes", new { id = recipeId });
         }
 
         // GET: Comments/Edit/5
-     /*   public ActionResult Edit(int id)
-        {
-            return View();
-        }
+        /*   public ActionResult Edit(int id)
+           {
+               return View();
+           }
 
-        // POST: Comments/Edit/5
-        [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
+           // POST: Comments/Edit/5
+           [HttpPost]
+           public ActionResult Edit(int id, FormCollection collection)
+           {
+               try
+               {
+                   // TODO: Add update logic here
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }*/
+                   return RedirectToAction("Index");
+               }
+               catch
+               {
+                   return View();
+               }
+           }*/
 
         // GET: Comments/Delete/5
         [OnlyOwnerOrAdmin]
         public ActionResult Delete(int id)
         {
             var comment = _db.Comments.Single(p => p.Id == id);
-            var recipeId= _db.Recipes.Single(p => p.Id == comment.RecipeId).Id;
+            var recipeId = _db.Recipes.Single(p => p.Id == comment.RecipeId).Id;
             try
             {
 
                 _db.Comments.Remove(comment);
                 _db.SaveChanges();
-                return RedirectToAction("Details", "Recipes", new { id = recipeId});
+
+                string changes = "Usunięcie komentarza:: Id Komentarza: " + comment.Id + "|  Id Przepisu: " + comment.RecipeId + " | Usunięty przez: " +
+                 User.Identity.Name + " | Czas: " + DateTime.Now;
+
+                Logs.SaveLog(changes);
+
+                return RedirectToAction("Details", "Recipes", new { id = recipeId });
             }
             catch
             {
-                return RedirectToAction("Details", "Recipes", new { id = recipeId});
+                return RedirectToAction("Details", "Recipes", new { id = recipeId });
             }
         }
 
-        // POST: Comments/Delete/5
-    /*    [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            var comment = _db.Comments.Single(p => p.Id == id);
-            var recipeId = _db.Recipes.Single(p => p.Id == comment.RecipeId).Id;
-            try
-            {
-               
-                _db.Comments.Remove(comment);
-                return RedirectToAction("Details", "Recipes", new { id = recipeId });
-            }
-            catch
-            {
-                return RedirectToAction("Details", "Recipes", new { id = recipeId });
-            }
-        }*/
 
     }
 }

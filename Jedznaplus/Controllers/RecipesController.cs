@@ -105,7 +105,7 @@ namespace Jedznaplus.Controllers
                 recipe.LastEditDate = DateTime.Now;
                 recipe.LastEditorName = User.Identity.Name;
 
-                if (file != null && file.ContentLength > 0 && file.ContentLength<3000000)
+                if (file != null && file.ContentLength > 0 && file.ContentLength < 3000000)
                 {
                     var fileName = Path.GetFileName(file.FileName);
                     var uniqueFileName = Guid.NewGuid() + fileName;
@@ -139,12 +139,16 @@ namespace Jedznaplus.Controllers
             {
                 _db.Recipes.Add(recipe);
                 _db.SaveChanges();
+
+                string changes = "Dodanie przepisu:: Id Przepisu: " + recipe.Id + " | Dodany przez: " +
+                   recipe.UserName + " | Czas: " + recipe.CreateDate;
+
+                Logs.SaveLog(changes);
                 return RedirectToAction("Index");
             }
             ModelState.AddModelError(string.Empty, "Przepis musi zawierać poprawną listę składników oraz sposób przygotowania");
             return View("CreateAddIngredients", recipe);
         }
-
 
 
         [OnlyOwnerOrAdmin]
@@ -219,19 +223,8 @@ namespace Jedznaplus.Controllers
             string changes = "Edycja przepisu:: Id Przepisu: " + recipe.Id + " | Edytowane przez: " +
                              dbPost.LastEditorName + " | Czas: " + dbPost.LastEditDate;
 
-            SaveLog(changes);
+            Logs.SaveLog(changes);
             return RedirectToAction("Details", new { id = recipe.Id });
-        }
-
-        private void SaveLog(string content)
-        {
-            string logName = DateTime.Now.ToString("yyyyMMdd") + ".txt";
-
-            using (var fs = new FileStream(Path.Combine(Server.MapPath(ConstantStrings.LogsPath), logName), FileMode.Append, FileAccess.Write))
-            using (var sw = new StreamWriter(fs))
-            {
-                sw.WriteLine(content);
-            }
         }
 
 
@@ -265,6 +258,11 @@ namespace Jedznaplus.Controllers
             _db.VoteLogs.RemoveRange(votes);
             _db.Recipes.Remove(toDelete);
             _db.SaveChanges();
+
+            string changes = "Usunięcie przepisu:: Id Przepisu: " + toDelete.Id + " | Usunięty przez: " +
+                  User.Identity.Name + " | Czas: " + DateTime.Now;
+
+            Logs.SaveLog(changes);
 
             return RedirectToAction("Index");
         }
@@ -411,23 +409,20 @@ namespace Jedznaplus.Controllers
 
         public string CountVotes(string votesString)
         {
-            Single mAverage;
             Single mTotalNumberOfVotes = 0;
             Single mTotalVoteCount = 0;
-            Single mCurrentVotesCount;
-            Single mInPercent;
 
             // calculate total votes now
             string[] votes = votesString.Split(',');
             for (int i = 0; i < votes.Length; i++)
             {
-                mCurrentVotesCount = int.Parse(votes[i]);
+                Single mCurrentVotesCount = int.Parse(votes[i]);
                 mTotalNumberOfVotes = mTotalNumberOfVotes + mCurrentVotesCount;
                 mTotalVoteCount = mTotalVoteCount + (mCurrentVotesCount * (i + 1));
             }
 
-            mAverage = mTotalVoteCount / mTotalNumberOfVotes;
-            mInPercent = (mAverage * 100) / 5;
+            float mAverage = mTotalVoteCount / mTotalNumberOfVotes;
+            float mInPercent = (mAverage * 100) / 5;
 
             return "<span style=\"display: block; width: 70px; height: 13px; background: url(/Resources/Images/whitestar.gif) 0 0;\">" +
                   "<span style=\"display: block; width: " + mInPercent + "%; height: 13px; background: url(/Resources/Images/yellowstar.gif) 0 -13px;\"></span> " +

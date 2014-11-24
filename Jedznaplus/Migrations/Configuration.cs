@@ -2,15 +2,12 @@ using Jedznaplus.Resources;
 
 namespace Jedznaplus.Migrations
 {
-    using Jedznaplus.Models;
+    using Models;
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using System;
-    using System.Data.Entity;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Jedznaplus.Models.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
@@ -18,19 +15,19 @@ namespace Jedznaplus.Migrations
             ContextKey = "Jedznaplus.Models.ApplicationDbContext";
         }
 
-        protected override void Seed(Jedznaplus.Models.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             var rs = new RoleStore<IdentityRole>(context);
             var rm = new RoleManager<IdentityRole>(rs);
 
-            rm.Create(new IdentityRole() { Name = "Admins" });
-            rm.Create(new IdentityRole() { Name = "Users" });
-            rm.Create(new IdentityRole() { Name = "Editors" });
+            rm.Create(new IdentityRole { Name = "Admins" });
+            rm.Create(new IdentityRole { Name = "Users" });
+            rm.Create(new IdentityRole { Name = "Editors" });
 
             var us = new UserStore<ApplicationUser>(context);
             var um = new UserManager<ApplicationUser>(us);
 
-            var user = new ApplicationUser() { UserName = "kalik", Email = "wargas_14@o2.pl", EmailConfirmed = true, AvatarUrl = ConstantStrings.DefaultUserAvatar};
+            var user = new ApplicationUser { UserName = "kalik", Email = "wargas_14@o2.pl", EmailConfirmed = true, AvatarUrl = ConstantStrings.DefaultUserAvatar};
             um.Create(user, "Admin123#");
             um.AddToRole(user.Id, "Admins");
             //  This method will be called after migrating to the latest version.

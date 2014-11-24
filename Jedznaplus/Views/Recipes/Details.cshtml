@@ -1,4 +1,5 @@
-﻿@model Jedznaplus.Models.Recipe
+﻿@using System.Globalization
+@model Jedznaplus.Models.Recipe
 
 @{
     ViewBag.Title = "Szczegóły";
@@ -87,7 +88,7 @@
 
         <div class="VoteSystem">
             <div class="td0">Oceń potrawę</div>
-            <div class="td">@Html.Partial("_VoteNow", Model.Id.ToString())</div>
+            <div class="td">@Html.Partial("_VoteNow", Model.Id.ToString(CultureInfo.InvariantCulture))</div>
             <div class="td">@Html.Partial("_VoteShow", Model.Votes)</div>
         </div>
 

@@ -22,20 +22,14 @@ namespace Jedznaplus.Infrastructure
 
             string collectionIndexFieldName = String.Format("{0}.Index", collectionName);
 
-            string itemIndex = null;
-            if (html.ViewData.ContainsKey(JQueryTemplatingEnabledKey))
-            {
-                itemIndex = "${index}";
-            }
-            else
-            {
-                itemIndex = GetCollectionItemIndex(collectionIndexFieldName);
-            }
+            string itemIndex;
+            itemIndex = html.ViewData.ContainsKey(JQueryTemplatingEnabledKey) ? "${index}" : GetCollectionItemIndex(collectionIndexFieldName);
 
             string collectionItemName = String.Format("{0}[{1}]", collectionName, itemIndex);
 
             var indexField = new TagBuilder("input");
-            indexField.MergeAttributes(new Dictionary<string, string>() {
+            indexField.MergeAttributes(new Dictionary<string, string>
+            {
                 { "name", collectionIndexFieldName },
                 { "value", itemIndex },
                 { "type", "hidden" },
@@ -52,8 +46,10 @@ namespace Jedznaplus.Infrastructure
                                                                                             string partialViewName,
                                                                                             TCollectionItem modelDefaultValues)
         {
-            var viewData = new ViewDataDictionary<TCollectionItem>(modelDefaultValues);
-            viewData.Add(JQueryTemplatingEnabledKey, true);
+            var viewData = new ViewDataDictionary<TCollectionItem>(modelDefaultValues)
+            {
+                {JQueryTemplatingEnabledKey, true}
+            };
             return html.Partial(partialViewName, modelDefaultValues, viewData);
         }
 

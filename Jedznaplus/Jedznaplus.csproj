@@ -173,7 +173,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\CollectionEditingHtmlExtensions.cs" />
-    <Compile Include="Infrastructure\JsonHtmlExtensions.cs" />
     <Compile Include="Migrations\201411172035477_InitialCreate.cs" />
     <Compile Include="Migrations\201411172035477_InitialCreate.Designer.cs">
       <DependentUpon>201411172035477_InitialCreate.cs</DependentUpon>
@@ -191,6 +190,7 @@
     <Compile Include="Models\VoteLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ConstantStrings.cs" />
+    <Compile Include="Resources\Logs.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Validators\OnlyOwnerOrAdmin.cs" />
   </ItemGroup>
@@ -331,11 +331,11 @@
     <Content Include="Views\Account\ShowUsers.cshtml" />
     <Content Include="Views\Account\Details.cshtml" />
     <Content Include="Views\Account\Delete.cshtml" />
-    <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Account\Create.cshtml" />
     <Content Include="Views\Recipes\_NewestRecipes.cshtml" />
     <Content Include="Views\Recipes\_BestRatedRecipes.cshtml" />
     <Content Include="Views\Recipes\_WantedIngredientEditor.cshtml" />
+    <Content Include="Views\Account\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

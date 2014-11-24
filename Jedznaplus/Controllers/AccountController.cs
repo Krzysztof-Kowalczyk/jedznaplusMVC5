@@ -118,7 +118,22 @@ namespace Jedznaplus.Controllers
         {
             var user = UserManager.FindById(id);
 
-            return View(user);
+            var vm = new UserEditViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                EmailConfirmed = user.EmailConfirmed,
+                UserName = user.UserName,
+                UserRoles = UserManager.GetRoles(user.Id).ToArray(),
+                AvatarUrl = user.AvatarUrl,
+                Roles = ApplicationDbContext.Create().Roles.Select(r => new SelectListItem
+                {
+                    Value = r.Name,
+                    Text = r.Name
+                }).ToList()
+            };
+
+            return View(vm);
         }
 
         public void DeleteAvatar(string relativePath)
@@ -153,7 +168,7 @@ namespace Jedznaplus.Controllers
 
         [Authorize(Roles = "Admins")]
         [HttpPost]
-        public ActionResult Edit(ApplicationUser user, HttpPostedFileBase file)
+        public ActionResult Edit(UserEditViewModel user, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
@@ -164,15 +179,8 @@ namespace Jedznaplus.Controllers
                 }
 
                 dbPost.UserName = user.UserName;
-                dbPost.LockoutEnabled = user.LockoutEnabled;
-                dbPost.AccessFailedCount = user.AccessFailedCount;
                 dbPost.Email = user.Email;
                 dbPost.EmailConfirmed = user.EmailConfirmed;
-                dbPost.LockoutEnabled = user.LockoutEnabled;
-                dbPost.LockoutEndDateUtc = user.LockoutEndDateUtc;
-                dbPost.PhoneNumber = user.PhoneNumber;
-                dbPost.PhoneNumberConfirmed = user.PhoneNumberConfirmed;
-                dbPost.TwoFactorEnabled = user.TwoFactorEnabled;
 
                 if (file != null && file.ContentLength > 0 && file.ContentLength < 3000000)
                 {

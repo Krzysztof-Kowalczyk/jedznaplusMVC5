@@ -53,15 +53,17 @@ namespace Jedznaplus.Models.ViewModels
         public bool EmailConfirmed { get; set; }
     }
 
-        public class UserDetailsViewModel : UserListItemViewModel
+    public class UserDetailsViewModel : UserListItemViewModel
     {
         [Display(Name = "Avatar użytkownika")]
         public string AvatarUrl { get; set; }
         [Display(Name = "Role użytkownika")]
         public string[] UserRoles { get; set; }
 
-        public List<SelectListItem> Roles {get; set;}
+        public List<SelectListItem> Roles { get; set; }
     }
+
+    public class UserEditViewModel : UserDetailsViewModel { }
 
     public class VerifyCodeViewModel
     {
@@ -81,7 +83,7 @@ namespace Jedznaplus.Models.ViewModels
 
     public class ForgotViewModel
     {
-        [Required (ErrorMessage = "Pole Email jest wymagane.")]
+        [Required(ErrorMessage = "Pole Email jest wymagane.")]
         [Display(Name = "Email")]
         public string Email { get; set; }
     }
