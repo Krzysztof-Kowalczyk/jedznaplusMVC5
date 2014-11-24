@@ -105,7 +105,7 @@ namespace Jedznaplus.Controllers
                 recipe.LastEditDate = DateTime.Now;
                 recipe.LastEditorName = User.Identity.Name;
 
-                if (file != null && file.ContentLength > 0)
+                if (file != null && file.ContentLength > 0 && file.ContentLength<3000000)
                 {
                     var fileName = Path.GetFileName(file.FileName);
                     var uniqueFileName = Guid.NewGuid() + fileName;
@@ -177,11 +177,11 @@ namespace Jedznaplus.Controllers
 
         [OnlyOwnerOrAdmin]
         [HttpPost]
-        public ActionResult Edit(RecipeEditViewModels recipe, HttpPostedFileBase file )
+        public ActionResult Edit(RecipeEditViewModels recipe, HttpPostedFileBase file)
         {
-            if (!ModelState.IsValid) return RedirectToAction("Details", new {id = recipe.Id});
-            
-           var dbPost = _db.Recipes.FirstOrDefault(p => p.Id == recipe.Id);
+            if (!ModelState.IsValid) return RedirectToAction("Details", new { id = recipe.Id });
+
+            var dbPost = _db.Recipes.FirstOrDefault(p => p.Id == recipe.Id);
             if (dbPost == null)
             {
                 return HttpNotFound();
@@ -205,7 +205,7 @@ namespace Jedznaplus.Controllers
             dbPost.LastEditDate = DateTime.Now;
             dbPost.LastEditorName = User.Identity.Name;
 
-            if (file != null && file.ContentLength > 0)
+            if (file != null && file.ContentLength > 0 && file.ContentLength < 3000000)
             {
                 var fileName = Path.GetFileName(file.FileName);
                 var uniqueFileName = Guid.NewGuid() + fileName;
@@ -412,26 +412,25 @@ namespace Jedznaplus.Controllers
         public string CountVotes(string votesString)
         {
             Single mAverage;
-
             Single mTotalNumberOfVotes = 0;
             Single mTotalVoteCount = 0;
-            Single m_currentVotesCount;
-            Single m_inPercent;
+            Single mCurrentVotesCount;
+            Single mInPercent;
 
             // calculate total votes now
             string[] votes = votesString.Split(',');
             for (int i = 0; i < votes.Length; i++)
             {
-                m_currentVotesCount = int.Parse(votes[i]);
-                mTotalNumberOfVotes = mTotalNumberOfVotes + m_currentVotesCount;
-                mTotalVoteCount = mTotalVoteCount + (m_currentVotesCount * (i + 1));
+                mCurrentVotesCount = int.Parse(votes[i]);
+                mTotalNumberOfVotes = mTotalNumberOfVotes + mCurrentVotesCount;
+                mTotalVoteCount = mTotalVoteCount + (mCurrentVotesCount * (i + 1));
             }
 
             mAverage = mTotalVoteCount / mTotalNumberOfVotes;
-            m_inPercent = (mAverage * 100) / 5;
+            mInPercent = (mAverage * 100) / 5;
 
             return "<span style=\"display: block; width: 70px; height: 13px; background: url(/Resources/Images/whitestar.gif) 0 0;\">" +
-                  "<span style=\"display: block; width: " + m_inPercent + "%; height: 13px; background: url(/Resources/Images/yellowstar.gif) 0 -13px;\"></span> " +
+                  "<span style=\"display: block; width: " + mInPercent + "%; height: 13px; background: url(/Resources/Images/yellowstar.gif) 0 -13px;\"></span> " +
                   "</span>" +
                   "<span class=\"smallText\">Ilość głosów: <span itemprop=\"ratingCount\">" + mTotalNumberOfVotes + "</span> | Średnia ocen : <span itemprop=\"ratingValue\">" + mAverage.ToString("##.##") + "</span> na 5 </span>  ";
 
@@ -466,101 +465,101 @@ namespace Jedznaplus.Controllers
                 string[] numbers = quantity.Split('/');
                 quantity = (double.Parse(numbers[0]) / double.Parse(numbers[1])).ToString(CultureInfo.InvariantCulture);
             }
-            double Quantity = double.Parse(quantity);
+            double quantityNumber = double.Parse(quantity);
 
             string validForm = unitName;
             switch (unitName)
             {
                 case "litr":
-                    if (Quantity > 1 && Quantity < 5)
+                    if (quantityNumber > 1 && quantityNumber < 5)
                         validForm = "litry";
-                    else if (Quantity >= 5)
+                    else if (quantityNumber >= 5)
                         validForm = "litrów";
-                    else if (Quantity > 0 && Quantity < 1)
+                    else if (quantityNumber > 0 && quantityNumber < 1)
                         validForm = "litra";
                     break;
 
                 case "mililitr":
-                    if (Quantity > 1 && Quantity < 5)
+                    if (quantityNumber > 1 && quantityNumber < 5)
                         validForm = "mililitry";
-                    else if (Quantity >= 5)
+                    else if (quantityNumber >= 5)
                         validForm = "mililitrów";
                     break;
 
                 case "kilogram":
-                    if (Quantity > 1 && Quantity < 5)
+                    if (quantityNumber > 1 && quantityNumber < 5)
                         validForm = "kilogramy";
-                    else if (Quantity >= 5)
+                    else if (quantityNumber >= 5)
                         validForm = "kilogramów";
                     break;
 
                 case "dekagram":
-                    if (Quantity > 1 && Quantity < 5)
+                    if (quantityNumber > 1 && quantityNumber < 5)
                         validForm = "dekagramy";
-                    else if (Quantity >= 5)
+                    else if (quantityNumber >= 5)
                         validForm = "dekagramów";
                     break;
 
                 case "gram":
-                    if (Quantity > 1 && Quantity < 5)
+                    if (quantityNumber > 1 && quantityNumber < 5)
                         validForm = "gramy";
-                    else if (Quantity >= 5)
+                    else if (quantityNumber >= 5)
                         validForm = "gramów";
                     break;
 
                 case "sztuka":
-                    if (Quantity > 1 && Quantity < 5)
+                    if (quantityNumber > 1 && quantityNumber < 5)
                         validForm = "sztuki";
-                    else if (Quantity >= 5)
+                    else if (quantityNumber >= 5)
                         validForm = "sztuk";
                     break;
 
                 case "plaster":
-                    if (Quantity > 1 && Quantity < 5)
+                    if (quantityNumber > 1 && quantityNumber < 5)
                         validForm = "plastry";
-                    else if (Quantity >= 5)
+                    else if (quantityNumber >= 5)
                         validForm = "plastrów";
-                    else if (Quantity > 0 && Quantity < 1)
+                    else if (quantityNumber > 0 && quantityNumber < 1)
                         validForm = "plastra";
                     break;
 
                 case "opakowanie":
-                    if (Quantity > 1 && Quantity < 5)
+                    if (quantityNumber > 1 && quantityNumber < 5)
                         validForm = "opakowania";
-                    else if (Quantity >= 5)
+                    else if (quantityNumber >= 5)
                         validForm = "opakowań";
                     break;
 
                 case "łyżka":
-                    if (Quantity > 1 && Quantity < 5)
+                    if (quantityNumber > 1 && quantityNumber < 5)
                         validForm = "łyżki";
-                    else if (Quantity >= 5)
+                    else if (quantityNumber >= 5)
                         validForm = "łyżek";
                     break;
 
                 case "łyżeczka":
-                    if (Quantity > 1 && Quantity < 5)
+                    if (quantityNumber > 1 && quantityNumber < 5)
                         validForm = "łyżeczki";
-                    else if (Quantity >= 5)
+                    else if (quantityNumber >= 5)
                         validForm = "łyżeczek";
-                    else if (Quantity > 0 && Quantity < 1)
+                    else if (quantityNumber > 0 && quantityNumber < 1)
                         validForm = "łyżeczeki";
                     break;
 
                 case "szklanka":
-                    if (Quantity > 1 && Quantity < 5)
+                    if (quantityNumber > 1 && quantityNumber < 5)
                         validForm = "szklanki";
-                    else if (Quantity >= 5)
+                    else if (quantityNumber >= 5)
                         validForm = "szklanek";
-                    else if (Quantity > 0 && Quantity < 1)
+                    else if (quantityNumber > 0 && quantityNumber < 1)
                         validForm = "szklanki";
                     break;
 
 
                 case "szczypta":
-                    if (Quantity > 1 && Quantity < 5)
+                    if (quantityNumber > 1 && quantityNumber < 5)
                         validForm = "szczypty";
-                    else if (Quantity >= 5)
+                    else if (quantityNumber >= 5)
                         validForm = "szczypt";
                     break;
             }
@@ -575,10 +574,6 @@ namespace Jedznaplus.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
-
-
-
 
     }
 }

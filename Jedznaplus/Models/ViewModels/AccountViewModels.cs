@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
-namespace Jedznaplus.Models
+namespace Jedznaplus.Models.ViewModels
 {
     public class ExternalLoginConfirmationViewModel
     {
@@ -22,6 +22,25 @@ namespace Jedznaplus.Models
         public ICollection<SelectListItem> Providers { get; set; }
         public string ReturnUrl { get; set; }
         public bool RememberMe { get; set; }
+    }
+
+    public class ManageUserViewModel
+    {
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Obecne hasło")]
+        public string OldPassword { get; set; }
+
+        [Required]
+        [StringLength(100, ErrorMessage = "{0} musi się składać z minimum  {2} znaków.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Nowe hasło")]
+        public string NewPassword { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Potwierdź nowe hasło")]
+        [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessage = "Podane hasła nie są zgodne.")]
+        public string ConfirmPassword { get; set; }
     }
 
     public class UserListItemViewModel

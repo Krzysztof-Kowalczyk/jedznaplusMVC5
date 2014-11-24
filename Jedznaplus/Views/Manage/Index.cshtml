@@ -13,14 +13,7 @@
         <dt>Hasło:</dt>
         <dd>
             [
-            @if (Model.HasPassword)
-            {
-                @Html.ActionLink("Zmień hasło", "ChangePassword")
-            }
-            else
-            {
-                @Html.ActionLink("Stwórz", "SetPassword")
-            }
+            @(Model.HasPassword ? Html.ActionLink("Zmień hasło", "ChangePassword") : Html.ActionLink("Stwórz", "SetPassword"))
             ]
         </dd>
         <dt>Avatar:</dt>

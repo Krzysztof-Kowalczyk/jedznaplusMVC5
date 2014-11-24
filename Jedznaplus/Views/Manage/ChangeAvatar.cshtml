@@ -1,12 +1,12 @@
-﻿@using System.Linq.Expressions
-@using Jedznaplus.Resources
+﻿@using Jedznaplus.Resources
 
 @{
     ViewBag.Title = "Zmień avatar";
 }
 
 <h2>Zmień avatar</h2>
-@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" })) {
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
@@ -14,7 +14,7 @@
     {
         <input type="file" name="file" accept="image/jpeg,image/png">
         <br>
-        <input type="submit" name="dodajAvatar" value="Dodaj" />
+        <input type="submit" name="dodajAvatar" value="Dodaj" id="DodajAvatar" />
     }
     else
     {
@@ -22,7 +22,7 @@
         <br>
     }
 
-   
-}
 
-@Scripts.Render("~/Scripts/Jedznaplus/ImagePickerScript.js")
+}
+@Scripts.Render("~/Scripts/Jedznaplus/EmptyAvatar.js")
+

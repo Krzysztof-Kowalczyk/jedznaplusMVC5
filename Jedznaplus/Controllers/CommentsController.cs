@@ -11,7 +11,7 @@ namespace Jedznaplus.Controllers
         readonly DatabaseModel _db = new DatabaseModel();
 
         // GET: Comments
-        public ActionResult Index(int recipeId)
+  /*      public ActionResult Index(int recipeId)
         {
             var comments = _db.Comments.Where(p => p.Id == recipeId).ToList();
 
@@ -28,7 +28,7 @@ namespace Jedznaplus.Controllers
         public ActionResult Create()
         {
             return View();
-        }
+        }*/
 
         // POST: Comments/Create
         [HttpPost]
@@ -46,7 +46,7 @@ namespace Jedznaplus.Controllers
         }
 
         // GET: Comments/Edit/5
-        public ActionResult Edit(int id)
+     /*   public ActionResult Edit(int id)
         {
             return View();
         }
@@ -65,7 +65,7 @@ namespace Jedznaplus.Controllers
             {
                 return View();
             }
-        }
+        }*/
 
         // GET: Comments/Delete/5
         [OnlyOwnerOrAdmin]
@@ -87,7 +87,7 @@ namespace Jedznaplus.Controllers
         }
 
         // POST: Comments/Delete/5
-        [HttpPost]
+    /*    [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
             var comment = _db.Comments.Single(p => p.Id == id);
@@ -102,7 +102,7 @@ namespace Jedznaplus.Controllers
             {
                 return RedirectToAction("Details", "Recipes", new { id = recipeId });
             }
-        }
+        }*/
 
     }
 }

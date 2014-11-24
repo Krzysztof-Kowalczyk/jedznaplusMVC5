@@ -59,6 +59,7 @@ $(function () {
                     e.preventDefault();
                     return false;
                 }
+                return false;
             });
 
         }
@@ -70,6 +71,7 @@ $(function () {
                     e.preventDefault();
                     return false;
                 }
+                return false;
             });
 
         }

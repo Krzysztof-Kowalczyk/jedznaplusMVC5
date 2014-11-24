@@ -1,7 +1,7 @@
 ﻿var clickedFlag = false;
 $(".ratingStar").mouseover(function () {
 
-    var stars = $(this).attr("src", "/Images/yellowstar.gif").prevAll("img.ratingStar");
+    var stars = $(this).attr("src", "/Resources/Images/yellowstar.gif").prevAll("img.ratingStar");
     var rateWord = $(".rateWord");
 
     switch (stars.length + 1) {
@@ -25,18 +25,18 @@ $(".ratingStar").mouseover(function () {
             break;
 
     }
-    stars.attr("src", "/Images/yellowstar.gif");
+    stars.attr("src", "/Resources/Images/yellowstar.gif");
 
 });
 
 $(".ratingStar, #radingDiv").mouseout(function () {
-    $(this).attr("src", "/Images/whitestar.gif");
+    $(this).attr("src", "/Resources/Images/whitestar.gif");
     $(".rateWord").text("");
 });
 
 $("#ratingDiv").mouseout(function () {
     if (!clickedFlag) {
-        $(".ratingStar").attr("src", "/Images/whitestar.gif");
+        $(".ratingStar").attr("src", "/Resources/Images/whitestar.gif");
     }
 });
 

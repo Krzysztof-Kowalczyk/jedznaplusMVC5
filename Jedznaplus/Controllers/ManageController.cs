@@ -81,9 +81,8 @@ namespace Jedznaplus.Controllers
         [HttpPost]
         public ActionResult ChangeAvatar(HttpPostedFileBase file)
         {
-            if (file != null && file.ContentLength > 0)
+            if (file != null && file.ContentLength > 0 && file.ContentLength < 3000000)
             {
-                //var cUser = UserManager1.FindByName(User.Identity.Name);
                 var cUser = UserManager.FindByName(User.Identity.Name);
 
                 var fileName = Path.GetFileName(file.FileName);

@@ -249,6 +249,7 @@
     <Content Include="Scripts\Jedznaplus\AddComment.js" />
     <Content Include="Scripts\Jedznaplus\AdvancedSearch.js" />
     <Content Include="Scripts\Jedznaplus\CreateIngredient.js" />
+    <Content Include="Scripts\Jedznaplus\EmptyAvatar.js" />
     <Content Include="Scripts\Jedznaplus\Ingredient.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -334,7 +335,6 @@
     <Content Include="Views\Account\Create.cshtml" />
     <Content Include="Views\Recipes\_NewestRecipes.cshtml" />
     <Content Include="Views\Recipes\_BestRatedRecipes.cshtml" />
-    <Content Include="Views\Shared\_AddComment.cshtml" />
     <Content Include="Views\Recipes\_WantedIngredientEditor.cshtml" />
   </ItemGroup>
   <ItemGroup>

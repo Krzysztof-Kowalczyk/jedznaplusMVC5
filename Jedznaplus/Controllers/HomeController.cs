@@ -22,11 +22,14 @@ namespace Jedznaplus.Controllers
             ApplicationDbContext = new ApplicationDbContext();
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(ApplicationDbContext));
         }
+        
+        [OutputCache(Duration = 10)]
         public ActionResult Index()
         {
             return View();
         }
 
+        [OutputCache(Duration=30)]
         public ActionResult About()
         {
             ViewBag.Message = "Informacje o portalu";
@@ -39,7 +42,8 @@ namespace Jedznaplus.Controllers
             var user = UserManager.FindByName(userName);
             return user != null ? user.AvatarUrl : ConstantStrings.DefaultUserAvatar;
         }
-
+        
+        [OutputCache(Duration = 30)]
         public ActionResult Contact()
         {
             ViewBag.Message = "Dane kontaktowe";

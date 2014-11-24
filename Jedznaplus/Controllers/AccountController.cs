@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Jedznaplus.Models.ViewModels;
 using Jedznaplus.Resources;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
@@ -48,7 +49,7 @@ namespace Jedznaplus.Controllers
             return PartialView("_DisplayPhoto");
         }
 
-        [Authorize (Roles="Admins")]
+        [Authorize(Roles = "Admins")]
         public ActionResult ShowUsers()
         {
             var users = UserManager.Users.Select(u => new UserListItemViewModel
@@ -58,7 +59,7 @@ namespace Jedznaplus.Controllers
                 UserName = u.UserName,
                 EmailConfirmed = u.EmailConfirmed
             }).ToList();
-            
+
             return View(users);
         }
 
@@ -67,7 +68,7 @@ namespace Jedznaplus.Controllers
         {
             return View();
         }
-    
+
         [Authorize(Roles = "Admins")]
         [HttpPost]
         public ActionResult Create(RegisterViewModel ruser)
@@ -77,15 +78,15 @@ namespace Jedznaplus.Controllers
             {
                 UserName = ruser.Login,
                 PasswordHash = hasher.HashPassword(ruser.Password),
-                Email=ruser.Email,
-                EmailConfirmed=true,
+                Email = ruser.Email,
+                EmailConfirmed = true,
                 AvatarUrl = ConstantStrings.DefaultUserAvatar
             };
 
             UserManager.Create(user, ruser.Password);
             UserManager.AddToRole(user.Id, "Users");
             ApplicationDbContext.Create().SaveChanges();
-            
+
             return RedirectToAction("ShowUsers");
         }
 
@@ -101,7 +102,7 @@ namespace Jedznaplus.Controllers
                 EmailConfirmed = user.EmailConfirmed,
                 UserName = user.UserName,
                 UserRoles = UserManager.GetRoles(user.Id).ToArray(),
-                AvatarUrl=user.AvatarUrl,
+                AvatarUrl = user.AvatarUrl,
                 Roles = ApplicationDbContext.Create().Roles.Select(r => new SelectListItem
                 {
                     Value = r.Name,
@@ -141,7 +142,7 @@ namespace Jedznaplus.Controllers
             if (toDelete != null)
             {
                 DeleteAvatar(toDelete.AvatarUrl);
-                toDelete.AvatarUrl= ConstantStrings.DefaultUserAvatar;
+                toDelete.AvatarUrl = ConstantStrings.DefaultUserAvatar;
                 UserManager.Update(toDelete);
                 ApplicationDbContext.Create().SaveChanges();
             }
@@ -173,7 +174,7 @@ namespace Jedznaplus.Controllers
                 dbPost.PhoneNumberConfirmed = user.PhoneNumberConfirmed;
                 dbPost.TwoFactorEnabled = user.TwoFactorEnabled;
 
-                if (file != null && file.ContentLength > 0)
+                if (file != null && file.ContentLength > 0 && file.ContentLength < 3000000)
                 {
                     var fileName = Path.GetFileName(file.FileName);
                     var uniqueFileName = Guid.NewGuid() + fileName;
@@ -185,7 +186,7 @@ namespace Jedznaplus.Controllers
                 UserManager.Update(dbPost);
                 ApplicationDbContext.Create().SaveChanges();
 
-                return RedirectToAction("Details",dbPost);
+                return RedirectToAction("Details", dbPost);
             }
 
             return RedirectToAction("ShowUsers");
@@ -219,7 +220,7 @@ namespace Jedznaplus.Controllers
         {
             var user = UserManager.FindById(id);
             UserManager.DeleteAsync(user);
-            
+
             return RedirectToAction("ShowUsers");
         }
 
