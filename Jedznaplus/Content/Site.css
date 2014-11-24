@@ -222,7 +222,7 @@ button.btn {
 
 .btn,
 .post-navigation a {
-	color: #fff;
+    /*color: #fff;*/
 	height: 28px;
 	line-height: 28px;
 	display: block;

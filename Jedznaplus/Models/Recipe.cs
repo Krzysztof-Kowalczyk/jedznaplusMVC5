@@ -26,13 +26,13 @@ namespace Jedznaplus.Models
         public string ImageUrl { get; set; }
 
         [Required(ErrorMessage = "Pole Czas przygotowania jest wymagane")]
-        [Display(Name = "Czas przygotowania")]
         [Range(1, 1000, ErrorMessage = "Czas przygotowania musi być z zakresu od 1 do 1000 minut")]
+        [Display(Name = "Czas przygotowania")]        
         public int PreparationTime { get; set; }
 
         [Required(ErrorMessage = "Pole Porcje jest wymagane")]
-        [Display(Name = "Porcje")]
         [Range(1, 100, ErrorMessage = "Musi być minimum jedna porcja, maksymalnie może być 100 porcji")]
+        [Display(Name = "Porcje")]       
         public int Serves { get; set; }
 
         [Required(ErrorMessage = "Pole Poziom trudności jest wymagane")]
@@ -40,8 +40,8 @@ namespace Jedznaplus.Models
         public string Difficulty { get; set; }
 
         [Required(ErrorMessage = "Pole Kalorie jest wymagane")]
-        [Display(Name = "Kalorie")]
         [Range(1, 9000, ErrorMessage = "Musi być powyżej 0 kalorii")]
+        [Display(Name = "Kalorie")]        
         public int Calories { get; set; }
 
         [Display(Name = "Nazwa uzytkownika")]

@@ -55,7 +55,7 @@ $(function () {
         if (excludeIngred.length > 0) {
             excludeIngred.each(function () {
                 if ($(this).val().trim() == "") {
-                    alert("Nie może istnieć wykluczony składnik bez nazwy. Dodaj nazwę lub usuń niepotrzebne pole.");
+                    $("#validationJS").html("Nie może istnieć wykluczony składnik bez nazwy. Dodaj nazwę lub usuń niepotrzebne pole.");
                     e.preventDefault();
                     return false;
                 }
@@ -67,7 +67,7 @@ $(function () {
         if (wantedIngred.length > 0) {
             wantedIngred.each(function () {
                 if ($(this).val().trim() == "") {
-                    alert("Nie może istnieć pożądany składnik bez nazwy. Dodaj nazwę lub usuń niepotrzebne pole.");
+                    $("#validationJS").html("Nie może istnieć pożądany składnik bez nazwy. Dodaj nazwę lub usuń niepotrzebne pole.");
                     e.preventDefault();
                     return false;
                 }

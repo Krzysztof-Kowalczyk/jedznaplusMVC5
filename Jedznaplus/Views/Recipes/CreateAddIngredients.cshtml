@@ -4,49 +4,53 @@
     ViewBag.Title = "Dodaj składniki";
 }
 
-@Scripts.Render("~/bundles/jqueryval")
-@Scripts.Render("~/Scripts/Jedznaplus/Ingredient.js")
-@Scripts.Render("~/Scripts/Jedznaplus/CreateIngredient.js")
 
 <h2>Dodaj składniki i opisz proces powstawania</h2>
 
 @using (Html.BeginForm())
-    {
+{
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-    <fieldset>
-        @Html.HiddenFor(model => model.Id)
-        @Html.HiddenFor(model => model.ImageUrl)
-        @Html.HiddenFor(model => model.Name)
-        @Html.HiddenFor(model => model.PreparationTime)
-        @Html.HiddenFor(model => model.UserName)
-        @Html.HiddenFor(model => model.Serves)
-        @Html.HiddenFor(model => model.Calories)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <span id="validationJS" class="text-danger"></span>
+        <fieldset>
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.ImageUrl)
+            @Html.HiddenFor(model => model.Name)
+            @Html.HiddenFor(model => model.PreparationTime)
+            @Html.HiddenFor(model => model.UserName)
+            @Html.HiddenFor(model => model.Serves)
+            @Html.HiddenFor(model => model.Calories)
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Ingredients):
-        </div>
-        <br>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Ingredients):
+            </div>
+            <br>
 
-        <ul id="ingredientEditor" style="list-style-type: none"></ul>
+            <ul id="ingredientEditor" style="list-style-type: none"></ul>
 
-        <a id="addAnother" href="#">Dodaj kolejny składnik</a>
-        <br><br>
+            <a id="addAnother" href="#">Dodaj kolejny składnik</a>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.PreparationMethod):
-        </div>
+            <br><br>
 
-        <div class="editor-field">
-            @Html.TextAreaFor(model => model.PreparationMethod, 5, 70, null)
-        </div>
-        <br>
-    </fieldset>
-    <p>
-        <input type="submit" name="dodajPrzepis" value="Dodaj" />
-    </p>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.PreparationMethod):
+            </div>
 
-    }
+            <div class="editor-field">
+                @Html.TextAreaFor(model => model.PreparationMethod, 5, 70, null)
+            </div>
+            <br>
+
+            <p>
+                <input type="submit" name="dodajPrzepis" value="Dodaj" class="btn btn-default" />
+            </p>
+        </fieldset>
+
+        }
+
+        @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/Scripts/Jedznaplus/Ingredient.js")
+        @Scripts.Render("~/Scripts/Jedznaplus/CreateIngredient.js")
 
 
 

@@ -13,14 +13,14 @@
 
         <span class="ingEditorItemName">@Html.LabelFor(model => model.Quantity)</span>
         @Html.EditorFor(model => model.Quantity)
-        @Html.ValidationMessageFor(model => model.Quantity)
+        @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
 
         <span class="ingEditorItemName">@Html.LabelFor(model => model.UnitName)</span>
         @Html.DropDownListFor(model => model.UnitName, (SelectList)ViewBag.UnitNames)
 
         <span class="ingEditorItemName">@Html.LabelFor(model => model.Name)</span>
         @Html.EditorFor(model => model.Name, new { htmlAttributes = new {data_url = @Url.Action("AutoCompleteList") }, autocomplete = "on" })
-        @Html.ValidationMessageFor(model => model.Name)
+        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
 
         <span class="ingEditorItemName">@Html.LabelFor(model => model.Alergic)</span>
         @Html.EditorFor(model => model.Alergic)

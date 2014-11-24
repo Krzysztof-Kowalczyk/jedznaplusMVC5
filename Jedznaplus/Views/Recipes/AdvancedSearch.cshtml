@@ -10,7 +10,7 @@
     @using (Html.BeginForm("AdvancedSearch", "Recipes", FormMethod.Post, new { name = "frm", id = "frm" }))
     {
         <fieldset>
-
+            <span id="validationJS" class="text-danger"></span>
             <div class="editor-label">
                 @Html.LabelFor(model => model.MaxTime)
             </div>
@@ -58,7 +58,8 @@
 
         </fieldset>
 
-        <input type="submit" value="Szukaj" />
+        <input type="submit" value="Szukaj" class="btn btn-default" />
+       <br>
     }
 </div>
 
