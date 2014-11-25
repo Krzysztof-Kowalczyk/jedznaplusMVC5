@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Web.Helpers;
 using Jedznaplus.Models;
 using Jedznaplus.Models.ViewModels;
 using Jedznaplus.Resources;
@@ -96,15 +97,10 @@ namespace Jedznaplus.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Recipe recipe, HttpPostedFileBase file)
+        public ActionResult Create(CreateRecipeFirstPhaseViewModel recipe, HttpPostedFileBase file)
         {
             if (ModelState.IsValid)
             {
-                recipe.UserName = User.Identity.Name;
-                recipe.CreateDate = DateTime.Now;
-                recipe.LastEditDate = DateTime.Now;
-                recipe.LastEditorName = User.Identity.Name;
-
                 if (file != null && file.ContentLength > 0 && file.ContentLength < 3000000)
                 {
                     var fileName = Path.GetFileName(file.FileName);
@@ -126,25 +122,54 @@ namespace Jedznaplus.Controllers
         }
 
         [HttpGet]
-        public ActionResult CreateAddIngredients(Recipe recipe)
+        public ActionResult CreateAddIngredients(CreateRecipeFirstPhaseViewModel recipe)
         {
-            return View(recipe);
+            var recipeToSend = new CreateRecipeSecondPhaseViewModel
+            {
+                Name = recipe.Name,
+                ImageUrl = recipe.ImageUrl,
+                PreparationTime = recipe.PreparationTime,
+                Serves = recipe.Serves,
+                Difficulty = recipe.Difficulty,
+                Calories = recipe.Calories,
+                Vegetarian = recipe.Vegetarian
+
+            };
+            return View(recipeToSend);
         }
 
         [HttpPost]
         [ActionName("CreateAddIngredients")]
-        public ActionResult CreateAddIngredientsPost(Recipe recipe)
+        public ActionResult CreateAddIngredientsPost(CreateRecipeSecondPhaseViewModel recipe)
         {
+
             if (ModelState.IsValid)
             {
-                _db.Recipes.Add(recipe);
+                var Recipe = new Recipe
+                {
+                    Name = recipe.Name,
+                    ImageUrl = recipe.ImageUrl,
+                    PreparationTime = recipe.PreparationTime,
+                    Serves = recipe.Serves,
+                    Difficulty = recipe.Difficulty,
+                    Calories = recipe.Calories,
+                    Vegetarian = recipe.Vegetarian,
+                    PreparationMethod = recipe.PreparationMethod,
+                    Ingredients = recipe.Ingredients,
+                    UserName = User.Identity.Name,
+                    CreateDate = DateTime.Now,
+                    LastEditDate = DateTime.Now,
+                    LastEditorName = User.Identity.Name
+                };
+
+                _db.Recipes.Add(Recipe);
                 _db.SaveChanges();
 
-                string changes = "Dodanie przepisu:: Id Przepisu: " + recipe.Id + " | Dodany przez: " +
-                   recipe.UserName + " | Czas: " + recipe.CreateDate;
+                string changes = "Dodanie przepisu:: Id Przepisu: " + Recipe.Id + " | Dodany przez: " +
+                   Recipe.UserName + " | Czas: " + Recipe.CreateDate;
 
                 Logs.SaveLog(changes);
-                return RedirectToAction("Index");
+                return RedirectToAction("UserRecipes");
             }
             ModelState.AddModelError(string.Empty, "Przepis musi zawierać poprawną listę składników oraz sposób przygotowania");
             return View("CreateAddIngredients", recipe);
@@ -431,6 +456,34 @@ namespace Jedznaplus.Controllers
 
         }
 
+
+        public JsonResult CountVotesFromId(string id)
+        {
+            var ID = Convert.ToInt32(id);
+            var recipe = _db.Recipes.Single(p => p.Id == ID);
+            var votesString = recipe.Votes;
+            Single mTotalNumberOfVotes = 0;
+            Single mTotalVoteCount = 0;
+
+            // calculate total votes now
+            string[] votes = votesString.Split(',');
+            for (int i = 0; i < votes.Length; i++)
+            {
+                Single mCurrentVotesCount = int.Parse(votes[i]);
+                mTotalNumberOfVotes = mTotalNumberOfVotes + mCurrentVotesCount;
+                mTotalVoteCount = mTotalVoteCount + (mCurrentVotesCount * (i + 1));
+            }
+
+            float mAverage = mTotalVoteCount / mTotalNumberOfVotes;
+            float mInPercent = (mAverage * 100) / 5;
+
+            return Json ("<span style=\"display: block; width: 70px; height: 13px; background: url(/Resources/Images/whitestar.gif) 0 0;\">" +
+                  "<span style=\"display: block; width: " + mInPercent + "%; height: 13px; background: url(/Resources/Images/yellowstar.gif) 0 -13px;\"></span> " +
+                  "</span>" +
+                  "<span class=\"smallText\">Ilość głosów: <span itemprop=\"ratingCount\">" + mTotalNumberOfVotes + "</span> | Średnia ocen : <span itemprop=\"ratingValue\">" + mAverage.ToString("##.##") + "</span> na 5 </span>  ");
+
+        }
+
         public ActionResult IngredientEntryRow()
         {
             ViewBag.UnitNames = _unitNameList;
@@ -446,8 +499,6 @@ namespace Jedznaplus.Controllers
         {
             return PartialView("_WantedIngredientEditor");
         }
-
-
 
         public string ValidWordForm(string unitName, string quantity)
         {

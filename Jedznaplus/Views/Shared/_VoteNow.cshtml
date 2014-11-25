@@ -18,9 +18,8 @@
         <div class="stars"> <img src="/Resources/Images/whitestar.gif" alt="" class="ratingStar" data-value="1" /><img src="/Resources/Images/whitestar.gif" alt="" class="ratingStar" data-value="2" /><img src="/Resources/Images/whitestar.gif" alt="" class="ratingStar" data-value="3" /><img src="/Resources/Images/whitestar.gif" alt="" class="ratingStar" data-value="4" /><img src="/Resources/Images/whitestar.gif" alt="" class="ratingStar" data-value="5" /> </div>           
     </div>
     <div class="rateWord" data-url="@url" data-model="@Model" ></div>
-    @Scripts.Render("~/Scripts/Jedznaplus/VoteScripts.js")
 }
 else
 {
-    <text><span style="color:green;">Dziękujemy za twoją ocenę</span></text>
+    <text><span id="thx" style="color:green;">Dziękujemy za twoją ocenę</span></text>
 }

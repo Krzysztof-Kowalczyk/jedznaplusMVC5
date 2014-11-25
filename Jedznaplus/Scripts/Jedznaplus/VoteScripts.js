@@ -51,10 +51,19 @@ $(".ratingStar").click(function () {
 
     var url = "/Home/SendRating?r=" + $(this).attr("data-value") + "&s=5&id=" + model + "&url=" + pageUrl;
 
+    var url1 = "/Recipe/CountVotesFromId?id=" + model;
+
+    alert($('#voteRating1').attr("itemprop"));
+    $.post(url1, null, function (data) {
+        alert(data);
+        alert(('#voteRating1').attr("itemprop"));
+        $("#voteRating1").html(data);
+    });
 
     $.post(url, null, function (data) {
         $(".rateWord").html(data);
     });
+
 });
 
 $(".rateWord").ajaxStart(function () {

@@ -88,8 +88,8 @@
 
         <div class="VoteSystem">
             <div class="td0">Oceń potrawę</div>
-            <div class="td">@Html.Partial("_VoteNow", Model.Id.ToString(CultureInfo.InvariantCulture))</div>
-            <div class="td">@Html.Partial("_VoteShow", Model.Votes)</div>
+            <div id="Now" class="td">@Html.Partial("_VoteNow", Model.Id.ToString(CultureInfo.InvariantCulture))</div>
+            <div id="Show" class="td">@Html.Partial("_VoteShow", Model.Votes)</div>
         </div>
 
         <div class="CommentSystem">
@@ -105,3 +105,4 @@
         @Html.ActionLink("Powrót do listy przepisów", "Index")
     </p>
 </div>
+@Scripts.Render("~/Scripts/Jedznaplus/VoteScripts.js")

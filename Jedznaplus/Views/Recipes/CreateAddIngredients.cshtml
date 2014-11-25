@@ -1,4 +1,4 @@
-﻿@model Jedznaplus.Models.Recipe
+﻿@model Jedznaplus.Models.ViewModels.CreateRecipeSecondPhaseViewModel
 
 @{
     ViewBag.Title = "Dodaj składniki";
@@ -13,11 +13,9 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <span id="validationJS" class="text-danger"></span>
         <fieldset>
-            @Html.HiddenFor(model => model.Id)
             @Html.HiddenFor(model => model.ImageUrl)
             @Html.HiddenFor(model => model.Name)
             @Html.HiddenFor(model => model.PreparationTime)
-            @Html.HiddenFor(model => model.UserName)
             @Html.HiddenFor(model => model.Serves)
             @Html.HiddenFor(model => model.Calories)
 
