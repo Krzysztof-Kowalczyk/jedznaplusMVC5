@@ -21,12 +21,21 @@ namespace Jedznaplus.Controllers
                 comment.CreateDate = DateTime.Now;
                 _db.Comments.Add(comment);
                 _db.SaveChanges();
+
+
+                string changes = "Dodanie komentarza:: Id komentarza: " + comment.Id + "|  Id przepisu: " +
+                                 comment.RecipeId + " | Dodany przez: " +
+                                 comment.UserName + " | Czas: " + DateTime.Now;
+
+                Logs.SaveLog(changes);
+
+
+                if (Request.IsAjaxRequest())
+                {
+                    var comments = _db.Comments.Where(p => p.RecipeId == comment.RecipeId).ToList();
+                    return PartialView("_CommentsList", comments);
+                }
             }
-
-            string changes = "Dodanie komentarza:: Id komentarza: " + comment.Id + "|  Id przepisu: " + comment.RecipeId + " | Dodany przez: " +
-                             comment.UserName + " | Czas: " + DateTime.Now;
-
-            Logs.SaveLog(changes);
 
             var recipeId = _db.Recipes.Single(p => p.Id == comment.RecipeId).Id;
             return RedirectToAction("Details", "Recipes", new { id = recipeId });
@@ -58,8 +67,7 @@ namespace Jedznaplus.Controllers
         [OnlyOwnerOrAdmin]
         public ActionResult Delete(int id)
         {
-            var comment = _db.Comments.Single(p => p.Id == id);
-            var recipeId = _db.Recipes.Single(p => p.Id == comment.RecipeId).Id;
+            var comment = _db.Comments.Single(p => p.Id == id);           
             try
             {
 
@@ -71,11 +79,18 @@ namespace Jedznaplus.Controllers
 
                 Logs.SaveLog(changes);
 
-                return RedirectToAction("Details", "Recipes", new { id = recipeId });
+                if (Request.IsAjaxRequest())
+                {
+                    var comments = _db.Recipes.Single(p => p.Id == comment.RecipeId).Comments.ToList();
+                    return PartialView("_CommentsList", comments);
+                }
+
+
+                return RedirectToAction("Details", "Recipes", new { id = _db.Recipes.Single(p => p.Id == comment.RecipeId).Id });
             }
             catch
             {
-                return RedirectToAction("Details", "Recipes", new { id = recipeId });
+                return RedirectToAction("Details", "Recipes", new { id = _db.Recipes.Single(p => p.Id == comment.RecipeId).Id });
             }
         }
 

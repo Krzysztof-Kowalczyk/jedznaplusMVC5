@@ -20,6 +20,7 @@ namespace Jedznaplus.Models
         public string Name { get; set; }
 
         [Display(Name = "Sposób przygotowania")]
+        [Required]
         public string PreparationMethod { get; set; }
 
         [Display(Name = "Zdjęcie")]

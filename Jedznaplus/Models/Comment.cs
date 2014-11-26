@@ -10,6 +10,7 @@ namespace Jedznaplus.Models
         [Display(Name = "Nazwa użytkownika")]
         public string UserName{get;set;}
         [Display(Name = "Treść")]
+        [Required]
         public string Content{get;set;}
         public DateTime CreateDate { get; set; }
 

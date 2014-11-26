@@ -459,8 +459,8 @@ namespace Jedznaplus.Controllers
 
         public JsonResult CountVotesFromId(string id)
         {
-            var ID = Convert.ToInt32(id);
-            var recipe = _db.Recipes.Single(p => p.Id == ID);
+            var idNum = Convert.ToInt32(id);
+            var recipe = _db.Recipes.Find(idNum);
             var votesString = recipe.Votes;
             Single mTotalNumberOfVotes = 0;
             Single mTotalVoteCount = 0;

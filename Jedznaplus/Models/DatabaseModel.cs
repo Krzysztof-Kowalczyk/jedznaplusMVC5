@@ -15,7 +15,7 @@ namespace Jedznaplus.Models
         {
         }
 
-        public DbSet<NewestRecipesViewModel> NewestRecipesViewModels { get; set; }
+        //public DbSet<NewestRecipesViewModel> NewestRecipesViewModels { get; set; }
 
          /*  static DatabaseModel()
            {

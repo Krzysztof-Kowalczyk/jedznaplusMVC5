@@ -9,6 +9,6 @@
         thisVote=Html.Action("CountVotes","Recipes",new{votesString=Model}).ToHtmlString();
     }
 }
-<div id="voteRating1" style="display:inline-block" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+<div id="voteRating" style="display:inline-block" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
     @Html.Raw(thisVote)
 </div>
