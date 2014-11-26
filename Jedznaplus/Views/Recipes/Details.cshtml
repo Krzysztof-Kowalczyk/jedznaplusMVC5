@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "Szczegóły";
 }
-
+@Html.Partial("_naglowek_cialo")
 <h2>Szczegóły</h2>
 
 <div class="przepis">
@@ -105,6 +105,7 @@
         @Html.ActionLink("Powrót do listy przepisów", "Index")
     </p>
 </div>
+@Html.Partial("_stopka")
 @Scripts.Render("~/Scripts/Jedznaplus/VoteScripts.js")
 @Scripts.Render("~/Scripts/Jedznaplus/Comments.js")
 @Scripts.Render("~/bundles/jqueryval")

@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Register";
 }
+@Html.Partial("_naglowek_cialo")
 <h2>@ViewBag.Title.</h2>
 <h3>Associate your @ViewBag.LoginProvider account.</h3>
 
@@ -30,7 +31,7 @@
         </div>
     </div>
 }
-
+@Html.Partial("_stopka")
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

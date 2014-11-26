@@ -345,6 +345,8 @@
     <Content Include="Views\Recipes\_WantedIngredientEditor.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Shared\_CommentsList.cshtml" />
+    <Content Include="Views\Shared\_naglowek_cialo.cshtml" />
+    <Content Include="Views\Shared\_stopka.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

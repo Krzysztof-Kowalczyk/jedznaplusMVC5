@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Zmień avatar";
 }
-
+@Html.Partial("_naglowek_cialo")
 <h2>Zmień avatar</h2>
 @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -23,7 +23,7 @@
         <br>
     }
 
-
+@Html.Partial("_stopka")
 }
 @Scripts.Render("~/Scripts/Jedznaplus/EmptyAvatar.js")
 

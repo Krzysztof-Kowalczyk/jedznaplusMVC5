@@ -3,10 +3,11 @@
 @{
     ViewBag.Title = "Przepisy";
 }
+@Html.Partial("_naglowek_cialo")
+                    <h2>Przepisy</h2>
 
-<h2>Przepisy</h2>
+                    @Html.Partial("_CreateNewRecipeButton")
 
-@Html.Partial("_CreateNewRecipeButton")
+                    @Html.Partial("_RecipeList", Model)
 
-@Html.Partial("_RecipeList", Model)
-
+@Html.Partial("_stopka")

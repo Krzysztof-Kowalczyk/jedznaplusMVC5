@@ -3,7 +3,7 @@
     ViewBag.Title = "Stwórz nowy przepis";
 }
 
-
+@Html.Partial("_naglowek_cialo")
 <h2>Stwórz nowy przepis</h2>
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
@@ -76,7 +76,7 @@
 <div>
     @Html.ActionLink("Powrót do listy przepisów", "Index")
 </div>
-
+@Html.Partial("_naglowek")
 @Scripts.Render("~/bundles/jqueryval")
 @Scripts.Render("~/Scripts/Jedznaplus/ImagePickerScript.js")
 

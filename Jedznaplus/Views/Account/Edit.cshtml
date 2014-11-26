@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "Edycja";
 }
-
+@Html.Partial("_naglowek_cialo")
 <h2>Edycja</h2>
 
 @using (Html.BeginForm())
@@ -75,3 +75,4 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+@Html.Partial("_stopka")

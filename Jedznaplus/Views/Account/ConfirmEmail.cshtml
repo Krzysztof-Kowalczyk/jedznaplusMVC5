@@ -1,10 +1,11 @@
 ﻿@{
     ViewBag.Title = "Potwierdzenie emaila";
 }
-
+@Html.Partial("_naglowek_cialo")
 <h2>@ViewBag.Title</h2>
 <div>
     <p>
         Dziękujemy za potwierdzenie emaila. @Html.ActionLink("Kliknij tutaj, aby się zalogować", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
     </p>
 </div>
+@Html.Partial("_stopka")

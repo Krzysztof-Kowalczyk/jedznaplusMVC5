@@ -2,8 +2,10 @@
 @{
     ViewBag.Title = "Przepisy użytkownika";
 }
+@Html.Partial("_naglowek_cialo")
 <h2>Przepisy użytkownika</h2>
 
 @Html.Partial("_CreateNewRecipeButton")
 
 @Html.Partial("_RecipeList", Model)
+@Html.Partial("_stopka")

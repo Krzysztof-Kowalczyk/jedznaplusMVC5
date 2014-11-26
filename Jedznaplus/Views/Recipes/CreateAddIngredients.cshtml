@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Dodaj składniki";
 }
-
+@Html.Partial("_naglowek_cialo")
 
 <h2>Dodaj składniki i opisz proces powstawania</h2>
 
@@ -45,7 +45,7 @@
         </fieldset>
 
         }
-
+@Html.Partial("_stopka")
         @Scripts.Render("~/bundles/jqueryval")
         @Scripts.Render("~/Scripts/Jedznaplus/Ingredient.js")
         @Scripts.Render("~/Scripts/Jedznaplus/CreateIngredient.js")

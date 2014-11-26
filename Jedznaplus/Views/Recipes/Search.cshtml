@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Wyszukano";
 }
-
+@Html.Partial("_naglowek_cialo")
 <h2>Wyniki wyszukiwania</h2>
 
 @Html.Partial("_CreateNewRecipeButton")
@@ -17,3 +17,4 @@ else
 {
 @Html.Partial("_RecipeList", Model)
 }
+@Html.Partial("_stopka")

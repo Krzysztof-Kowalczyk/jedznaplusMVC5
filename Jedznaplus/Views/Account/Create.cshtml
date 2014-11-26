@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Stwórz";
 }
-
+@Html.Partial("_naglowek_cialo")
 <h2>Stwórz użytkownika</h2>
 
 @using (Html.BeginForm()) 
@@ -57,3 +57,4 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+@Html.Partial("_stopka")
