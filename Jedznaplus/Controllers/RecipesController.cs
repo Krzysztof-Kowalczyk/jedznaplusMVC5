@@ -27,7 +27,7 @@ namespace Jedznaplus.Controllers
         {
             ApplicationDbContext = new ApplicationDbContext();
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(ApplicationDbContext));
-            _unitNameList = new SelectList(new[] {"sztuka", "plaster", "opakowanie", "łyżka", "łyżeczka", "szklanka", "szczypta", "litr", "mililitr", "kilogram", "dekagram", "gram"  });
+            _unitNameList = new SelectList(new[] { "sztuka", "gram", "dekagram", "kilogram", "mililitr", "litr", "opakowanie", "plaster", "szklanka", "łyżka", "łyżeczka", "szczypta" });
             _difficulties = new SelectList(new[] { "Łatwy", "Średni", "Trudny", "Bardzo Trudny" });
         }
 
@@ -72,7 +72,7 @@ namespace Jedznaplus.Controllers
             int count = _db.Recipes.Count() > 10 ? 10 : _db.Recipes.Count();
 
             var recipes = (from p in _db.Recipes
-                           orderby p.Votes descending
+                           orderby p.AverageGrade descending
                            select p).Take(count).ToList();
 
             var mv = recipes.Select(u => new BestRatedRecipesViewModel
@@ -175,7 +175,7 @@ namespace Jedznaplus.Controllers
         }
 
 
-        [OnlyOwnerOrAdmin]
+        [RecipeOnlyOwnerOrAdmin]
         [HttpGet]
         public ActionResult Edit(int? id)
         {
@@ -203,7 +203,7 @@ namespace Jedznaplus.Controllers
             return View(vm);
         }
 
-        [OnlyOwnerOrAdmin]
+        [RecipeOnlyOwnerOrAdmin]
         [HttpPost]
         public ActionResult Edit(RecipeEditViewModels recipe, HttpPostedFileBase file)
         {
@@ -252,7 +252,7 @@ namespace Jedznaplus.Controllers
         }
 
 
-        [OnlyOwnerOrAdmin]
+        [RecipeOnlyOwnerOrAdmin]
         [HttpGet]
         public ActionResult Delete(int? id)
         {
@@ -267,7 +267,7 @@ namespace Jedznaplus.Controllers
         }
 
         [HttpPost]
-        [OnlyOwnerOrAdmin]
+        [RecipeOnlyOwnerOrAdmin]
         public ActionResult Delete(int id)
         {
 
@@ -314,7 +314,7 @@ namespace Jedznaplus.Controllers
             return View(toView);
         }
 
-        [OnlyOwnerOrAdmin]
+        [RecipeOnlyOwnerOrAdmin]
         public ActionResult DeleteImage(int? id)
         {
             if (id == null)
@@ -427,10 +427,13 @@ namespace Jedznaplus.Controllers
                 (wIngred => recIngred.Name.IndexOf(wIngred.ToLower(), StringComparison.OrdinalIgnoreCase) >= 0));
         }
 
-        public string CountVotes(string votesString)
+        public string CountVotes(string votesString,string id)
         {
+            var idNum = Convert.ToInt32(id);
+            var recipe = _db.Recipes.Find(idNum);
+
             Single mTotalNumberOfVotes = 0;
-            Single mTotalVoteCount = 0;
+            Single mTotalVoteCount = 0;         
 
             // calculate total votes now
             string[] votes = votesString.Split(',');
@@ -443,6 +446,9 @@ namespace Jedznaplus.Controllers
 
             float mAverage = mTotalVoteCount / mTotalNumberOfVotes;
             float mInPercent = (mAverage * 100) / 5;
+
+            recipe.AverageGrade = mAverage;
+            _db.SaveChanges();
 
             return "<span style=\"display: block; width: 70px; height: 13px; background: url(/Resources/Images/whitestar.gif) 0 0;\">" +
                   "<span style=\"display: block; width: " + mInPercent + "%; height: 13px; background: url(/Resources/Images/yellowstar.gif) 0 -13px;\"></span> " +
@@ -470,6 +476,9 @@ namespace Jedznaplus.Controllers
 
             float mAverage = mTotalVoteCount / mTotalNumberOfVotes;
             float mInPercent = (mAverage * 100) / 5;
+
+            recipe.AverageGrade = mAverage;
+            _db.SaveChanges();
 
             return Json ("<span style=\"display: block; width: 70px; height: 13px; background: url(/Resources/Images/whitestar.gif) 0 0;\">" +
                   "<span style=\"display: block; width: " + mInPercent + "%; height: 13px; background: url(/Resources/Images/yellowstar.gif) 0 -13px;\"></span> " +

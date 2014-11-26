@@ -35,17 +35,6 @@
             </div>
             <br>
 
-
-            <div>
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.ExcludeIngredients):
-                </div>
-                <ul id="excludeingredientEditor" style="list-style-type: none"> </ul>
-            </div>
-
-            <a id="addAnother" href="#">Dodaj kolejny wykluczoy składnik</a>
-            <br><br>
-
             <div>
                 <div class="editor-label">
                     @Html.LabelFor(model => model.WantedIngredients):
@@ -54,6 +43,16 @@
             </div>
 
             <a id="addAnotherWanted" href="#">Dodaj kolejny pożądany składnik</a>
+            <br><br>
+            
+            <div>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ExcludeIngredients):
+                </div>
+                <ul id="excludeingredientEditor" style="list-style-type: none"> </ul>
+            </div>
+
+            <a id="addAnother" href="#">Dodaj kolejny wykluczony składnik</a>
             <br><br>
 
         </fieldset>

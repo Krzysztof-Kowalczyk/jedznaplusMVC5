@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Jedznaplus.Validators
 {
-    public class OnlyOwnerOrAdmin : AuthorizeAttribute
+    public class RecipeOnlyOwnerOrAdmin : AuthorizeAttribute
     {
         readonly DatabaseModel _db = new DatabaseModel();
         protected ApplicationDbContext ApplicationDbContext { get; set; }

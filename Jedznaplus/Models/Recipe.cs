@@ -50,6 +50,8 @@ namespace Jedznaplus.Models
 
         public string Votes { get; set; }
 
+        public double AverageGrade { get; set; }
+
         public virtual List<Comment> Comments { get; set; }
 
         [Display(Name = "Lista składników")]

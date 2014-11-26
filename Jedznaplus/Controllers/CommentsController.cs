@@ -64,7 +64,7 @@ namespace Jedznaplus.Controllers
            }*/
 
         // GET: Comments/Delete/5
-        [OnlyOwnerOrAdmin]
+        [CommentOnlyOwnerOrAdminOrEditors]
         public ActionResult Delete(int id)
         {
             var comment = _db.Comments.Single(p => p.Id == id);           
