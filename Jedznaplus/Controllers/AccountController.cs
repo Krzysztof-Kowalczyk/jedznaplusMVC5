@@ -181,6 +181,8 @@ namespace Jedznaplus.Controllers
                 dbPost.UserName = user.UserName;
                 dbPost.Email = user.Email;
                 dbPost.EmailConfirmed = user.EmailConfirmed;
+                UserManager.RemoveFromRoles(user.Id, UserManager.GetRoles(user.Id).ToArray());
+                UserManager.AddToRoles(user.Id, user.UserRoles);
 
                 if (file != null && file.ContentLength > 0 && file.ContentLength < 3000000)
                 {

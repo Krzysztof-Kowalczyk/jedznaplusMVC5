@@ -31,7 +31,7 @@ namespace Jedznaplus.Validators
 
             var user = UserManager.FindByName(userName);
 
-            if(UserManager.IsInRole(user.Id,"Admins")) 
+            if (UserManager.IsInRole(user.Id, "Admins") || UserManager.IsInRole(user.Id, "Editors")) 
             {
                 return true;
             }

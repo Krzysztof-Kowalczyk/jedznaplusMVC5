@@ -194,7 +194,7 @@
     <Compile Include="Resources\Logs.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Validators\CommentOnlyOwnerOrAdmin.cs" />
-    <Compile Include="Validators\RecipeOnlyOwnerOrAdmin.cs" />
+    <Compile Include="Validators\RecipeOnlyOwnerOrAdminOrEditors.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />

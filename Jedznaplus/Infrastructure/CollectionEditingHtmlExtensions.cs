@@ -22,8 +22,7 @@ namespace Jedznaplus.Infrastructure
 
             string collectionIndexFieldName = String.Format("{0}.Index", collectionName);
 
-            string itemIndex;
-            itemIndex = html.ViewData.ContainsKey(JQueryTemplatingEnabledKey) ? "${index}" : GetCollectionItemIndex(collectionIndexFieldName);
+            string itemIndex = html.ViewData.ContainsKey(JQueryTemplatingEnabledKey) ? "${index}" : GetCollectionItemIndex(collectionIndexFieldName);
 
             string collectionItemName = String.Format("{0}[{1}]", collectionName, itemIndex);
 

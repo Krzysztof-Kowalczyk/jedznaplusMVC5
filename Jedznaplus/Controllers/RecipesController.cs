@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.Web.Helpers;
 using Jedznaplus.Models;
 using Jedznaplus.Models.ViewModels;
 using Jedznaplus.Resources;
@@ -28,7 +27,7 @@ namespace Jedznaplus.Controllers
         {
             ApplicationDbContext = new ApplicationDbContext();
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(ApplicationDbContext));
-            _unitNameList = new SelectList(new[] { "litr", "mililitr", "kilogram", "dekagram", "gram", "sztuka", "plaster", "opakowanie", "łyżka", "łyżeczka", "szklanka", "szczypta" });
+            _unitNameList = new SelectList(new[] {"sztuka", "plaster", "opakowanie", "łyżka", "łyżeczka", "szklanka", "szczypta", "litr", "mililitr", "kilogram", "dekagram", "gram"  });
             _difficulties = new SelectList(new[] { "Łatwy", "Średni", "Trudny", "Bardzo Trudny" });
         }
 
@@ -145,7 +144,7 @@ namespace Jedznaplus.Controllers
 
             if (ModelState.IsValid)
             {
-                var Recipe = new Recipe
+                var recipeToSave = new Recipe
                 {
                     Name = recipe.Name,
                     ImageUrl = recipe.ImageUrl,
@@ -162,11 +161,11 @@ namespace Jedznaplus.Controllers
                     LastEditorName = User.Identity.Name
                 };
 
-                _db.Recipes.Add(Recipe);
+                _db.Recipes.Add(recipeToSave);
                 _db.SaveChanges();
 
-                string changes = "Dodanie przepisu:: Id Przepisu: " + Recipe.Id + " | Dodany przez: " +
-                   Recipe.UserName + " | Czas: " + Recipe.CreateDate;
+                string changes = "Dodanie przepisu:: Id Przepisu: " + recipeToSave.Id + " | Dodany przez: " +
+                   recipeToSave.UserName + " | Czas: " + recipeToSave.CreateDate;
 
                 Logs.SaveLog(changes);
                 return RedirectToAction("UserRecipes");
@@ -312,9 +311,6 @@ namespace Jedznaplus.Controllers
 
             if (toView == null) return RedirectToAction("Index");
 
-            var avatar = UserManager.FindByName(toView.UserName);
-            ViewBag.AvatarURL = avatar != null ? avatar.AvatarUrl : ConstantStrings.DefaultUserAvatar;
-
             return View(toView);
         }
 
@@ -333,7 +329,6 @@ namespace Jedznaplus.Controllers
             DeleteImg(toDelete.ImageUrl);
             toDelete.ImageUrl = ConstantStrings.DefaultRecipePhoto;
             _db.SaveChanges();
-
 
             var vm = new RecipeEditViewModels
             {
@@ -453,7 +448,6 @@ namespace Jedznaplus.Controllers
                   "<span style=\"display: block; width: " + mInPercent + "%; height: 13px; background: url(/Resources/Images/yellowstar.gif) 0 -13px;\"></span> " +
                   "</span>" +
                   "<span class=\"smallText\">Ilość głosów: <span itemprop=\"ratingCount\">" + mTotalNumberOfVotes + "</span> | Średnia ocen : <span itemprop=\"ratingValue\">" + mAverage.ToString("##.##") + "</span> na 5 </span>  ";
-
         }
 
 
