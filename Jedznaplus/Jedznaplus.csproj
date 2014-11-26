@@ -239,6 +239,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Resources\Images\logo.png" />
     <Content Include="Resources\Images\Recipes\noPhoto.png" />
     <Content Include="Resources\Images\Users\defaultavatar.png" />
     <Content Include="Resources\Images\whitestar.gif" />
@@ -246,6 +247,7 @@
     <Content Include="Resources\Logs\testlog.txt" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Content\DancingScript-Regular.ttf" />
     <None Include="Properties\PublishProfiles\jedznaplus.pubxml" />
     <Content Include="Scripts\Jedznaplus\AdvancedSearch.js" />
     <Content Include="Scripts\Jedznaplus\Comments.js" />
