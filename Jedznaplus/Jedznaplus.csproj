@@ -192,6 +192,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\ConstantStrings.cs" />
     <Compile Include="Resources\Logs.cs" />
+    <Compile Include="Resources\UserDbInitializer.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Validators\CommentOnlyOwnerOrAdminOrEditors.cs" />
     <Compile Include="Validators\RecipeOnlyOwnerOrAdminOrEditors.cs" />
