@@ -288,8 +288,8 @@ button.btn {
 
 /* Internal Columns */
 #main-col, .internal, .internal .bot { width: 726px; float: left; }
-.internal { min-height: 30px; padding: 23px 0 0 0; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/column-top.png) top left no-repeat; }
-.internal .repeat { width: 636px; padding: 30px 45px 45px 45px; overflow: hidden; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/column-mid.png) repeat-y; }
+.internal { min-height: 30px; padding: 22px 0 0 0; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/column-top.png) top left no-repeat; }
+.internal .repeat {  padding: 30px 45px 45px 45px; overflow: hidden; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/column-mid.png) repeat-y; }
 .internal .bot { height: 23px; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/column-bot.png) bottom left no-repeat; }
 .tape { padding-top: 34px !important; background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/column-top-tape.png) top left no-repeat !important; }
 
