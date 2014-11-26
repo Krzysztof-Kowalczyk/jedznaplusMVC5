@@ -39,11 +39,12 @@
     width: 250px;
     padding: 10px;
     float: right;
-    background-color: #222;
-    border-color: #080808;
-    border-radius: 5px;
 }
 
+.search a {
+text-decoration:none;
+color:#7d6357;
+}
 .ingEditorItemName {
     margin-left: 5px;
     margin-right: 5px;

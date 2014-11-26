@@ -132,8 +132,8 @@ padding: 0 20px;
 
 p { color: #7d6357; line-height: 1.6em; margin-bottom: 20px; }
 a, p, textarea, input[type=text] { font-size: 12px; }
-a:hover { text-decoration: underline; cursor: pointer; }
-
+a:hover { text-decoration: none; cursor: pointer; }
+a{color:#9b8c75}
 /*=== Headings ===*/
 
 h1, h2, h3, h4, h5, h6 { color: #444; font-weight: normal; margin-bottom: 20px; line-height: 1; }
@@ -458,6 +458,18 @@ button.btn {
 	position: relative;
 	background: url(http://themes.divwrap.com/ingredients/wp-content/themes/ingredients/images/bg-footer.jpg) repeat;
 	z-index: 2;
+}
+a, #logo a:hover, .title, .title a, #menu ul li ul li a:hover, .menu ul li ul li a:hover, #recipes .recipe .recipe-info h4 a, #post-summaries .post .post-title:hover a, #footer .widget a:hover, .widget_recent_entries a:hover, #respond .comment-form-author .required, #respond .comment-form-email .required, #comments-title {
+    color: #c74343;
+}
+#header .menu > ul > li > a {
+    height: 100%;
+    line-height: 58px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #9b8c75;
+    padding: 0 20px;
 }
 
 #menu-top a,
