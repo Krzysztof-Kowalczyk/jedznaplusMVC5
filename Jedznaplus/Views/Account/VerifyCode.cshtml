@@ -2,37 +2,88 @@
 @{
     ViewBag.Title = "Weryfikacja kodu";
 }
+<div id="header">
+    <div id="header-wrap">
 
-<h2>@ViewBag.Title</h2>
+        <div class="inner">
 
-@using (Html.BeginForm("VerifyCode", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
-    @Html.AntiForgeryToken()
-    @Html.Hidden("provider", @Model.Provider)
-    @Html.Hidden("rememberMe", @Model.RememberMe)
-    <h4>Enter verification code</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Code, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <div class="checkbox">
-                @Html.CheckBoxFor(m => m.RememberBrowser)
-                @Html.LabelFor(m => m.RememberBrowser)
+            <!-- Logo -->
+            <div id="logo">
+                <a href=".."><img src="~/Resources/Images/logo.png" alt="Ingredients"></a>
+
+            </div>
+            <div class="wide blank">
+                <div class="top"></div>
+                <div class="mid">
+
+                    <div class="menu">
+                        <ul id="menu-category-menu-1" class="menu">
+                            <li class="test"><a href=".."><span>Home</span></a></li>
+                            <li class="test"><a href="http://themes.divwrap.com/ingredients/category/appetizers/"><span>Appetizers</span></a></li>
+                            <li class="test"><a href="http://themes.divwrap.com/ingredients/category/beverages/"><span>Beverages</span></a></li>
+                            <li class="test"><a href="http://themes.divwrap.com/ingredients/category/breakfast/"><span>Breakfast</span></a></li>
+                            <li class="test"><a href="http://themes.divwrap.com/ingredients/category/desserts/"><span>Desserts</span></a></li>
+                            <li class="test"><a href="http://themes.divwrap.com/ingredients/category/main-dishes/"><span>Main Dishes</span></a></li>
+
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Potwierdź" />
-        </div>
-    </div>
-}
+    <div id="content" class="inner">
 
+        <!--=== Begin Main Column ===-->
+        <div id="main-col">
+
+            <div class="internal">
+
+                <div class="repeat">
+                    <h2>@ViewBag.Title</h2>
+
+                    @using (Html.BeginForm("VerifyCode", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("provider", @Model.Provider)
+                        @Html.Hidden("rememberMe", @Model.RememberMe)
+                        <h4>Enter verification code</h4>
+                        <hr />
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Code, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <div class="checkbox">
+                                    @Html.CheckBoxFor(m => m.RememberBrowser)
+                                    @Html.LabelFor(m => m.RememberBrowser)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" class="btn btn-default" value="Potwierdź" />
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+
+
+
+            </div>
+
+        </div>
+        <!--=== End Main Column ===-->
+
+    </div>
+    <!--=== End Sidebar ===-->
+
+</div>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

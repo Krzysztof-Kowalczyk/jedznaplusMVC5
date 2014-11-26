@@ -3,46 +3,99 @@
     ViewBag.Title = "Rejestracja";
 }
 
-<h2>@ViewBag.Title</h2>
+<div id="header">
+    <div id="header-wrap">
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    <h4>Stwórz nowe konto</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
+        <div class="inner">
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Login, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Login, new { @class = "form-control" })
+            <!-- Logo -->
+            <div id="logo">
+                <a href=".."><img src="~/Resources/Images/logo.png" alt="Ingredients"></a>
+
+            </div>
+            <div class="wide blank">
+                <div class="top"></div>
+                <div class="mid">
+
+                    <div class="menu">
+                        <ul id="menu-category-menu-1" class="menu">
+                            <li class="test"><a href=".."><span>Home</span></a></li>
+                            <li class="test"><a href="http://themes.divwrap.com/ingredients/category/appetizers/"><span>Appetizers</span></a></li>
+                            <li class="test"><a href="http://themes.divwrap.com/ingredients/category/beverages/"><span>Beverages</span></a></li>
+                            <li class="test"><a href="http://themes.divwrap.com/ingredients/category/breakfast/"><span>Breakfast</span></a></li>
+                            <li class="test"><a href="http://themes.divwrap.com/ingredients/category/desserts/"><span>Desserts</span></a></li>
+                            <li class="test"><a href="http://themes.divwrap.com/ingredients/category/main-dishes/"><span>Main Dishes</span></a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    
-    <div class="form-group">
-        @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+    <div id="content" class="inner">
+
+        <!--=== Begin Main Column ===-->
+        <div id="main-col">
+
+            <div class="internal">
+
+                <div class="repeat">
+
+                    <!--=== Begin Contact Form ===-->
+
+                    <h2>@ViewBag.Title</h2>
+
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <h4>Stwórz nowe konto</h4>
+                        <hr />
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Login, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Login, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" class="btn btn-default" value="Zarejestruj" />
+                            </div>
+                        </div>
+                    }
+                    <!--=== End Contact Form ===-->
+
+                </div>
+
+            </div>
+
         </div>
+        <!--=== End Main Column ===-->
+
     </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Zarejestruj" />
-        </div>
-    </div>
-}
+    <!--=== End Sidebar ===-->
+
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

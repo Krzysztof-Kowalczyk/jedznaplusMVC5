@@ -2,22 +2,72 @@
 @{
     ViewBag.Title = "Send";
 }
+<div id="header">
+    <div id="header-wrap">
 
-<h2>@ViewBag.Title</h2>
+        <div class="inner">
 
-@using (Html.BeginForm("SendCode", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
-    @Html.AntiForgeryToken()
-    @Html.Hidden("rememberMe", @Model.RememberMe)
-    <h4>Send verification code</h4>
-    <hr />
-    <div class="row">
-        <div class="col-md-8">
-            Select Two-Factor Authentication Provider:
-            @Html.DropDownListFor(model => model.SelectedProvider, Model.Providers)
-            <input type="submit" value="Wyślij kod" class="btn btn-default" />
+            <!-- Logo -->
+            <div id="logo">
+                <a href=".."><img src="~/Resources/Images/logo.png" alt="Ingredients"></a>
+
+            </div>
+            <div class="wide blank">
+                <div class="top"></div>
+                <div class="mid">
+
+                    <div class="menu">
+                        <ul id="menu-category-menu-1" class="menu">
+                            <li class="test"><a href=".."><span>Home</span></a></li>
+                            <li class="test"><a href="http://themes.divwrap.com/ingredients/category/appetizers/"><span>Appetizers</span></a></li>
+                            <li class="test"><a href="http://themes.divwrap.com/ingredients/category/beverages/"><span>Beverages</span></a></li>
+                            <li class="test"><a href="http://themes.divwrap.com/ingredients/category/breakfast/"><span>Breakfast</span></a></li>
+                            <li class="test"><a href="http://themes.divwrap.com/ingredients/category/desserts/"><span>Desserts</span></a></li>
+                            <li class="test"><a href="http://themes.divwrap.com/ingredients/category/main-dishes/"><span>Main Dishes</span></a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-}
+    <div id="content" class="inner">
+
+        <!--=== Begin Main Column ===-->
+        <div id="main-col">
+
+            <div class="internal">
+
+                <div class="repeat">
+                    <h2>@ViewBag.Title</h2>
+
+                    @using (Html.BeginForm("SendCode", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("rememberMe", @Model.RememberMe)
+                        <h4>Send verification code</h4>
+                        <hr />
+                        <div class="row">
+                            <div class="col-md-8">
+                                Select Two-Factor Authentication Provider:
+                                @Html.DropDownListFor(model => model.SelectedProvider, Model.Providers)
+                                <input type="submit" value="Wyślij kod" class="btn btn-default" />
+                            </div>
+                        </div>
+                    }
+                    <!--=== End Contact Form ===-->
+
+                </div>
+
+            </div>
+
+        </div>
+        <!--=== End Main Column ===-->
+
+    </div>
+    <!--=== End Sidebar ===-->
+
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

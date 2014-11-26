@@ -1,45 +1,92 @@
 ﻿@model IEnumerable<Jedznaplus.Models.ViewModels.UserListItemViewModel>
-
 @{
     ViewBag.Title = "Lista użytkowników";
 }
+<div id="header">
+    <div id="header-wrap">
 
-<h2>Lista użytkowników</h2>
+        <div class="inner">
 
-<p>
-    @Html.ActionLink("Dodaj nowego użytkownika", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EmailConfirmed)
-        </th>
-        <th></th>
-    </tr>
+            <!-- Logo -->
+            <div id="logo">
+                <a href=".."><img src="~/Resources/Images/logo.png" alt="Ingredients"></a>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EmailConfirmed)
-        </td>
-        <td>
-            @Html.ActionLink("Edycja", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Szczegóły", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Usuń", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+            </div>
+            <div class="wide blank">
+                <div class="top"></div>
+                <div class="mid">
 
-</table>
+                    <div class="menu">
+                        <ul id="menu-category-menu-1" class="menu">
+                            <li class="test"><a href=".."><span>Home</span></a></li>
+                            <li class="test"><a href="http://themes.divwrap.com/ingredients/category/appetizers/"><span>Appetizers</span></a></li>
+                            <li class="test"><a href="http://themes.divwrap.com/ingredients/category/beverages/"><span>Beverages</span></a></li>
+                            <li class="test"><a href="http://themes.divwrap.com/ingredients/category/breakfast/"><span>Breakfast</span></a></li>
+                            <li class="test"><a href="http://themes.divwrap.com/ingredients/category/desserts/"><span>Desserts</span></a></li>
+                            <li class="test"><a href="http://themes.divwrap.com/ingredients/category/main-dishes/"><span>Main Dishes</span></a></li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="content" class="inner">
+
+        <!--=== Begin Main Column ===-->
+        <div id="main-col">
+
+            <div class="internal">
+
+                <div class="repeat">
+                    <h2>Lista użytkowników</h2>
+                    <p>
+                        @Html.ActionLink("Dodaj nowego użytkownika", "Create")
+                    </p>
+                    <table class="table">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Email)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.UserName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmailConfirmed)
+                            </th>
+                            <th></th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.UserName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.EmailConfirmed)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edycja", "Edit", new { id = item.Id }) |
+                                    @Html.ActionLink("Szczegóły", "Details", new { id = item.Id }) |
+                                    @Html.ActionLink("Usuń", "Delete", new { id = item.Id })
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                    <!--=== End Contact Form ===-->
+
+                </div>
+
+            </div>
+
+        </div>
+        <!--=== End Main Column ===-->
+
+    </div>
+    <!--=== End Sidebar ===-->
+
+</div>
+
