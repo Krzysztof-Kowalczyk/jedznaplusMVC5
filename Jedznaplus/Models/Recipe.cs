@@ -20,6 +20,7 @@ namespace Jedznaplus.Models
         public string Name { get; set; }
 
         [Display(Name = "Sposób przygotowania")]
+        [Required]
         public string PreparationMethod { get; set; }
 
         [Display(Name = "Zdjęcie")]
@@ -48,6 +49,8 @@ namespace Jedznaplus.Models
         public string UserName { get; set; }
 
         public string Votes { get; set; }
+
+        public double AverageGrade { get; set; }
 
         public virtual List<Comment> Comments { get; set; }
 

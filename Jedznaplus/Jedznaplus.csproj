@@ -193,8 +193,8 @@
     <Compile Include="Resources\ConstantStrings.cs" />
     <Compile Include="Resources\Logs.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Validators\CommentOnlyOwnerOrAdmin.cs" />
-    <Compile Include="Validators\RecipeOnlyOwnerOrAdmin.cs" />
+    <Compile Include="Validators\CommentOnlyOwnerOrAdminOrEditors.cs" />
+    <Compile Include="Validators\RecipeOnlyOwnerOrAdminOrEditors.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -247,19 +247,21 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\jedznaplus.pubxml" />
-    <Content Include="Scripts\Jedznaplus\AddComment.js" />
     <Content Include="Scripts\Jedznaplus\AdvancedSearch.js" />
+    <Content Include="Scripts\Jedznaplus\Comments.js" />
     <Content Include="Scripts\Jedznaplus\CreateIngredient.js" />
     <Content Include="Scripts\Jedznaplus\EmptyAvatar.js" />
     <Content Include="Scripts\Jedznaplus\Ingredient.js" />
+    <Content Include="Resources\Faq.pdf" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
-    <Content Include="Scripts\Jedznaplus\RefreshRating.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.11.2.js" />
     <Content Include="Scripts\jquery-ui-1.11.2.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -339,6 +341,7 @@
     <Content Include="Views\Recipes\_BestRatedRecipes.cshtml" />
     <Content Include="Views\Recipes\_WantedIngredientEditor.cshtml" />
     <Content Include="Views\Account\Edit.cshtml" />
+    <Content Include="Views\Shared\_CommentsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

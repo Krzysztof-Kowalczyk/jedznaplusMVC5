@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.Web.Helpers;
 using Jedznaplus.Models;
 using Jedznaplus.Models.ViewModels;
 using Jedznaplus.Resources;
@@ -28,7 +27,7 @@ namespace Jedznaplus.Controllers
         {
             ApplicationDbContext = new ApplicationDbContext();
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(ApplicationDbContext));
-            _unitNameList = new SelectList(new[] { "litr", "mililitr", "kilogram", "dekagram", "gram", "sztuka", "plaster", "opakowanie", "łyżka", "łyżeczka", "szklanka", "szczypta" });
+            _unitNameList = new SelectList(new[] { "sztuka", "gram", "dekagram", "kilogram", "mililitr", "litr", "opakowanie", "plaster", "szklanka", "łyżka", "łyżeczka", "szczypta" });
             _difficulties = new SelectList(new[] { "Łatwy", "Średni", "Trudny", "Bardzo Trudny" });
         }
 
@@ -73,7 +72,7 @@ namespace Jedznaplus.Controllers
             int count = _db.Recipes.Count() > 10 ? 10 : _db.Recipes.Count();
 
             var recipes = (from p in _db.Recipes
-                           orderby p.Votes descending
+                           orderby p.AverageGrade descending
                            select p).Take(count).ToList();
 
             var mv = recipes.Select(u => new BestRatedRecipesViewModel
@@ -145,7 +144,7 @@ namespace Jedznaplus.Controllers
 
             if (ModelState.IsValid)
             {
-                var Recipe = new Recipe
+                var recipeToSave = new Recipe
                 {
                     Name = recipe.Name,
                     ImageUrl = recipe.ImageUrl,
@@ -162,11 +161,11 @@ namespace Jedznaplus.Controllers
                     LastEditorName = User.Identity.Name
                 };
 
-                _db.Recipes.Add(Recipe);
+                _db.Recipes.Add(recipeToSave);
                 _db.SaveChanges();
 
-                string changes = "Dodanie przepisu:: Id Przepisu: " + Recipe.Id + " | Dodany przez: " +
-                   Recipe.UserName + " | Czas: " + Recipe.CreateDate;
+                string changes = "Dodanie przepisu:: Id Przepisu: " + recipeToSave.Id + " | Dodany przez: " +
+                   recipeToSave.UserName + " | Czas: " + recipeToSave.CreateDate;
 
                 Logs.SaveLog(changes);
                 return RedirectToAction("UserRecipes");
@@ -176,7 +175,7 @@ namespace Jedznaplus.Controllers
         }
 
 
-        [OnlyOwnerOrAdmin]
+        [RecipeOnlyOwnerOrAdmin]
         [HttpGet]
         public ActionResult Edit(int? id)
         {
@@ -204,7 +203,7 @@ namespace Jedznaplus.Controllers
             return View(vm);
         }
 
-        [OnlyOwnerOrAdmin]
+        [RecipeOnlyOwnerOrAdmin]
         [HttpPost]
         public ActionResult Edit(RecipeEditViewModels recipe, HttpPostedFileBase file)
         {
@@ -253,7 +252,7 @@ namespace Jedznaplus.Controllers
         }
 
 
-        [OnlyOwnerOrAdmin]
+        [RecipeOnlyOwnerOrAdmin]
         [HttpGet]
         public ActionResult Delete(int? id)
         {
@@ -268,7 +267,7 @@ namespace Jedznaplus.Controllers
         }
 
         [HttpPost]
-        [OnlyOwnerOrAdmin]
+        [RecipeOnlyOwnerOrAdmin]
         public ActionResult Delete(int id)
         {
 
@@ -312,13 +311,10 @@ namespace Jedznaplus.Controllers
 
             if (toView == null) return RedirectToAction("Index");
 
-            var avatar = UserManager.FindByName(toView.UserName);
-            ViewBag.AvatarURL = avatar != null ? avatar.AvatarUrl : ConstantStrings.DefaultUserAvatar;
-
             return View(toView);
         }
 
-        [OnlyOwnerOrAdmin]
+        [RecipeOnlyOwnerOrAdmin]
         public ActionResult DeleteImage(int? id)
         {
             if (id == null)
@@ -333,7 +329,6 @@ namespace Jedznaplus.Controllers
             DeleteImg(toDelete.ImageUrl);
             toDelete.ImageUrl = ConstantStrings.DefaultRecipePhoto;
             _db.SaveChanges();
-
 
             var vm = new RecipeEditViewModels
             {
@@ -432,10 +427,13 @@ namespace Jedznaplus.Controllers
                 (wIngred => recIngred.Name.IndexOf(wIngred.ToLower(), StringComparison.OrdinalIgnoreCase) >= 0));
         }
 
-        public string CountVotes(string votesString)
+        public string CountVotes(string votesString,string id)
         {
+            var idNum = Convert.ToInt32(id);
+            var recipe = _db.Recipes.Find(idNum);
+
             Single mTotalNumberOfVotes = 0;
-            Single mTotalVoteCount = 0;
+            Single mTotalVoteCount = 0;         
 
             // calculate total votes now
             string[] votes = votesString.Split(',');
@@ -449,18 +447,20 @@ namespace Jedznaplus.Controllers
             float mAverage = mTotalVoteCount / mTotalNumberOfVotes;
             float mInPercent = (mAverage * 100) / 5;
 
+            recipe.AverageGrade = mAverage;
+            _db.SaveChanges();
+
             return "<span style=\"display: block; width: 70px; height: 13px; background: url(/Resources/Images/whitestar.gif) 0 0;\">" +
                   "<span style=\"display: block; width: " + mInPercent + "%; height: 13px; background: url(/Resources/Images/yellowstar.gif) 0 -13px;\"></span> " +
                   "</span>" +
                   "<span class=\"smallText\">Ilość głosów: <span itemprop=\"ratingCount\">" + mTotalNumberOfVotes + "</span> | Średnia ocen : <span itemprop=\"ratingValue\">" + mAverage.ToString("##.##") + "</span> na 5 </span>  ";
-
         }
 
 
         public JsonResult CountVotesFromId(string id)
         {
-            var ID = Convert.ToInt32(id);
-            var recipe = _db.Recipes.Single(p => p.Id == ID);
+            var idNum = Convert.ToInt32(id);
+            var recipe = _db.Recipes.Find(idNum);
             var votesString = recipe.Votes;
             Single mTotalNumberOfVotes = 0;
             Single mTotalVoteCount = 0;
@@ -476,6 +476,9 @@ namespace Jedznaplus.Controllers
 
             float mAverage = mTotalVoteCount / mTotalNumberOfVotes;
             float mInPercent = (mAverage * 100) / 5;
+
+            recipe.AverageGrade = mAverage;
+            _db.SaveChanges();
 
             return Json ("<span style=\"display: block; width: 70px; height: 13px; background: url(/Resources/Images/whitestar.gif) 0 0;\">" +
                   "<span style=\"display: block; width: " + mInPercent + "%; height: 13px; background: url(/Resources/Images/yellowstar.gif) 0 -13px;\"></span> " +

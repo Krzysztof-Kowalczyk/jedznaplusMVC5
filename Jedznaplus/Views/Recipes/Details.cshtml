@@ -89,11 +89,11 @@
         <div class="VoteSystem">
             <div class="td0">Oceń potrawę</div>
             <div id="Now" class="td">@Html.Partial("_VoteNow", Model.Id.ToString(CultureInfo.InvariantCulture))</div>
-            <div id="Show" class="td">@Html.Partial("_VoteShow", Model.Votes)</div>
+            <div id="Show" class="td">@Html.Partial("_VoteShow", Model.Votes, new ViewDataDictionary { { "id", Model.Id } })</div>
         </div>
 
         <div class="CommentSystem">
-            @Html.Partial("_Comments", Model.Comments, new ViewDataDictionary { { "id", Model.Id }, { "avatarURL", ViewBag.AvatarURL } })
+            @Html.Partial("_Comments", Model.Comments, new ViewDataDictionary { { "id", Model.Id }})
         </div>
 
     </fieldset>
@@ -106,3 +106,5 @@
     </p>
 </div>
 @Scripts.Render("~/Scripts/Jedznaplus/VoteScripts.js")
+@Scripts.Render("~/Scripts/Jedznaplus/Comments.js")
+@Scripts.Render("~/bundles/jqueryval")

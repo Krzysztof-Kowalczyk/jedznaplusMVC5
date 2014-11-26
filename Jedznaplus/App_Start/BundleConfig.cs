@@ -14,7 +14,9 @@ namespace Jedznaplus
             "~/Scripts/jquery-ui-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                   "~/Scripts/jquery.validate*"));
+                   "~/Scripts/jquery.unobtrusive*",
+                "~/Scripts/jquery.validate*"
+                   ));
                // "~/Scripts/jquery.validate.min.js",
               //  "~/Scripts/jquery.validate.unobtrusive.min.js",
                // "~/Scripts/jquery.validate.unobtrusive.bootstrap.min.js"));

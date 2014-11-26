@@ -1,50 +1,7 @@
 ﻿@model IEnumerable<Jedznaplus.Models.Comment>
 
-@if (!Model.Any())
-{
-    <p>Nikt jeszcze nie skomentował potrawy. Bądź pierwszy !</p>
-}
 
-else
-{
-
-    <table class="table" id="CommentsTable">
-
-        <tr>
-            <th style="width:150px">
-                @Html.DisplayNameFor(model => model.UserName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
-            <th></th>
-        </tr>
-
-
-        @foreach (var item in Model)
-        {
-            <tr>
-
-                <td>
-                    <div class="CommentList" style="text-align:center; width:100px">
-
-                        @Html.DisplayFor(modelItem => item.UserName)
-                        <img src="@Url.Content(Html.Action("AvatarURL", "Home", new { userName=item.UserName}).ToString())" alt="image" width="100" height="100" />
-
-                    </div>
-                </td>
-                <td>
-                    <p class="recipe_p_field">@Html.DisplayFor(modelItem => item.Content)<p>
-                        @if (item.UserName == HttpContext.Current.User.Identity.Name || User.IsInRole("Admins"))
-                        {
-                            <span>@Html.ActionLink("Usuń komentarz", "Delete", "Comments", new { id = item.Id }, null)</span>
-                        }
-                </td>
-            </tr>
-        }
-
-    </table>
-}
+    <div id="CommentsList">@Html.Partial("_CommentsList", Model)</div>
 
 @if (!User.Identity.IsAuthenticated)
 {
@@ -52,12 +9,12 @@ else
     return;
 }
 
-@using (Html.BeginForm("Create", "Comments"))
+@using (Ajax.BeginForm("Create", "Comments", new AjaxOptions { UpdateTargetId = "CommentsList", OnComplete = "clearContent()" }))
 {
     <div style="padding:5px">
 
         <div class="editor-field">
-            <textarea cols="70" rows="3" id="Contetnt" name="Content"></textarea>
+            <textarea cols="70" rows="3" id="Content" name="Content"></textarea>
         </div>
 
         <input type="hidden" id="RecipeId" value="@ViewData["id"].ToString()" name="RecipeId" />
@@ -69,4 +26,5 @@ else
         </p>
     </div>
 }
+
 

@@ -51,7 +51,7 @@ namespace Jedznaplus.Models.ViewModels
 
         public RecipeEditViewModels()
         {
-            UnitNameList = new SelectList(new[] { "litr", "mililitr", "kilogram", "dekagram", "gram", "sztuka", "plaster", "opakowanie", "łyżka", "łyżeczka", "szklanka", "szczypta" });
+            UnitNameList = new SelectList(new[] { "sztuka", "gram", "dekagram", "kilogram", "mililitr", "litr", "opakowanie", "plaster", "szklanka", "łyżka", "łyżeczka", "szczypta" });
             Difficulties = new SelectList(new[] { "Łatwy", "Średni", "Trudny", "Bardzo Trudny" });
         }
 
@@ -104,9 +104,9 @@ namespace Jedznaplus.Models.ViewModels
         public virtual List<Ingredient> Ingredients { get; set; }
         
         public SelectList UnitNameList { get; set; }
-        public CreateRecipeSecondPhaseViewModel() :base()
+        public CreateRecipeSecondPhaseViewModel()
         {
-            UnitNameList = new SelectList(new[] { "litr", "mililitr", "kilogram", "dekagram", "gram", "sztuka", "plaster", "opakowanie", "łyżka", "łyżeczka", "szklanka", "szczypta" });
+            UnitNameList = new SelectList(new[] { "sztuka", "gram", "dekagram", "kilogram", "mililitr", "litr", "opakowanie", "plaster", "szklanka", "łyżka", "łyżeczka", "szczypta" });
         }
     }
 

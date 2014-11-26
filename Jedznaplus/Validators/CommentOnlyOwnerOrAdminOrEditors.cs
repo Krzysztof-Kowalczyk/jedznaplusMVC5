@@ -9,7 +9,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace Jedznaplus.Validators
 {
 
-        public class CommentOnlyOwnerOrAdmin : AuthorizeAttribute
+        public class CommentOnlyOwnerOrAdminOrEditors : AuthorizeAttribute
         {
             readonly DatabaseModel _db = new DatabaseModel();
             protected ApplicationDbContext ApplicationDbContext { get; set; }
@@ -32,7 +32,7 @@ namespace Jedznaplus.Validators
 
                 var user = UserManager.FindByName(userName);
 
-                if (UserManager.IsInRole(user.Id, "Admins"))
+                if (UserManager.IsInRole(user.Id, "Admins") || UserManager.IsInRole(user.Id, "Editors"))
                 {
                     return true;
                 }
