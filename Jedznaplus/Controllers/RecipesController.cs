@@ -376,6 +376,16 @@ namespace Jedznaplus.Controllers
                     (er.NotAlergic && ingred.Alergic)));
         }
 
+        public ActionResult OnlyVegetarian()
+        {
+            return View("Search", _db.Recipes.Where(p => p.Vegetarian == true).ToList());
+        }
+
+        public ActionResult OnlyNonAlergic()
+        {
+           return View("Search",_db.Recipes.Where(p => p.Ingredients.All(i=>i.Alergic==false)).ToList());
+        }
+
         [HttpPost]
         public ActionResult AdvancedSearch(ExcludeRecipe er)
         {
@@ -427,13 +437,13 @@ namespace Jedznaplus.Controllers
                 (wIngred => recIngred.Name.IndexOf(wIngred.ToLower(), StringComparison.OrdinalIgnoreCase) >= 0));
         }
 
-        public string CountVotes(string votesString,string id)
+        public string CountVotes(string votesString, string id)
         {
             var idNum = Convert.ToInt32(id);
             var recipe = _db.Recipes.Find(idNum);
 
             Single mTotalNumberOfVotes = 0;
-            Single mTotalVoteCount = 0;         
+            Single mTotalVoteCount = 0;
 
             // calculate total votes now
             string[] votes = votesString.Split(',');
@@ -480,7 +490,7 @@ namespace Jedznaplus.Controllers
             recipe.AverageGrade = mAverage;
             _db.SaveChanges();
 
-            return Json ("<span style=\"display: block; width: 70px; height: 13px; background: url(/Resources/Images/whitestar.gif) 0 0;\">" +
+            return Json("<span style=\"display: block; width: 70px; height: 13px; background: url(/Resources/Images/whitestar.gif) 0 0;\">" +
                   "<span style=\"display: block; width: " + mInPercent + "%; height: 13px; background: url(/Resources/Images/yellowstar.gif) 0 -13px;\"></span> " +
                   "</span>" +
                   "<span class=\"smallText\">Ilość głosów: <span itemprop=\"ratingCount\">" + mTotalNumberOfVotes + "</span> | Średnia ocen : <span itemprop=\"ratingValue\">" + mAverage.ToString("##.##") + "</span> na 5 </span>  ");
