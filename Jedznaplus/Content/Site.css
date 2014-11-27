@@ -196,7 +196,7 @@ blockquote, blockquote p { font-style: italic; }
 
 input, textarea, button[type=submit] { outline: none; }
 input[type=text], input[type=password], textarea { padding: 5px; border: 3px solid #f2f2e9; }
-input[type=text]:hover, input[type=password]:hover, textarea:hover, input[type=text]:focus, textarea:focus { border: 3px solid #dcdbd4; }
+input[type=text]:hover, input[type=password]:hover, textarea:hover,input[type=text], input[type=text]:focus, textarea:focus { border: 1px solid #dcdbd4; }
 input[type=submit] { height: 32px; line-height: 28px; font-size: 11px; padding: 0 12px; text-align: center; top: 0; }
 button::-moz-focus-inner { padding:0; border:0 }
 button { padding: 0; }
