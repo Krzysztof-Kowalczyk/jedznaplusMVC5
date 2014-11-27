@@ -9,10 +9,11 @@
 
 <div class="przepis">
     <fieldset>
+        <h1> @Html.DisplayFor(model => model.Name)</h1>
         <img id="recipeBigImg" src="@Url.Content(Model.ImageUrl)" alt="image" width="300" height="300" />
 
         <div class="info">
-            <h1> @Html.DisplayFor(model => model.Name)</h1>
+            
             <br>
 
             <div class="display-label">
