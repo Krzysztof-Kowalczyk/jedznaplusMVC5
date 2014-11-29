@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.PreparationTime):
             </div>
             <div class="display-field">
-                @Html.DisplayFor(model => model.PreparationTime) minut
+                @Html.DisplayFor(model => model.PreparationTime) @Html.Action("ValidMinutesForm", new { minutes = Model.PreparationTime }).ToString()
             </div>
             <br>
 

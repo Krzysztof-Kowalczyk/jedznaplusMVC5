@@ -60,7 +60,6 @@ pre {
 .miniaturka h1 {
     text-align: center;
     word-wrap: break-word;
-    overflow: hidden;
     font-size: 17pt;
     font-family:"Bellota";
 }
@@ -109,7 +108,7 @@ pre {
 
 .przepis h1 {
     word-wrap: break-word;
-    overflow: hidden;
+    font-family: "Bellota";
     font-size: 17pt;
     margin-left:250px;
 }
@@ -127,4 +126,12 @@ pre {
     text-align: center;
     font-size:16pt;
     color: green;
+}
+.BestNewestName {
+width: 180px; 
+word-wrap: break-word;
+font-size: 11pt;
+font-family: "Bellota";
+margin-left: 10px;
+margin-right: 10px;
 }

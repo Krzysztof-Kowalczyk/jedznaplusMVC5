@@ -24,7 +24,7 @@
         <div class="editor-label">
             @Html.LabelFor(model => model.Ingredients)
         </div>
-
+        <br>
         <ul id="ingredientEditor" style="list-style-type: none">
             @if (Model.Ingredients != null)
             {
@@ -60,8 +60,16 @@
         else
         {<img src="@Url.Content(Model.ImageUrl)" alt="image" width="150" height="150" />
             @Html.ActionLink("Usuń bieżące zdjęcie", "DeleteImage", new { id = Model.Id })
-            <br>
+            <br><br>
         }
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Difficulty)
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.Difficulty, Model.Difficulties)
+        </div>
+        <br>
 
         <div class="editor-label">
             @Html.LabelFor(model => model.PreparationTime)
@@ -82,26 +90,19 @@
         <br>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Difficulty)
-        </div>
-        <div class="editor-field">
-            @Html.DropDownListFor(model => model.Difficulty, Model.Difficulties)
-        </div>
-        <br>
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Vegetarian)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Vegetarian)
-        </div>
-
-        <div class="editor-label">
             @Html.LabelFor(model => model.Calories)
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Calories)
             @Html.ValidationMessageFor(model => model.Calories)
+        </div>
+        <br>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Vegetarian)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Vegetarian)
         </div>
         <br>
 

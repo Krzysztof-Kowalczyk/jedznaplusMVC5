@@ -28,7 +28,12 @@ namespace Jedznaplus.Controllers
         {
             ApplicationDbContext = new ApplicationDbContext();
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(ApplicationDbContext));
-            _unitNameList = new SelectList(new[] { "sztuka", "gram", "dekagram", "kilogram", "mililitr", "litr", "opakowanie", "plaster", "szklanka", "łyżka", "łyżeczka", "szczypta" });
+            _unitNameList =
+                new SelectList(new[]
+                {
+                    "sztuka", "gram", "dekagram", "kilogram", "mililitr", "litr", "opakowanie", "plaster", "szklanka",
+                    "łyżka", "łyżeczka", "szczypta"
+                });
             _difficulties = new SelectList(new[] { "Łatwy", "Średni", "Trudny", "Bardzo Trudny" });
         }
 
@@ -167,12 +172,13 @@ namespace Jedznaplus.Controllers
                 _db.SaveChanges();
 
                 string changes = "Dodanie przepisu:: Id Przepisu: " + recipeToSave.Id + " | Dodany przez: " +
-                   recipeToSave.UserName + " | Czas: " + recipeToSave.CreateDate;
+                                 recipeToSave.UserName + " | Czas: " + recipeToSave.CreateDate;
 
                 Logs.SaveLog(changes);
                 return RedirectToAction("UserRecipes");
             }
-            ModelState.AddModelError(string.Empty, "Przepis musi zawierać poprawną listę składników oraz sposób przygotowania");
+            ModelState.AddModelError(string.Empty,
+                "Przepis musi zawierać poprawną listę składników oraz sposób przygotowania");
             return View("CreateAddIngredients", recipe);
         }
 
@@ -219,7 +225,8 @@ namespace Jedznaplus.Controllers
 
             dbPost.Calories = recipe.Calories;
 
-            if (dbPost.Ingredients.Count != recipe.Ingredients.Count || dbPost.Ingredients.Distinct().Count() != recipe.Ingredients.Count
+            if (dbPost.Ingredients.Count != recipe.Ingredients.Count ||
+                dbPost.Ingredients.Distinct().Count() != recipe.Ingredients.Count
                 || !(dbPost.Ingredients.All(item => recipe.Ingredients.Contains(item))))
             {
                 _db.Ingredient.RemoveRange(dbPost.Ingredients);
@@ -286,7 +293,7 @@ namespace Jedznaplus.Controllers
             _db.SaveChanges();
 
             string changes = "Usunięcie przepisu:: Id Przepisu: " + toDelete.Id + " | Usunięty przez: " +
-                  User.Identity.Name + " | Czas: " + DateTime.Now;
+                             User.Identity.Name + " | Czas: " + DateTime.Now;
 
             Logs.SaveLog(changes);
 
@@ -376,7 +383,7 @@ namespace Jedznaplus.Controllers
         {
             return rec.Ingredients.Any(ingred => er.ExcludeIngredients.Any
                 (wIngred => ingred.Name.IndexOf(wIngred.ToLower(), StringComparison.OrdinalIgnoreCase) >= 0 ||
-                    (er.NotAlergic && ingred.Alergic)));
+                            (er.NotAlergic && ingred.Alergic)));
         }
 
         public ActionResult OnlyVegetarian(int page = 1, int pageSize = 10)
@@ -471,10 +478,14 @@ namespace Jedznaplus.Controllers
             recipe.AverageGrade = mAverage;
             _db.SaveChanges();
 
-            return "<span style=\"display: block; width: 70px; height: 13px; background: url(/Resources/Images/whitestar.gif) 0 0;\">" +
-                  "<span style=\"display: block; width: " + mInPercent + "%; height: 13px; background: url(/Resources/Images/yellowstar.gif) 0 -13px;\"></span> " +
-                  "</span>" +
-                  "<span class=\"smallText\">Ilość głosów: <span itemprop=\"ratingCount\">" + mTotalNumberOfVotes + "</span> | Średnia ocen : <span itemprop=\"ratingValue\">" + mAverage.ToString("##.##") + "</span> na 5 </span>  ";
+            return
+                "<span style=\"display: block; width: 70px; height: 13px; background: url(/Resources/Images/whitestar.gif) 0 0;\">" +
+                "<span style=\"display: block; width: " + mInPercent +
+                "%; height: 13px; background: url(/Resources/Images/yellowstar.gif) 0 -13px;\"></span> " +
+                "</span>" +
+                "<span class=\"smallText\">Ilość głosów: <span itemprop=\"ratingCount\">" + mTotalNumberOfVotes +
+                "</span> | Średnia ocen : <span itemprop=\"ratingValue\">" + mAverage.ToString("##.##") +
+                "</span> na 5 </span>  ";
         }
 
 
@@ -501,10 +512,15 @@ namespace Jedznaplus.Controllers
             recipe.AverageGrade = mAverage;
             _db.SaveChanges();
 
-            return Json("<span style=\"display: block; width: 70px; height: 13px; background: url(/Resources/Images/whitestar.gif) 0 0;\">" +
-                  "<span style=\"display: block; width: " + mInPercent + "%; height: 13px; background: url(/Resources/Images/yellowstar.gif) 0 -13px;\"></span> " +
-                  "</span>" +
-                  "<span class=\"smallText\">Ilość głosów: <span itemprop=\"ratingCount\">" + mTotalNumberOfVotes + "</span> | Średnia ocen : <span itemprop=\"ratingValue\">" + mAverage.ToString("##.##") + "</span> na 5 </span>  ");
+            return
+                Json(
+                    "<span style=\"display: block; width: 70px; height: 13px; background: url(/Resources/Images/whitestar.gif) 0 0;\">" +
+                    "<span style=\"display: block; width: " + mInPercent +
+                    "%; height: 13px; background: url(/Resources/Images/yellowstar.gif) 0 -13px;\"></span> " +
+                    "</span>" +
+                    "<span class=\"smallText\">Ilość głosów: <span itemprop=\"ratingCount\">" + mTotalNumberOfVotes +
+                    "</span> | Średnia ocen : <span itemprop=\"ratingValue\">" + mAverage.ToString("##.##") +
+                    "</span> na 5 </span>  ");
 
         }
 
@@ -645,5 +661,51 @@ namespace Jedznaplus.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
+        public string ValidMinutesForm(int minutes)
+        {
+
+            if (minutes < 100)
+            {
+                if (minutes == 1)
+                    return "minuta";
+
+                if (minutes <= 4)
+                    return "minuty";
+
+                if (minutes > 4 && minutes <= 21)
+                    return "minut";
+
+                if (minutes > 21)
+                {
+                    if (minutes % 10 > 4 || minutes % 10 == 0 || minutes % 10 == 1)
+                        return "minut";
+                    else
+
+                        return "minuty";
+                }
+            }
+            else
+            {
+                if (minutes == 100 || minutes == 101)
+                    return "minut";
+                
+                if (minutes <= 104)
+                    return "minuty";
+
+                if (minutes > 104 && minutes < 122)
+                    return "minut";
+
+                if (minutes > 121)
+                {
+                    if (minutes % 100 > 4 || minutes % 100 == 0 || minutes % 100 == 1)
+                        return "minut";
+                    else
+                        return "minuty";
+
+                }
+
+            }
+            return "minuta";
+        }
     }
 }

@@ -12,7 +12,7 @@
         <div class="nazwaPrzepisu">
             <h1> @Html.DisplayFor(modelItem => item.Name)</h1>
         </div>
-        <label> Czas przygotowania: </label> @Html.DisplayFor(modelItem => item.PreparationTime) minut
+        <label> Czas przygotowania: </label> @Html.DisplayFor(modelItem => item.PreparationTime) @Html.Action("ValidMinutesForm", new {minutes=item.PreparationTime}).ToString()
         <br>
         <label> Ilość porcji: </label> @Html.DisplayFor(modelItem => item.Serves)
         <br>
