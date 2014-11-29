@@ -12,7 +12,7 @@
         @Html.AntiForgeryToken()
 
         <span class="ingEditorItemName">@Html.LabelFor(model => model.Quantity)</span>
-        @Html.EditorFor(model => model.Quantity)
+        @Html.TextBoxFor(model => model.Quantity, new {maxlength="4" ,size="4"})
         @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
 
         <span class="ingEditorItemName">@Html.LabelFor(model => model.UnitName)</span>

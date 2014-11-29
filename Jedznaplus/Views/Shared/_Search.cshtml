@@ -1,8 +1,8 @@
-﻿   <div class="search">
-        @using (Html.BeginForm("Search", "Recipes"))
-        {
-            @Html.TextBox("search")
-    <input type="submit" value="Szukaj" class="btn btn-default" />
-        }
-        @Html.ActionLink("Wyszukiwanie zaawansowane", "AdvancedSearch", "Recipes")
-    </div>
+﻿<div class="search">
+    @using (Html.BeginForm("Search", "Recipes"))
+    {
+        @Html.TextBox("search")
+        <input type="submit" value="Szukaj" class="btn btn-default" />
+    }
+    @Html.ActionLink("Wyszukiwanie zaawansowane", "AdvancedSearch", "Recipes", null, new { @class = "AdvSearchText" })
+</div>

@@ -1,11 +1,7 @@
 ﻿@{
     ViewBag.Title = "Strona domowa";
 }
-@Html.Partial("_naglowek_cialo")
-        <div class="row">
-            <div class="col-md-4">
+<p class="BestNewestLabel">Najnowsze przepisy</p>
                 @Html.Action("NewestRecipes", "Recipes")
+<p class ="BestNewestLabel">Najlepiej ocenione przepisy</p>
                 @Html.Action("BestRatedRecipes", "Recipes")
-            </div>
-        </div>
-@Html.Partial("_stopka")

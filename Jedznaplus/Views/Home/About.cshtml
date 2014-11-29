@@ -1,12 +1,9 @@
-﻿@Html.Partial("_naglowek_cialo")
-                   @{
-                       ViewBag.Title = "O stronie";
-                }
-
-                <h2>@ViewBag.Title</h2>
-                <h3>@ViewBag.Message</h3>
-                <p>
-                    Witaj ! Portal Jedz na plus został stworzony na potrzeby przedmiotu "Projekt zespołowy" na Politechnice Częstochowskiej w roku 2014. Portal został stworzony w oparciu o technologie
-                    ASP.NET MVC 5, przy wykorzsytaniu EntityFramework oraz bazy MS SQL. Przy tworzeniu korzystaliśmy z pakietu Visual Studio 2013. Jako repozytorium posłużyła platforma GitHub.
-                </p>
-@Html.Partial("_stopka")
+﻿@{
+    ViewBag.Title = "O stronie";
+}
+<h1 class="title">@ViewBag.Title</h1>
+<h3>@ViewBag.Message</h3>
+<p>
+    Witaj ! Portal Jedz na plus został stworzony na potrzeby przedmiotu "Projekt zespołowy" na Politechnice Częstochowskiej w roku 2014. Portal został stworzony w oparciu o technologie
+    ASP.NET MVC 5, przy wykorzsytaniu EntityFramework oraz bazy MS SQL. Przy tworzeniu korzystaliśmy z pakietu Visual Studio 2013. Jako repozytorium posłużyła platforma GitHub.
+</p>

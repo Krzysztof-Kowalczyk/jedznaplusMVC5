@@ -16,7 +16,6 @@ else
             <th>
                 @Html.DisplayNameFor(model => model.Content)
             </th>
-            <th></th>
         </tr>
 
 
@@ -34,10 +33,10 @@ else
                 </td>
                 <td>
                     <p class="recipe_p_field">@Html.DisplayFor(modelItem => item.Content)<p>
-                    @if (item.UserName == HttpContext.Current.User.Identity.Name || User.IsInRole("Admins"))
-                    {
-                        <span>@Ajax.ActionLink("Usuń komentarz", "Delete", "Comments", new {id = item.Id}, new AjaxOptions {HttpMethod = "GET", UpdateTargetId = "CommentsList", OnComplete = "clearContent()"})</span>
-                    }
+                        @if (item.UserName == HttpContext.Current.User.Identity.Name || User.IsInRole("Admins") || User.IsInRole("Editors"))
+                        {
+                            <span>@Ajax.ActionLink("Usuń komentarz", "Delete", "Comments", new { id = item.Id }, new AjaxOptions { HttpMethod = "GET", UpdateTargetId = "CommentsList", OnComplete = "clearContent()" })</span>
+                        }
                 </td>
             </tr>
         }

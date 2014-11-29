@@ -3,11 +3,10 @@
 @{
     ViewBag.Title = "Details";
 }
-@Html.Partial("_naglowek_cialo")
-<h2>Szczegóły</h2>
+
+<h1 class="title">Szczegóły</h1>
 
 <div>
-    <h4></h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -56,4 +55,3 @@
     @Html.ActionLink("Edycja", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Powrót do listy użytkowników", "ShowUsers")
 </p>
-@Html.Partial("_stopka")

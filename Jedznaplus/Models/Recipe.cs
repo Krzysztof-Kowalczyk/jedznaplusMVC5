@@ -37,7 +37,7 @@ namespace Jedznaplus.Models
         public int Serves { get; set; }
 
         [Required(ErrorMessage = "Pole Poziom trudności jest wymagane")]
-        [Display(Name = "Poziom trdności")]
+        [Display(Name = "Poziom trudności")]
         public string Difficulty { get; set; }
 
         [Required(ErrorMessage = "Pole Kalorie jest wymagane")]
@@ -45,7 +45,7 @@ namespace Jedznaplus.Models
         [Display(Name = "Kalorie")]        
         public int Calories { get; set; }
 
-        [Display(Name = "Nazwa uzytkownika")]
+        [Display(Name = "Nazwa użytkownika")]
         public string UserName { get; set; }
 
         public string Votes { get; set; }

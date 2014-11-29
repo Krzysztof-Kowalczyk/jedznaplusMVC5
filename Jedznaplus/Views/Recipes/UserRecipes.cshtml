@@ -1,11 +1,13 @@
-﻿@model IEnumerable<Jedznaplus.Models.Recipe>
-@{
-    ViewBag.Title = "Przepisy użytkownika";
-}
-@Html.Partial("_naglowek_cialo")
-<h2>Przepisy użytkownika</h2>
+﻿@using PagedList.Mvc
+@model PagedList.IPagedList<Jedznaplus.Models.Recipe>
+           
+<link href="~/Content/PagedList.css" rel="stylesheet"
+      type="text/css" />
+
+<h1 class="title">Przepisy użytkownika</h1>
 
 @Html.Partial("_CreateNewRecipeButton")
 
 @Html.Partial("_RecipeList", Model)
-@Html.Partial("_stopka")
+
+@Html.PagedListPager(Model, page => Url.Action("UserRecipes", new { page, pageSize = Model.PageSize }))

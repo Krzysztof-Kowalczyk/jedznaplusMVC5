@@ -1,66 +1,63 @@
 ﻿@model Jedznaplus.Models.ExcludeRecipe
-@{
-    ViewBag.Title = "Wyszukiwanie zaawansowane";
-}
-@Html.Partial("_naglowek_cialo")
-                    <h2>Wyszukiwanie zaawansowane</h2>
 
-                    <div id="AdvancedearchArea">
+<h1 class="title">Wyszukiwanie zaawansowane</h1>
 
-                        @using (Html.BeginForm("AdvancedSearch", "Recipes", FormMethod.Post, new { name = "frm", id = "frm" }))
-                        {
-                            <fieldset>
-                                <span id="validationJS" class="text-danger"></span>
-                                <div class="editor-label">
-                                    @Html.LabelFor(model => model.MaxTime)
-                                </div>
-                                <div class="editor-field">
-                                    @Html.EditorFor(model => model.MaxTime)
-                                </div>
+<div id="AdvancedearchArea">
+
+    @using (Html.BeginForm("AdvancedSearch", "Recipes", FormMethod.Post, new { name = "frm", id = "frm" }))
+    {
+        <fieldset>
+            <span id="validationJS" class="text-danger"></span>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.MaxTime)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.MaxTime)
+            </div>
 
 
-                                <div class="editor-label">
-                                    @Html.LabelFor(model => model.Vegetarians)
-                                </div>
-                                <div class="editor-field">
-                                    @Html.EditorFor(model => model.Vegetarians)
-                                </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Vegetarians)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Vegetarians)
+            </div>
 
 
-                                <div class="editor-label">
-                                    @Html.LabelFor(model => model.NotAlergic)
-                                </div>
-                                <div class="editor-field">
-                                    @Html.EditorFor(model => model.NotAlergic)
-                                </div>
-                                <br>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.NotAlergic)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.NotAlergic)
+            </div>
+            <br>
 
-                                <div>
-                                    <div class="editor-label">
-                                        @Html.LabelFor(model => model.WantedIngredients):
-                                    </div>
-                                    <ul id="wantedingredientEditor" style="list-style-type: none"> </ul>
-                                </div>
+            <div>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.WantedIngredients):
+                </div>
+                <ul id="wantedingredientEditor" style="list-style-type: none"> </ul>
+            </div>
 
-                                <a id="addAnotherWanted" href="#">Dodaj kolejny pożądany składnik</a>
-                                <br><br>
+            <a id="addAnotherWanted" href="#">Dodaj kolejny pożądany składnik</a>
+            <br><br>
 
-                                <div>
-                                    <div class="editor-label">
-                                        @Html.LabelFor(model => model.ExcludeIngredients):
-                                    </div>
-                                    <ul id="excludeingredientEditor" style="list-style-type: none"> </ul>
-                                </div>
+            <div>
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ExcludeIngredients):
+                </div>
+                <ul id="excludeingredientEditor" style="list-style-type: none"> </ul>
+            </div>
 
-                                <a id="addAnother" href="#">Dodaj kolejny wykluczony składnik</a>
-                                <br><br>
+            <a id="addAnother" href="#">Dodaj kolejny wykluczony składnik</a>
+            <br><br>
 
-                            </fieldset>
+        </fieldset>
 
-                            <input type="submit" value="Szukaj" class="btn btn-default" />
-                            <br>
-                        }
-                    </div>
-@Html.Partial("_stopka")
+        <input type="submit" value="Szukaj" class="btn btn-default" />
+        <br>
+    }
+</div>
+
 
 @Scripts.Render("~/Scripts/Jedznaplus/AdvancedSearch.js")

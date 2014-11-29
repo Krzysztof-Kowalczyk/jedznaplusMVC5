@@ -3,8 +3,8 @@
 @{
     ViewBag.Title = "Zarządzanie zewnętrznymi loginami";
 }
-@Html.Partial("_naglowek_cialo")
-<h2>@ViewBag.Title</h2>
+
+<h1 class="title">@ViewBag.Title</h1>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 @if (Model.CurrentLogins.Count > 0)
@@ -56,4 +56,4 @@
         </div>
     }
 }
-@Html.Partial("_stopka")
+

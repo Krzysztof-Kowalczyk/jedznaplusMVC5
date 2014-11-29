@@ -31,7 +31,7 @@ namespace Jedznaplus.Models.ViewModels
         public int Serves { get; set; }
 
         [Required(ErrorMessage = "Pole Poziom trudności jest wymagane")]
-        [Display(Name = "Poziom trdności")]
+        [Display(Name = "Poziom trudności")]
         public string Difficulty { get; set; }
 
         [Required(ErrorMessage = "Pole Kalorie jest wymagane")]
@@ -79,7 +79,7 @@ namespace Jedznaplus.Models.ViewModels
         public int Serves { get; set; }
 
         [Required(ErrorMessage = "Pole Poziom trudności jest wymagane")]
-        [Display(Name = "Poziom trdności")]
+        [Display(Name = "Poziom trudności")]
         public string Difficulty { get; set; }
 
         [Required(ErrorMessage = "Pole Kalorie jest wymagane")]

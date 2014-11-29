@@ -4,8 +4,8 @@
 @{
     ViewBag.Title = "Edycja";
 }
-@Html.Partial("_naglowek_cialo")
-<h2>Edycja</h2>
+
+<h1 class="title">Edycja</h1>
 
 @using (Html.BeginForm())
 {
@@ -73,6 +73,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Powrót do listy użytkowników", "ShowUsers")
 </div>
-@Html.Partial("_stopka")

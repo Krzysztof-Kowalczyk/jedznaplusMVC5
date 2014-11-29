@@ -12,6 +12,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Jedznaplus.Validators;
+using PagedList;
 
 namespace Jedznaplus.Controllers
 {
@@ -31,11 +32,12 @@ namespace Jedznaplus.Controllers
             _difficulties = new SelectList(new[] { "Łatwy", "Średni", "Trudny", "Bardzo Trudny" });
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int page = 1, int pageSize = 10)
         {
             var recipes = _db.Recipes.ToList();
+            var pagedList = new PagedList<Recipe>(recipes, page, pageSize);
 
-            return View(recipes);
+            return View(pagedList);
         }
 
 
@@ -50,7 +52,7 @@ namespace Jedznaplus.Controllers
 
         public ActionResult NewestRecipes()
         {
-            int count = _db.Recipes.Count() > 10 ? 10 : _db.Recipes.Count();
+            int count = _db.Recipes.Count() > 3 ? 3 : _db.Recipes.Count();
 
             var recipes = (from p in _db.Recipes
                            orderby p.CreateDate descending
@@ -69,7 +71,7 @@ namespace Jedznaplus.Controllers
 
         public ActionResult BestRatedRecipes()
         {
-            int count = _db.Recipes.Count() > 10 ? 10 : _db.Recipes.Count();
+            int count = _db.Recipes.Count() > 3 ? 3 : _db.Recipes.Count();
 
             var recipes = (from p in _db.Recipes
                            orderby p.AverageGrade descending
@@ -293,11 +295,13 @@ namespace Jedznaplus.Controllers
 
 
         [Authorize]
-        public ActionResult UserRecipes()
+        public ActionResult UserRecipes(int page = 1, int pageSize = 10)
         {
             var userRecipes = _db.Recipes.Where(a => a.UserName == User.Identity.Name).ToList();
 
-            return View(userRecipes);
+            var pagedList = new PagedList<Recipe>(userRecipes, page, pageSize);
+
+            return View(pagedList);
         }
 
         public ActionResult Details(int? id)
@@ -346,21 +350,20 @@ namespace Jedznaplus.Controllers
             return RedirectToAction("Edit", vm);
         }
 
-        public ActionResult Search(string search)
+        public ActionResult Search(string search, int page = 1, int pageSize = 10)
         {
-            var recipes = _db.Recipes.Where(a => a.Name.ToLower().Contains(search.ToLower())).ToList();
-            var allRecipes = _db.Recipes.ToList();
+            var recipes =
+                _db.Recipes.Where(
+                    a =>
+                        a.Name.ToLower().Contains(search.ToLower()) ||
+                        a.Ingredients.Any(
+                            ingred => ingred.Name.ToLower().Contains(search.ToLower()))).ToList();
 
-            foreach (var rec in from rec in allRecipes
-                                from ingred in rec.Ingredients.Where
-             (ingred => ingred.Name.IndexOf(search.ToLower(), StringComparison.OrdinalIgnoreCase) >= 0).Where
-             (ingred => !recipes.Contains(rec))
-                                select rec)
-            {
-                recipes.Add(rec);
-            }
+            var pagedList = new PagedList<Recipe>(recipes, page, pageSize);
 
-            return View(recipes);
+            ViewBag.Search = search;
+
+            return View(pagedList);
         }
 
         [HttpGet]
@@ -376,18 +379,22 @@ namespace Jedznaplus.Controllers
                     (er.NotAlergic && ingred.Alergic)));
         }
 
-        public ActionResult OnlyVegetarian()
+        public ActionResult OnlyVegetarian(int page = 1, int pageSize = 10)
         {
-            return View("Search", _db.Recipes.Where(p => p.Vegetarian == true).ToList());
+            var recipes = _db.Recipes.Where(p => p.Vegetarian).ToList();
+            var pagedList = new PagedList<Recipe>(recipes, page, pageSize);
+            return View(pagedList);
         }
 
-        public ActionResult OnlyNonAlergic()
+        public ActionResult OnlyNonAlergic(int page = 1, int pageSize = 10)
         {
-           return View("Search",_db.Recipes.Where(p => p.Ingredients.All(i=>i.Alergic==false)).ToList());
+            var recipes = _db.Recipes.Where(p => p.Ingredients.All(i => i.Alergic == false)).ToList();
+            var pagedList = new PagedList<Recipe>(recipes, page, pageSize);
+            return View(pagedList);
         }
 
         [HttpPost]
-        public ActionResult AdvancedSearch(ExcludeRecipe er)
+        public ActionResult AdvancedSearch(ExcludeRecipe er, int page = 1, int pageSize = 10)
         {
             if (er.MaxTime == 0) er.MaxTime = 1000;
 
@@ -428,7 +435,11 @@ namespace Jedznaplus.Controllers
                     finalRecipes.Remove(rec);
             }
 
-            return View("Search", finalRecipes);
+            var pagedList = new PagedList<Recipe>(finalRecipes, page, pageSize);
+
+            ViewBag.ExcludeRecipe = er;
+
+            return View("AdvancedSearched", pagedList);
         }
 
         private bool HasWantedIngredient(Recipe rec, ExcludeRecipe er)
@@ -524,7 +535,7 @@ namespace Jedznaplus.Controllers
                 string[] numbers = quantity.Split('/');
                 quantity = (double.Parse(numbers[0]) / double.Parse(numbers[1])).ToString(CultureInfo.InvariantCulture);
             }
-            double quantityNumber = double.Parse(quantity);
+            double quantityNumber = double.Parse(quantity, CultureInfo.InvariantCulture);
 
             string validForm = unitName;
             switch (unitName)
@@ -567,7 +578,7 @@ namespace Jedznaplus.Controllers
                     break;
 
                 case "sztuka":
-                    if (quantityNumber > 1 && quantityNumber < 5)
+                    if (quantityNumber > 0 && quantityNumber < 5)
                         validForm = "sztuki";
                     else if (quantityNumber >= 5)
                         validForm = "sztuk";

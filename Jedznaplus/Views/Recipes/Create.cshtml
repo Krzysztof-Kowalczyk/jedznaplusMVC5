@@ -1,15 +1,11 @@
 ﻿@model Jedznaplus.Models.ViewModels.CreateRecipeFirstPhaseViewModel
-@{
-    ViewBag.Title = "Stwórz nowy przepis";
-}
 
-@Html.Partial("_naglowek_cialo")
-<h2>Stwórz nowy przepis</h2>
+<h1 class="title">Stwórz nowy przepis</h1>
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true,"", new { @class = "text-danger" })
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     <fieldset>
 
@@ -17,7 +13,7 @@
             @Html.LabelFor(model => model.Name)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
+            @Html.TextBoxFor(model => model.Name, new { maxlength = "50", size = "50" })
             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
         </div>
         <br>
@@ -25,7 +21,7 @@
         <div class="editor-label">
             @Html.LabelFor(model => model.ImageUrl)
         </div>
-        <input type="file" name="file" accept="image/jpeg,image/png" >
+        <input type="file" name="file" accept="image/jpeg,image/png">
         <br>
         <div class="editor-label">
             @Html.LabelFor(model => model.PreparationTime)
@@ -49,7 +45,7 @@
         </div>
         <div class="editor-field">
             @Html.DropDownListFor(model => model.Difficulty, (SelectList)ViewBag.Difficulties)
-        </div>h
+        </div>
         <br>
 
         <div class="editor-label">
@@ -76,7 +72,7 @@
 <div>
     @Html.ActionLink("Powrót do listy przepisów", "Index")
 </div>
-@Html.Partial("_stopka")
+
 
 @Scripts.Render("~/bundles/jqueryval")
 @Scripts.Render("~/Scripts/Jedznaplus/ImagePickerScript.js")

@@ -6,6 +6,7 @@
 
 <h1 class="title">Wyniki wyszukiwania</h1>
 @Html.Partial("_CreateNewRecipeButton")
+
 @if (!Model.Any())
 {
     <p> Nie znaleziono przepisów spełniających podane kryteria</p>
@@ -15,7 +16,9 @@ else
 {
     @Html.Partial("_RecipeList", Model)
 
-
-    @Html.PagedListPager(Model, page => Url.Action("Search", new { search = ViewBag.Search, page, pageSize = Model.PageSize }))
-
+    @Html.PagedListPager(Model, page => Url.Action("AdvancedSearch", new {er=ViewBag.ExcludeRecipe,page, pageSize = Model.PageSize }))
 }
+
+
+
+

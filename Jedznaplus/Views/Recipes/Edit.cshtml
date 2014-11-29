@@ -1,11 +1,7 @@
 ﻿@using Jedznaplus.Resources
 @model Jedznaplus.Models.ViewModels.RecipeEditViewModels
 
-@{
-    ViewBag.Title = "Edycja";
-}
-@Html.Partial("_naglowek_cialo")
-<h2>Edycja</h2>
+<h1 class="title">Edycja</h1>
 
 @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
@@ -20,7 +16,7 @@
             @Html.LabelFor(model => model.Name)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Name)
+            @Html.TextBoxFor(model => model.Name, new { maxlength = "50", size = "50" })
             @Html.ValidationMessageFor(model => model.Name)
         </div>
         <br>
@@ -62,7 +58,7 @@
             <br>
         }
         else
-        {
+        {<img src="@Url.Content(Model.ImageUrl)" alt="image" width="150" height="150" />
             @Html.ActionLink("Usuń bieżące zdjęcie", "DeleteImage", new { id = Model.Id })
             <br>
         }
@@ -110,7 +106,7 @@
         <br>
 
         <p>
-            <input type="submit" value="Zapisz" />
+            <input type="submit" value="Zapisz" class="btn btn-default" />
         </p>
     </fieldset>
     @Scripts.Render("~/Scripts/Jedznaplus/ImagePickerScript.js")
@@ -121,7 +117,7 @@
 <div>
     @Html.ActionLink("Powrót do listy przepisów", "Index")
 </div>
-@Html.Partial("_stopka")
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

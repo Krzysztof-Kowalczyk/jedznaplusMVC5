@@ -1,11 +1,7 @@
 ﻿@using System.Globalization
 @model Jedznaplus.Models.Recipe
 
-@{
-    ViewBag.Title = "Szczegóły";
-}
-@Html.Partial("_naglowek_cialo")
-<h2>Szczegóły</h2>
+<h1 class="title">Szczegóły</h1>
 
 <div class="przepis">
     <fieldset>
@@ -73,7 +69,7 @@
             <div class="display-field">
                 @foreach (var ingred in Model.Ingredients)
                 {
-                    <p> @ingred.Name @ingred.Quantity @Html.Action("ValidWordForm", new { unitName = ingred.UnitName, quantity = ingred.Quantity }) (<strong>Alergiczny:</strong> @(ingred.Alergic ? "Tak" : "Nie"))</p>
+                    <p style="font-size:13pt"> @ingred.Name @ingred.Quantity @Html.Action("ValidWordForm", new { unitName = ingred.UnitName, quantity = ingred.Quantity }) (<strong>Alergiczny:</strong> @(ingred.Alergic ? "Tak" : "Nie"))</p>
                 }
             </div>
             <br>
@@ -82,7 +78,7 @@
                 @Html.DisplayNameFor(model => model.PreparationMethod):
             </div>
             <div class="display-field">
-                <p class="recipe_p_field">@Html.Raw(Model.PreparationMethod.Replace(Environment.NewLine, "<br/>"))</p>
+                <p class="recipe_p_field" style="font-size:13pt">@Html.Raw(Model.PreparationMethod.Replace(Environment.NewLine, "<br/>"))</p>
             </div>
             <br>
         </div>
@@ -99,14 +95,13 @@
 
     </fieldset>
     <p>
-        @if (Model.UserName == HttpContext.Current.User.Identity.Name || User.IsInRole("Admins"))
+        @if (Model.UserName == HttpContext.Current.User.Identity.Name || User.IsInRole("Admins") || User.IsInRole("Editors"))
         {
             @Html.ActionLink("Edycja", "Edit", new { id = Model.Id }) <span>|</span>
         }
         @Html.ActionLink("Powrót do listy przepisów", "Index")
     </p>
 </div>
-@Html.Partial("_stopka")
 @Scripts.Render("~/Scripts/Jedznaplus/VoteScripts.js")
 @Scripts.Render("~/Scripts/Jedznaplus/Comments.js")
 @Scripts.Render("~/bundles/jqueryval")

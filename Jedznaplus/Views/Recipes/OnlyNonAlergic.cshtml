@@ -4,11 +4,10 @@
 <link href="~/Content/PagedList.css" rel="stylesheet"
       type="text/css" />
 
-
-<h1 class="title">Przepisy</h1>
+<h1 class="title">Tylko nie alergiczne</h1>
 
 @Html.Partial("_CreateNewRecipeButton")
 
 @Html.Partial("_RecipeList", Model)
 
-@Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = Model.PageSize }))
+@Html.PagedListPager(Model, page => Url.Action("OnlyNonAlergic", new { page, pageSize = Model.PageSize }))

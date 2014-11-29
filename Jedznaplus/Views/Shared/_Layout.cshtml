@@ -3,14 +3,14 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Jedz na plus</title>
+    <title>Jedz na plus</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/themes/base/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryui")
-  
+
     @RenderSection("scripts", required: false)
 
 </head>
@@ -29,12 +29,12 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Strona domowa", "Index", "Home")</li>
                     <li>@Html.ActionLink("Przepisy", "Index", "Recipes")</li>
-                   
+
                     @if (Request.IsAuthenticated)
                     {
                         <li>@Html.ActionLink("Twoje przepisy", "UserRecipes", "Recipes")</li>
                     }
-                    
+
                     @if (User.IsInRole("Admins"))
                     {
                         <li>@Html.ActionLink("Lista użytkowników", "ShowUsers", "Account")</li>
@@ -55,10 +55,34 @@
 
         @Html.Partial("_Search")
 
-        @RenderBody()
+        <div id="header">
+            <!--=== Begin Contact Form ===-->
+            @Html.Partial("_naglowek_cialo")
+            <div id="content" class="inner">                
+                <!--=== Begin Main Column ===-->
+                <div id="main-col">
+
+                    <div class="internal">
+
+                        <div class="repeat">
+
+                            <!--=== Begin Contact Form ===-->
+                            @RenderBody()
+
+                            <!--=== End Contact Form ===-->
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!--=== End Contact Form ===-->
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Magdalena Oziębała & Krzysztof Kowalczyk & Konrad Kochaniak & Krzysztof Polak</p>
+            <p id="footer">&copy; @DateTime.Now.Year - Magdalena Oziębała & Krzysztof Kowalczyk & Konrad Kochaniak & Krzysztof Polak</p>
         </footer>
     </div>
 

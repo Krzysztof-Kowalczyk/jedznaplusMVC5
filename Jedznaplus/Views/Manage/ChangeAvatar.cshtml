@@ -3,15 +3,15 @@
 @{
     ViewBag.Title = "Zmień avatar";
 }
-@Html.Partial("_naglowek_cialo")
-<h2>Zmień avatar</h2>
+
+<h1 class="title">Zmień avatar</h1>
 @using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     if (ViewBag.AvatarURL == ConstantStrings.DefaultUserAvatar)
-    {
+    {        
         <input type="file" name="file" accept="image/jpeg,image/png">
         <br>
         <input type="submit" name="dodajAvatar" value="Dodaj" id="DodajAvatar" class="btn btn-default" />
@@ -19,11 +19,12 @@
     }
     else
     {
+        <img src="@Url.Content(Html.Action("AvatarURL", "Home", new { userName = User.Identity.Name }).ToString())" alt="image" width="100" height="100" />
         @Html.ActionLink("Usuń bieżące zdjęcie", "DeleteAvatar")
         <br>
     }
 
-@Html.Partial("_stopka")
+
 }
 @Scripts.Render("~/Scripts/Jedznaplus/EmptyAvatar.js")
 

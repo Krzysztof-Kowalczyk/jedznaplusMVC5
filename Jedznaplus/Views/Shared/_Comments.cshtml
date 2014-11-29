@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Jedznaplus.Models.Comment>
 
 
-    <div id="CommentsList">@Html.Partial("_CommentsList", Model)</div>
+<div id="CommentsList">@Html.Partial("_CommentsList", Model)</div>
 
 @if (!User.Identity.IsAuthenticated)
 {
@@ -22,7 +22,7 @@
 
         <br />
         <p>
-            <input id="dodajKomentarz" type="submit" name="dodajKomentarz" value="Dodaj" />
+            <input id="dodajKomentarz" type="submit" name="dodajKomentarz" value="Dodaj komentarz" class="btn btn-default" />
         </p>
     </div>
 }

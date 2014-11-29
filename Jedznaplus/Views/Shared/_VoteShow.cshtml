@@ -6,7 +6,7 @@
 
     if (Model.Length > 0)
     {
-        thisVote = Html.Action("CountVotes", "Recipes", new { votesString = Model , id = @ViewData["id"].ToString()}).ToHtmlString();
+        thisVote = Html.Action("CountVotes", "Recipes", new { votesString = Model, id = @ViewData["id"].ToString() }).ToHtmlString();
     }
 }
 <div id="voteRating" style="display:inline-block" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">

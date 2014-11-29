@@ -1,5 +1,4 @@
 ﻿using System.Data.Entity;
-using Jedznaplus.Models.ViewModels;
 
 namespace Jedznaplus.Models
 {
@@ -14,13 +13,6 @@ namespace Jedznaplus.Models
             : base("DefaultConnection")
         {
         }
-
-        //public DbSet<NewestRecipesViewModel> NewestRecipesViewModels { get; set; }
-
-         /*  static DatabaseModel()
-           {
-             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<DatabaseModel>());
-           }*/
 
     }
 }
