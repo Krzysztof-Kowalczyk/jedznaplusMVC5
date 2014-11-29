@@ -19,7 +19,7 @@ namespace Jedznaplus.Resources
             var us = new UserStore<ApplicationUser>(context);
             var um = new UserManager<ApplicationUser>(us);
 
-            var user = new ApplicationUser { UserName = "kalik", Email = "wargas_14@o2.pl", EmailConfirmed = true, AvatarUrl = ConstantStrings.DefaultUserAvatar };
+            var user = new ApplicationUser { UserName = "admin", Email = "jedznaplus@gmail.pl", EmailConfirmed = true, AvatarUrl = ConstantStrings.DefaultUserAvatar };
             um.Create(user, "Admin123#");
             um.AddToRole(user.Id, "Admins");
         }

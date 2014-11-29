@@ -6816,3 +6816,6 @@ td.visible-print {
     display: none !important;
   }
 }
+    .nav navbar-nav {
+    color: black !important;
+}
