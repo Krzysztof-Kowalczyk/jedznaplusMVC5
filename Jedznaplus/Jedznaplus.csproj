@@ -206,6 +206,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <None Include="Jedznaplus.wpp.targets" />
     <Content Include="Resources\Images\column-bot.png" />
     <Content Include="Resources\Images\column-mid.png" />
     <Content Include="Resources\Images\column-top-tape.png" />
