@@ -542,9 +542,9 @@ namespace Jedznaplus.Controllers
 
         public string ValidWordForm(string unitName, string quantity)
         {
-            if (quantity.Contains('.'))
+            if (quantity.Contains(','))
             {
-                quantity = quantity.Replace(".", ",");
+                quantity = quantity.Replace(",", ".");
             }
             else if (quantity.Contains('/'))
             {
@@ -594,7 +594,7 @@ namespace Jedznaplus.Controllers
                     break;
 
                 case "sztuka":
-                    if (quantityNumber > 0 && quantityNumber < 5)
+                    if (Math.Abs(quantityNumber - 1) > 0.00000001 && quantityNumber > 0 && quantityNumber < 5)
                         validForm = "sztuki";
                     else if (quantityNumber >= 5)
                         validForm = "sztuk";
