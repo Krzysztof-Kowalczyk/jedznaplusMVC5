@@ -1,5 +1,6 @@
 ﻿$(function () {
-    $("#addAnother").click(function () {
+    $("#addAnother").click(function (e) {
+        e.preventDefault();
         $.get('/Recipes/ExcludeIngredientEntryRow', function (template) {
             $("#excludeingredientEditor").append(template);
 
@@ -24,7 +25,8 @@
 });
 
 $(function () {
-    $("#addAnotherWanted").click(function () {
+    $("#addAnotherWanted").click(function (e) {
+        e.preventDefault();
         $.get('/Recipes/WantedIngredientEntryRow', function (template) {
             $("#wantedingredientEditor").append(template);
 

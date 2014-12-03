@@ -4,7 +4,6 @@
     @using (Html.BeginCollectionItem("WantedIngredients"))
     {
         <span><strong>Nazwa :</strong></span> @Html.EditorFor(model => model, new { htmlAttributes = new {data_url = @Url.Action("AutoCompleteList") }, autocomplete = "on" })
-        <a href="#" onclick=" $(this).parent().remove();">Usuń składnik</a>
+        <a href="#" onclick="event.preventDefault(); $(this).parent().remove();">Usuń składnik</a>
     }
 </li>
-

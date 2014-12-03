@@ -1,5 +1,6 @@
 ﻿$(function () {
-    $("#addAnother").click(function () {
+    $("#addAnother").click(function (e) {
+        e.preventDefault();
         $.get('/Recipes/IngredientEntryRow', function (template) {
             $("#ingredientEditor").append(template);
 
