@@ -654,9 +654,9 @@ namespace Jedznaplus.Controllers
 
         public ActionResult AutoCompleteList(string term)
         {
-            var result = from r in _db.Ingredient
+            var result = (from r in _db.Ingredient
                          where r.Name.ToLower().Contains(term)
-                         select r.Name;
+                         select r.Name).Distinct();
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
