@@ -19,7 +19,6 @@
 
 
 .search {
-    width: 280px;
     padding: 15px;
     float: right;
     margin-left: 15%;
@@ -27,8 +26,10 @@
 
 .AdvSearchText {
     font-size: 12px;
-    text-align: left;
+    text-align: center;
     color: hotpink;
+    margin-left: 15%;
+
 }
 
 .search a {
@@ -134,4 +135,54 @@ font-size: 11pt;
 font-family: "Bellota";
 margin-left: 10px;
 margin-right: 10px;
+}
+
+#pokaz{
+  position: absolute;
+  top:50%;
+  margin-top:-225px;
+  left:50%;
+  margin-left:-250px;
+	width:500px;
+	height:450px;
+	opacity: 1.5;		
+	z-index: 25;
+}
+
+#zamknij:before{
+content: "X";
+display: block;
+position: absolute;
+top: 5%;
+left: auto;
+right:0;
+width: 40px;
+height: 40px;
+margin: -33px 0 0;
+background-color:#32CD32;
+font-size: 35px;
+line-height: 45px;
+text-align: center;
+}
+
+#pokazywajka{
+position:relative;
+width: 600px;
+height:550px;
+top:50%;
+margin-top:-275px;
+left:50%;
+margin-left:-300px;
+}
+
+#przescieradlo{
+background-color: rgba(0,0,0,0.5);
+	position: fixed;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	overflow: hidden;
+	z-index: 0;
+	visibility: hidden;
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using Jedznaplus.Resources;
 
 namespace Jedznaplus.Models.ViewModels
 {
@@ -51,7 +52,11 @@ namespace Jedznaplus.Models.ViewModels
 
         public RecipeEditViewModels()
         {
-            UnitNameList = new SelectList(new[] { "sztuka", "gram", "dekagram", "kilogram", "mililitr", "litr", "opakowanie", "plaster", "szklanka", "łyżka", "łyżeczka", "szczypta" });
+            UnitNameList=new SelectList(new[]
+                {
+                    "sztuka", "gram", "dekagram", "kilogram", "mililitr", "litr", "opakowanie","kostka", "plaster", "szklanka",
+                    "łyżka", "łyżeczka","ząbek", "szczypta"
+                });
             Difficulties = new SelectList(new[] { "Łatwy", "Średni", "Trudny", "Bardzo Trudny" });
         }
 
@@ -106,7 +111,11 @@ namespace Jedznaplus.Models.ViewModels
         public SelectList UnitNameList { get; set; }
         public CreateRecipeSecondPhaseViewModel()
         {
-            UnitNameList = new SelectList(new[] { "sztuka", "gram", "dekagram", "kilogram", "mililitr", "litr", "opakowanie", "plaster", "szklanka", "łyżka", "łyżeczka", "szczypta" });
+            UnitNameList = new SelectList(new[]
+                {
+                    "sztuka", "gram", "dekagram", "kilogram", "mililitr", "litr", "opakowanie","kostka", "plaster", "szklanka",
+                    "łyżka", "łyżeczka","ząbek", "szczypta"
+                });
         }
     }
 

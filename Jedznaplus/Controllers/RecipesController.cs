@@ -31,8 +31,8 @@ namespace Jedznaplus.Controllers
             _unitNameList =
                 new SelectList(new[]
                 {
-                    "sztuka", "gram", "dekagram", "kilogram", "mililitr", "litr", "opakowanie", "plaster", "szklanka",
-                    "łyżka", "łyżeczka", "szczypta"
+                    "sztuka", "gram", "dekagram", "kilogram", "mililitr", "litr", "opakowanie","kostka", "plaster", "szklanka",
+                    "łyżka", "łyżeczka","ząbek", "szczypta"
                 });
             _difficulties = new SelectList(new[] { "Łatwy", "Średni", "Trudny", "Bardzo Trudny" });
         }

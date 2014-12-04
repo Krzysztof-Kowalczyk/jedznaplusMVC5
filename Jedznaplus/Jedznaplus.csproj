@@ -273,6 +273,7 @@
     <Content Include="Scripts\Jedznaplus\Ingredient.js" />
     <Content Include="Resources\Faq.pdf" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Scripts\Jedznaplus\Obrazek.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
     <Content Include="Scripts\jquery-2.1.1.min.map" />

@@ -2,7 +2,7 @@
     @using (Html.BeginForm("Search", "Recipes"))
     {
         @Html.TextBox("search")
-        <input type="submit" value="Szukaj" class="btn btn-default" />
+        <input type="submit" value="Szukaj" class="btn btn-default" style="margin-bottom:0px; height:30px" />
     }
     @Html.ActionLink("Wyszukiwanie zaawansowane", "AdvancedSearch", "Recipes", null, new { @class = "AdvSearchText" })
 </div>

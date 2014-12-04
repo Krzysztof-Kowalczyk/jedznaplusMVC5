@@ -6,10 +6,17 @@
 <div class="przepis">
     <fieldset>
         <h1> @Html.DisplayFor(model => model.Name)</h1>
-        <img id="recipeBigImg" src="@Url.Content(Model.ImageUrl)" alt="image" width="300" height="300" />
+        <a id="bigImgLink" href="@Url.Content(Model.ImageUrl)"><img id="recipeBigImg" src="@Url.Content(Model.ImageUrl)" alt="image" width="300" height="300" /></a>
+
+        <div id="przescieradlo">
+            <div id="pokazywajka">
+                <div id="zamknij"></div>
+                <img id="pokaz" src="" alt="" />
+            </div>
+        </div>
 
         <div class="info">
-            
+
             <br>
 
             <div class="display-label">
@@ -88,12 +95,13 @@
             <div id="Now" class="td">@Html.Partial("_VoteNow", Model.Id.ToString(CultureInfo.InvariantCulture))</div>
             <div id="Show" class="td">@Html.Partial("_VoteShow", Model.Votes, new ViewDataDictionary { { "id", Model.Id } })</div>
         </div>
-
+        <br><br>
         <div class="CommentSystem">
-            @Html.Partial("_Comments", Model.Comments, new ViewDataDictionary { { "id", Model.Id }})
+            @Html.Partial("_Comments", Model.Comments, new ViewDataDictionary { { "id", Model.Id } })
         </div>
 
     </fieldset>
+    <br>
     <p>
         @if (Model.UserName == HttpContext.Current.User.Identity.Name || User.IsInRole("Admins") || User.IsInRole("Editors"))
         {
@@ -103,5 +111,6 @@
     </p>
 </div>
 @Scripts.Render("~/Scripts/Jedznaplus/VoteScripts.js")
+@Scripts.Render("~/Scripts/Jedznaplus/Obrazek.js")
 @Scripts.Render("~/Scripts/Jedznaplus/Comments.js")
 @Scripts.Render("~/bundles/jqueryval")
