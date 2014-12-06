@@ -15,5 +15,7 @@ namespace Jedznaplus.Resources
                     "sztuka", "gram", "dekagram", "kilogram", "mililitr", "litr", "opakowanie","kostka", "plaster", "szklanka",
                     "łyżka", "łyżeczka","ząbek", "szczypta"
                 });
+
+        public static SelectList Difficulties = new SelectList(new[] { "Łatwy", "Średni", "Trudny", "Bardzo Trudny" });
     }
 }

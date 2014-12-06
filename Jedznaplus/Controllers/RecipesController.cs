@@ -21,20 +21,11 @@ namespace Jedznaplus.Controllers
         private readonly DatabaseModel _db = new DatabaseModel();
         protected ApplicationDbContext ApplicationDbContext { get; set; }
         protected UserManager<ApplicationUser> UserManager { get; set; }
-        private readonly SelectList _unitNameList;
-        private readonly SelectList _difficulties;
 
         public RecipesController()
         {
             ApplicationDbContext = new ApplicationDbContext();
             UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(ApplicationDbContext));
-            _unitNameList =
-                new SelectList(new[]
-                {
-                    "sztuka", "gram", "dekagram", "kilogram", "mililitr", "litr", "opakowanie","kostka", "plaster", "szklanka",
-                    "łyżka", "łyżeczka","ząbek", "szczypta"
-                });
-            _difficulties = new SelectList(new[] { "Łatwy", "Średni", "Trudny", "Bardzo Trudny" });
         }
 
         public ActionResult Index(int page = 1, int pageSize = 10)
@@ -96,7 +87,7 @@ namespace Jedznaplus.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            ViewBag.Difficulties = _difficulties;
+            ViewBag.Difficulties = ConstantStrings.Difficulties;
             return View();
         }
 
@@ -123,7 +114,7 @@ namespace Jedznaplus.Controllers
 
                 return RedirectToAction("CreateAddIngredients", recipe);
             }
-            ViewBag.Difficulties = _difficulties;
+            ViewBag.Difficulties = ConstantStrings.Difficulties;
             return Create();
         }
 
@@ -526,7 +517,7 @@ namespace Jedznaplus.Controllers
 
         public ActionResult IngredientEntryRow()
         {
-            ViewBag.UnitNames = _unitNameList;
+            ViewBag.UnitNames = ConstantStrings.UnitNameList;
             return PartialView("_IngredientEditor");
         }
 

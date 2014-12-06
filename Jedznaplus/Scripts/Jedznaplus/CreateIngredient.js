@@ -23,7 +23,6 @@
                 }
                 if ($(this).attr("id").match(/_Quantity/) && !($(this).val().match(/^\d+[\.\,]{1}\d+$|^\d+\/{1}\d+$|^\d+$/))) {
 
-                    alert($(this).attr('id'));
                     $("#validationJS").html("Pole ilość musi zawierać wartość liczbową(liczba całkowitą, ułamek zwykły lub dziesiętny)");
                     e.preventDefault();
                 }

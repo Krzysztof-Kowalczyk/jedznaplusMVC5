@@ -38,3 +38,10 @@ margin:5px;
 display:inline-block;
 width:250px;
 }
+#Now {
+    width: 200px;    
+}
+
+#Show {
+    width: auto;
+}

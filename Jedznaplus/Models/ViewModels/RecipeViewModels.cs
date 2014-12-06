@@ -52,12 +52,9 @@ namespace Jedznaplus.Models.ViewModels
 
         public RecipeEditViewModels()
         {
-            UnitNameList=new SelectList(new[]
-                {
-                    "sztuka", "gram", "dekagram", "kilogram", "mililitr", "litr", "opakowanie","kostka", "plaster", "szklanka",
-                    "łyżka", "łyżeczka","ząbek", "szczypta"
-                });
-            Difficulties = new SelectList(new[] { "Łatwy", "Średni", "Trudny", "Bardzo Trudny" });
+            UnitNameList = ConstantStrings.UnitNameList;
+            Difficulties = ConstantStrings.Difficulties;
+                //new SelectList(new[] { "Łatwy", "Średni", "Trudny", "Bardzo Trudny" });
         }
 
 
@@ -111,11 +108,7 @@ namespace Jedznaplus.Models.ViewModels
         public SelectList UnitNameList { get; set; }
         public CreateRecipeSecondPhaseViewModel()
         {
-            UnitNameList = new SelectList(new[]
-                {
-                    "sztuka", "gram", "dekagram", "kilogram", "mililitr", "litr", "opakowanie","kostka", "plaster", "szklanka",
-                    "łyżka", "łyżeczka","ząbek", "szczypta"
-                });
+            UnitNameList = ConstantStrings.UnitNameList;
         }
     }
 
