@@ -248,6 +248,7 @@
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="Content\VoteSystem.css" />
+    <Content Include="Resources\Images\green-design.jpg" />
     <Content Include="Resources\Images\wide-mid-blank.png" />
     <Content Include="Resources\Images\wide-mid.png" />
     <Content Include="Resources\Images\wide-top.png" />
