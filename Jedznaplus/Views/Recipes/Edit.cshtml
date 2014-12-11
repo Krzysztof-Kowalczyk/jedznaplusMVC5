@@ -30,7 +30,7 @@
             {
                 foreach (var ingre in Model.Ingredients)
                 {
-                    Html.RenderPartial("_IngredientEditor", ingre, new ViewDataDictionary { { "UnitNames", Model.UnitNameList} });
+                    Html.RenderPartial("_IngredientEditor", ingre, new ViewDataDictionary { { "UnitNames", Model.UnitNameList } });
                 }
             }
         </ul>
@@ -51,7 +51,7 @@
         <div class="editor-label">
             @Html.LabelFor(model => model.ImageUrl)
         </div>
-        
+
         @if (Model.ImageUrl == ConstantStrings.DefaultRecipePhoto)
         {
             <input type="file" name="file" accept="image/jpeg,image/png">
@@ -62,7 +62,7 @@
             @Html.ActionLink("Usuń bieżące zdjęcie", "DeleteImage", new { id = Model.Id })
             <br><br>
         }
-        
+
         <div class="editor-label">
             @Html.LabelFor(model => model.Difficulty)
         </div>
@@ -90,14 +90,14 @@
         <br>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Calories)
+            @Html.LabelFor(model => model.Calories) <strong>/ 1 porcję</strong>
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Calories)
             @Html.ValidationMessageFor(model => model.Calories)
         </div>
         <br>
-        
+
         <div class="editor-label">
             @Html.LabelFor(model => model.Vegetarian)
         </div>
@@ -110,9 +110,7 @@
             <input type="submit" value="Zapisz" class="btn btn-default" />
         </p>
     </fieldset>
-    @Scripts.Render("~/Scripts/Jedznaplus/ImagePickerScript.js")
-    @Scripts.Render("~/Scripts/Jedznaplus/Ingredient.js")
-    @Scripts.Render("~/Scripts/Jedznaplus/CreateIngredient.js")
+
 }
 
 <div>
@@ -121,4 +119,8 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/Jedznaplus/ImagePickerScript.js")
+    @Scripts.Render("~/Scripts/Jedznaplus/Ingredient.js")
+    @Scripts.Render("~/Scripts/Jedznaplus/CreateIngredient.js")
+
 }

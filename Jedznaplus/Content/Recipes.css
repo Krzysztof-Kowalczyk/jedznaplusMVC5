@@ -51,6 +51,7 @@ text-decoration:none;
 
 .nazwaPrzepisu {
     height: 75px;
+    
 }
 
 pre {
@@ -61,8 +62,8 @@ pre {
 .miniaturka h1 {
     text-align: center;
     word-wrap: break-word;
-    font-size: 17pt;
-    font-family:"Bellota";
+    font-size: 28pt;
+    font-family:Konstytucja
 }
 
 .miniaturkaNr {

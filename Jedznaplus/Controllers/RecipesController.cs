@@ -423,7 +423,8 @@ namespace Jedznaplus.Controllers
             }
 
             var finalRecipes = new List<Recipe>(recipes);
-            if (er.WantedIngredients == null) return View("Search", finalRecipes);
+            var pagedfinalRecipes = new PagedList<Recipe>(finalRecipes, page, pageSize);
+            if (er.WantedIngredients == null) return View("Search", pagedfinalRecipes);
 
             foreach (var rec in recipes)
             {
@@ -637,6 +638,24 @@ namespace Jedznaplus.Controllers
                         validForm = "szklanki";
                     break;
 
+                case "kropla":
+                    if (quantityNumber > 1 && quantityNumber < 5)
+                        validForm = "krople";
+                    else if (quantityNumber >= 5)
+                        validForm = "kropli";
+                    else if (quantityNumber > 0 && quantityNumber < 1)
+                        validForm = "kropli";
+                    break;
+
+                case "kostka":
+                    if (quantityNumber > 1 && quantityNumber < 5)
+                        validForm = "kostki";
+                    else if (quantityNumber >= 5)
+                        validForm = "kostek";
+                    else if (quantityNumber > 0 && quantityNumber < 1)
+                        validForm = "kostki";
+                    break;
+
 
                 case "szczypta":
                     if (quantityNumber > 1 && quantityNumber < 5)
@@ -644,6 +663,7 @@ namespace Jedznaplus.Controllers
                     else if (quantityNumber >= 5)
                         validForm = "szczypt";
                     break;
+
             }
             return validForm;
         }
