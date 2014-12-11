@@ -206,6 +206,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="fonts\CanterBold.otf" />
+    <Content Include="fonts\konstytucyja_091.otf" />
     <None Include="Jedznaplus.wpp.targets" />
     <Content Include="Resources\Images\column-bot.png" />
     <Content Include="Resources\Images\column-mid.png" />
@@ -253,7 +255,6 @@
     <Content Include="Resources\Images\wide-mid.png" />
     <Content Include="Resources\Images\wide-top.png" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Resources\Images\logo.png" />
@@ -265,7 +266,6 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\Bellota-BoldItalic.otf" />
-    <Content Include="fonts\Garineldo.otf" />
     <None Include="Properties\PublishProfiles\jedznaplus.pubxml" />
     <Content Include="Scripts\Jedznaplus\AdvancedSearch.js" />
     <Content Include="Scripts\Jedznaplus\Comments.js" />
@@ -273,6 +273,7 @@
     <Content Include="Scripts\Jedznaplus\EmptyAvatar.js" />
     <Content Include="Scripts\Jedznaplus\Ingredient.js" />
     <Content Include="Resources\Faq.pdf" />
+    <None Include="Properties\PublishProfiles\jedznaplusftp.pubxml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\Jedznaplus\Obrazek.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
@@ -373,9 +374,6 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
   </ItemGroup>

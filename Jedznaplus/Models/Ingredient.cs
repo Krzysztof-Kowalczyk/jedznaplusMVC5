@@ -16,7 +16,7 @@ namespace Jedznaplus.Models
 
         [Display(Name = "Ilość")]
         [Required]
-        [RegularExpression(@"^\d+[\.\,]{1}\d+|^\d+\/{1}\d+|^\d+", ErrorMessage = "Błąd ilości, można wpisać liczbę całkowitą, ułamek zwykły lub dziesiętny")]
+        [RegularExpression(@"^\d+[\.\,]{1}\d+|^\d+\/{1}\d+|^\d+\-{1}\d+|^\d+", ErrorMessage = "Błąd ilości, można wpisać liczbę całkowitą, ułamek zwykły lub dziesiętny")]
         public string Quantity { get; set; }
 
         [Display(Name = "Alergiczny")]

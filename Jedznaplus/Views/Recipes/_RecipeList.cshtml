@@ -16,7 +16,7 @@
         <br>
         <label> Ilość porcji: </label> @Html.DisplayFor(modelItem => item.Serves)
         <br>
-        <label> Wartość kaloryczna: </label> @Html.DisplayFor(modelItem => item.Calories) kcal
+        <label> Wartość kaloryczna: </label> @Html.DisplayFor(modelItem => item.Calories) kcal / 1 porcję
         <br>
 
         @if (item.UserName == HttpContext.Current.User.Identity.Name || User.IsInRole("Admins") || User.IsInRole("Editors"))

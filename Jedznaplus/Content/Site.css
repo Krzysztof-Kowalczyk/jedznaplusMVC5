@@ -52,14 +52,22 @@ table { border-collapse: collapse; border-spacing: 0; }
 >>> Main Styles
 
 ========================================================*/
-@font-face{
-        font-family:Garineldo;
-        src:url(/fonts/Garineldo.otf);
-        }
+
 @font-face{
         font-family:Bellota;
         src:url(/fonts/Bellota-BoldItalic.otf);
         }
+
+@font-face{
+    font-family: CanterBold;
+        src:url(/fonts/CanterBold.otf);
+        }
+
+@font-face{
+    font-family: Konstytucja;
+        src:url(/fonts/konstytucyja_091.otf);
+        }
+
 
 
 #footer {
@@ -73,7 +81,7 @@ body { background: url(http://themes.divwrap.com/ingredients/wp-content/themes/i
 
 body, input, textarea {
     font-family: "Bellota";
-	color: #444;
+	color: black;
 	font-size: 16px;
 	line-height: 1.625;
 }
@@ -136,13 +144,13 @@ padding: 0 20px;
 
 /*=== Paragraph & Anchor ===*/
 
-p { color: #7d6357; line-height: 1.6em; margin-bottom: 20px; }
+p { color: black; line-height: 1.6em; margin-bottom: 20px; }
 a, p, textarea, input[type=text] { font-size: 12px; }
 a:hover { text-decoration: none; cursor: pointer; }
 a{color:#9b8c75}
 /*=== Headings ===*/
 
-h1, h2, h3, h4, h5, h6 { color: #444; font-weight: normal; margin-bottom: 20px; line-height: 1; }
+h1, h2, h3, h4, h5, h6 { color: black; font-weight: normal; margin-bottom: 20px; line-height: 1; }
 h1 { font-size: 40px; }
 h2 { font-size: 28px; }
 h3 { font-size: 16px; color: #666; }
@@ -490,7 +498,7 @@ a, #logo a:hover, .title, .title a, #menu ul li ul li a:hover, .menu ul li ul li
     font-size: 11px;
     font-weight: bold;
     text-transform: uppercase;
-    color: #9b8c75;
+    color: black;
     padding: 0 20px;
 }
 
@@ -555,3 +563,4 @@ a, #logo a:hover, .title, .title a, #menu ul li ul li a:hover, .menu ul li ul li
     margin:0 auto 50px auto;
     margin-left:310px;
 }
+

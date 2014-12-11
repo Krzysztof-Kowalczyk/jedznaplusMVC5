@@ -542,6 +542,11 @@ namespace Jedznaplus.Controllers
                 string[] numbers = quantity.Split('/');
                 quantity = (double.Parse(numbers[0]) / double.Parse(numbers[1])).ToString(CultureInfo.InvariantCulture);
             }
+            else if (quantity.Contains('-'))
+            {
+                string[] numbers = quantity.Split('-');
+                quantity = double.Parse(numbers[1]).ToString(CultureInfo.InvariantCulture);
+            }
             double quantityNumber = double.Parse(quantity, CultureInfo.InvariantCulture);
 
             string validForm = unitName;

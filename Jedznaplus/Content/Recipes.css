@@ -107,12 +107,13 @@ pre {
 
 .przepis h1 {
     word-wrap: break-word;
-    font-family: "Bellota";
-    font-size: 17pt;
+    font-family: Konstytucja;
+    font-size: 28pt;
     margin-left:250px;
     padding-left: 1%;
     padding-right: 1%;
-    width:inherit;
+    width: inherit;
+    font-weight: bold
 }
 
 .recipe_p_field {
@@ -127,17 +128,19 @@ pre {
 }
 .BestNewestLabel {
     text-align: center;
-    font-size:16pt;
+    font-size:28pt;
     color: green;
+    font-family:Konstytucja
 }
 .BestNewestName {
 width: 200px; 
 word-wrap: break-word;
 font-size: 11pt;
-font-family: "Bellota";
+font-family: Bellota;
 margin-left: 10px;
 margin-right: 10px;
 height: 40px;
+color: black;
 }
 
 #pokaz {
